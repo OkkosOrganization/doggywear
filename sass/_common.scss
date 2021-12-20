@@ -1,0 +1,216 @@
+/******************/
+/* COMMON STYLES */
+/****************/
+*
+{
+  box-sizing: border-box;
+}
+
+html,body
+{
+  font-family:$openSans;
+  font-size:16px;
+  font-weight:300;
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  background:$white;
+  //overscroll-behavior-y: none;
+
+  &.noscroll
+  {
+    overflow:hidden;
+    position:fixed;
+    top:0;right:0;left:0;bottom:0;
+    transform:none;
+  }
+
+  .wrap:after{
+    content:"";
+    background:rgba($white, 0);
+    display: block;
+    transition:background-color .4s linear;
+    z-index: 0;
+    left:-9999px;
+  }
+
+  &.noscroll .wrap:after
+  {
+    content:"";
+    display: block;
+    position:absolute;
+    top:0;left:0;
+    right:0;bottom:0;
+    background:rgba($white, .3);
+    z-index: 15;
+  }
+}
+
+#__next
+{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  background: var(--bg);
+
+  &.mobileNaviOpen
+  {
+    overflow:hidden;
+    position:fixed;
+    top:0;right:0;left:0;bottom:0;
+  }
+
+  &.cartOpen
+  {
+    overflow: visible !important;
+    height:100%;
+  }
+}
+
+#main
+{
+  position: relative;
+  padding:$mainNavHeight 0 0 0;
+  flex: 1 1 auto;
+}
+
+a
+{
+  text-decoration: none;
+  color:inherit;
+}
+
+section
+{
+  margin:0 auto;
+}
+
+.wrapper
+{
+  margin:0 auto;
+  padding: 0 10px;
+  max-width: $maxWidth;
+  position: relative;
+}
+
+h1,h2,h3,h4,h5
+{
+  font-family:$roboto;
+  font-size:1em;
+  line-height: 1.25em;
+  font-weight: 700;
+}
+
+.hidden
+{
+  display:none !important;
+}
+
+button
+{
+  box-sizing: border-box;
+  display: inline-block;
+  margin:0;
+
+  outline:0;
+
+  line-height: 1em;
+  font-size:.875em;
+  font-family: $roboto;
+  cursor:pointer;
+  cursor:hand;
+  letter-spacing: .05rem;
+  text-transform: uppercase;
+  border:1px solid var(--fg);
+  border-radius:0px;
+
+  background:$white;
+  color:$black;
+  min-width:150px;
+  font-size:.75em;
+  padding: 12px 26px;
+
+  transition: all .1s linear;
+
+  &[disabled]{
+      opacity:.5;
+  }
+  
+  &:hover
+  {
+    background:var(--fg); 
+    color:var(--secondaryAccent); 
+  }
+
+}
+
+select{
+  display: block;
+  width: auto;
+  min-width:64px;
+  border: 1px solid $darker_grey;
+  height: 34px;
+  margin-bottom: 10px;
+  padding: 0 5px;
+  background: $white url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTNweCIgaGVpZ2h0PSI3cHgiIHZpZXdCb3g9IjAgMCAxMyA3IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPGcgaWQ9IkxheW91dHMiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSIyLU5ha3VuYS1wcm9kdWN0LXBhZ2UtYXZhbnRvIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNDIxLjAwMDAwMCwgLTEyNzIuMDAwMDAwKSIgZmlsbD0iI0Q0QTEyNCI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC05IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNTEuMDAwMDAwLCAxMjUxLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgPHBhdGggZD0iTTE4Mi43NDQyODgsMjIuMzQxMzAwMSBDMTgzLjA4NTIsMjIuMDM0NDU1MiAxODMuMDg1MiwyMS41MzY5NzExIDE4Mi43NDQyODgsMjEuMjMwMTMwMiBDMTgyLjQwMzM3NSwyMC45MjMyODk5IDE4MS44NTA1ODIsMjAuOTIzMjg5OSAxODEuNTA5NjY5LDIxLjIzMDEzMDIgTDE3Ni44ODg4ODYsMjUuMzg4ODMyOCBMMTcyLjI2ODExMSwyMS4yMzAxMzAyIEMxNzEuOTI3MTczLDIwLjkyMzI4OTkgMTcxLjM3NDQxMiwyMC45MjMyODk5IDE3MS4wMzM0NzgsMjEuMjMwMTMwMiBDMTcwLjY5MjU0NCwyMS41MzY5NzExIDE3MC42OTI1NDQsMjIuMDM0NDU1MiAxNzEuMDMzNDc4LDIyLjM0MTMwMDEgTDE3Ni4yNzE1NjgsMjcuMDU1NTgzNCBDMTc2LjYxMjUwNywyNy4zNjI0MjA0IDE3Ny4xNjUyNjUsMjcuMzYyNDIwNCAxNzcuNTA2MjA0LDI3LjA1NTU4MzQgTDE4Mi43NDQyODgsMjIuMzQxMzAwMSBaIiBpZD0iUGF0aCI+PC9wYXRoPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=') 85% 50% no-repeat;
+  font-family:$roboto;
+  text-transform:uppercase;
+  font-size:.75em;
+  text-indent: 10px;
+  appearance: none;
+}
+
+.hideOnMobile
+{
+  display:none;
+}
+
+
+#__next
+{
+  &.mobileNaviOpen {
+    position: relative;
+    top:auto;left:auto;right:auto;bottom:auto;
+    overflow: hidden;
+  }
+
+  &.cartOpen {
+  }
+
+}
+
+#SRLLightbox
+{
+  button
+  {
+    min-width: 0;
+    background:$darker_grey;
+  }
+}
+
+@media all and (min-width: 640px)
+{
+ #__next{
+  &.cartOpen:after
+  {
+    display: block;
+    z-index:9999;
+    opacity:1;
+  }
+
+  &:after{
+    content:"";
+    display: none;
+    background:rgba($white, .3);
+    position: absolute;
+    top:0;left:0;right:0;bottom:0;
+    z-index:9999;
+    opacity:0;
+    transition:opacity .3s linear;
+  }   
+ }
+}

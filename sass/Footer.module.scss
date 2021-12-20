@@ -1,0 +1,137 @@
+@import '_vars.scss';
+
+/***********/
+/* FOOTER */
+/*********/
+.noscroll .footer
+{
+  display:none;
+}
+
+.footer
+{
+  padding : 1.25rem 0;
+  position:relative;
+  background: $darker_grey;
+  color:$lighter_grey;
+  height:auto;
+  border-top: 1px solid $dark_grey;
+
+  .logo
+  {
+    display: none;
+  }
+  .copyright
+  {
+    position: static;
+    margin:1rem auto 0 auto;
+    font-size:.625em;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  ul
+  {
+    list-style: none;
+  }
+
+
+  .pages
+  {
+
+    margin:0 auto;
+    padding:0 1rem;
+    list-style: none;
+
+    font-size:1em;
+
+
+    li{
+      margin:0;
+      padding:0;
+      list-style: none;
+      display: block;
+      text-align: inherit;
+      position: relative;
+
+      a
+      {
+        display:block;
+        text-decoration: none;
+        color:inherit;
+        margin: 0;
+        position: relative;
+        text-transform: uppercase;
+        transition:color .1s linear;
+        letter-spacing: 2px;
+        padding: 1rem 0;
+        border-bottom:1px solid $dark_grey;
+        font-size:.6875em;
+
+        &:hover
+        {
+          color:var(--secondaryAccent);           
+        }
+      }
+
+      &:last-child a
+      {
+        border:0;
+      }
+    }
+  }
+
+  .desktopLabel{
+    display: none;
+  }
+  .mobileLabel{display:block;}
+
+  .some
+  {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .someBtn
+  {
+    display: inline-block;
+    width:22px;
+    height:22px;
+    margin: 0 10px;
+
+    span
+    {
+      display: none;
+    }
+
+    &.instaBtn
+    {
+      svg
+      {
+        height:22px;
+        margin-bottom: 3px;
+      }
+    }
+
+    svg
+    {
+      display: block;
+      width:22px;
+      height:22px;
+
+      *{
+        fill:$white;
+      }
+    }
+
+
+  }
+}
+
+/******************/
+/* MEDIA QUERIES */
+/****************/
+
+

@@ -1,0 +1,14 @@
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+export const GOOGLE_ANALYTICS = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
+export const ENV = process.env.NEXT_PUBLIC_VERCEL_ENV;
+export const DESKTOP_BREAKPOINT = process.env.NEXT_PUBLIC_DESKTOP_BREAKPOINT;
+export const PRISMIC_API_ENDPOINT = process.env.NEXT_PUBLIC_PRISMIC_API_ENDPOINT;
+export const PRISMIC_API_TOKEN = process.env.NEXT_PUBLIC_PRISMIC_API_TOKEN;
+export const SHOPIFY_API_STOREFRONT_TOKEN = process.env.NEXT_PUBLIC_SHOPIFY_API_STOREFRONT_TOKEN;
+export const SHOPIFY_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN;
+export const TITLE = process.env.NEXT_PUBLIC_TITLE;
+export const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION;
+export const TWITTER_HANDLE = process.env.NEXT_PUBLIC_TWITTER_HANDLE
+export const OG_IMG = process.env.NEXT_PUBLIC_OG_IMG;
+export const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL;
+

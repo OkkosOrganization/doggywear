@@ -1,0 +1,45 @@
+//DIMENSIONS
+$maxWidth : 1680px;
+$maxWidthBig : 1280px;
+$maxWidthMedium : 960px;
+$maxWidthBasic : 640px;
+$maxWidthSmall : 480px;
+$maxWidthMini : 320px;
+$mainNavHeight: 90px;
+$footerHeight:120px;
+
+//COLORS
+$white : #fff;
+$black : #000;
+$grey : #9c9c9c;
+$medium_grey :#d8d8d8;
+$light_grey :#f6f6f6;
+$lighter_grey :#fafafa;
+$dark_grey :#4a4a4a;
+$darker_grey :#2e2e2e;
+$gray :#d9d9d9;
+$cartSelectGrey:#e6e6e6;
+$blue : #DBEEEB;
+$gold : #fffb52;
+$red : #d43d24;
+$pink : #ff51b0;
+$cart_red : #F44336;
+$turqoise:#b2dadd;
+$cartEmpty: #9B9B9B;
+
+$roboto : "Roboto", sans-serif;
+$openSans : "Open Sans", sans-serif;
+
+//CSS VARS
+#__next
+{
+  --bg: #{$lighter_grey};
+  --fg: #{$darker_grey};
+  --primaryAccent: #{$gold};
+  --secondaryAccent: #{$pink};
+}
+#__next.dark
+{
+  --bg: #{$darker_grey};
+  --fg: #{$lighter_grey};
+}

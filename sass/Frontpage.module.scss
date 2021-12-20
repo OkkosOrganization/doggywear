@@ -1,0 +1,51 @@
+@import '_vars.scss';
+
+/**************/
+/* FRONTPAGE */
+/************/
+.container{
+  padding-top:40px;
+}
+.categoryTitle
+{
+  position: absolute;
+  top:-0.25rem;
+  left:.5rem;
+  font-size:.75rem;
+  font-weight:400;
+  font-family:$roboto;
+  text-transform: uppercase;
+  letter-spacing: .06875rem;
+  background:transparent;
+  color:var(--fg);
+  padding: .5rem 0;
+  line-height:1rem;
+  margin:0;
+  border-bottom: 1px solid var(--fg);
+}
+.productList
+{
+  padding-top:1rem;
+  position: relative;
+  margin: 0 0 3rem 0;
+}
+
+.items
+{
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-color: transparent;
+  scrollbar-width: 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+    
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+  margin: 0 -.75rem;
+}
