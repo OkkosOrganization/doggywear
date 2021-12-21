@@ -66,7 +66,7 @@ const Frontpage = (props) => {
     <div className={styles.container}>
       {renderHead()}
       <div className={"products"}>
-        <h1>Products grid here</h1>        
+        <h1 className={styles.mainTitle}>Products grid here</h1>        
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { Logo } from './Logo';
 import styles from "../sass/Navi.module.scss";
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import { Navi } from './Navi';
 gsap.registerPlugin(ScrollTrigger);
 
 const Header = (props) => {
@@ -29,12 +30,15 @@ const Header = (props) => {
     setNaviOpen(!naviOpen);
   };
 
-  let classes = `${styles.mainNavi}`;
+  let classes = `${styles.mainNavi} ${naviOpen ? styles.active : ""} ${scrolled && !naviOpen ? styles.showBg : ""} `;
 
   return (
     <>
       <nav className={classes}>
         <MobileNaviIcon toggleNavi={toggleNavi} naviOpen={naviOpen} />
+        <div className={styles.naviItems}>
+          <Navi navi={props.navi} lang={props.lang} naviOpen={naviOpen} toggleNavi={toggleNavi} />
+        </div>        
         <CartIcon />
       </nav>
       <Logo highlight={scrolled || naviOpen} />
