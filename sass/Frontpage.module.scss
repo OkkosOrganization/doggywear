@@ -33,40 +33,87 @@
 .grid
 {
   margin-bottom: 3rem;
+  padding: 0 1rem;
 }
 .masonryGrid {
   display: flex;
-  margin-left: 1rem; /* gutter size offset */
   width: auto;
+  margin: 0 -.5rem;
 }
 .masonryGridColumn {
-  padding-left: 1rem; /* gutter size */
+  padding: 0 .5rem; /* gutter size */
   background-clip: padding-box;
   position: relative;
 }
 
 .product
 {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   text-align: center;
 }
 .productImage
 {
-  margin: 0 0 .5rem 0;
+  margin: 0 0 1rem 0;
+  position: relative;
+  overflow: hidden;
 }
 .productTitle
 {
+  font-size:2rem;
+  font-weight:300;
   margin: 0 0 .5rem 0;
   color: var(--fg);
 }
 .productPrice
 {
   margin: 0 0 1rem 0;
-  font-weight:300;
+  font-weight:600;
   font-size:.75em;
   text-transform: uppercase;
   letter-spacing: .0075rem;
   color: var(--fg);
+}
+.sizeOptions
+{
+  font-weight:300;
+  text-transform: uppercase;
+  font-size: .6875rem;
+  opacity: .75;
+  margin:0 0 .5rem 0;
+  color: var(--fg);
+}
+.sizeOption
+{
+  margin:0 .125rem;
+}
+.hasImages
+{
+  cursor: pointer;
+  cursor: hand;
+}
+
+.pager
+{
+  position: absolute;
+  left:0;
+  right:0;
+  bottom: .5rem;
+  z-index: 5;
+}
+.pagerItem
+{
+  display: inline-block;
+  margin: 0 .1875rem;
+  border: 1px solid white;
+  border-radius: 100%;
+  width: .6875rem;
+  height: .6875rem;
+  background:transparent;
+}
+.active
+{
+  border-color:var(--secondaryAccent);
+  background:var(--secondaryAccent);
 }
 
 .illustration {   
@@ -88,4 +135,5 @@
   text-align: center;
   max-width: $maxWidthMedium;
   margin: 0 auto;
+  color: var(--fg);
 }
