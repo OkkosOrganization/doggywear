@@ -11,4 +11,5 @@ export const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION;
 export const TWITTER_HANDLE = process.env.NEXT_PUBLIC_TWITTER_HANDLE
 export const OG_IMG = process.env.NEXT_PUBLIC_OG_IMG;
 export const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL;
+export const CURRENCY = process.env.NEXT_PUBLIC_CURRENCY;
 
