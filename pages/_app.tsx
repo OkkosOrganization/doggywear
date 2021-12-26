@@ -17,6 +17,7 @@ export default function DoggyApp({ Component, pageProps }) {
 
   useEffect(() => {    
     window.addEventListener('resize', handleResize);
+    handleResize();
     return(() => {
       window.removeEventListener('resize', handleResize);
     })
