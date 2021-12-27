@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import CartIcon from './icons/CartIcon';
+import { CartIcon } from './icons/CartIcon';
 import MobileNaviIcon from './icons/MobileNaviIcon';
 import { Logo } from './Logo';
 import styles from "../sass/Navi.module.scss";

@@ -30,7 +30,7 @@ export default function DoggyApp({ Component, pageProps }) {
         id='analytics'
         strategy='afterInteractive'
       />
-      <Layout>
+      <Layout ww={ww}>
         <Component {...pageProps} ww={ww} />
       </Layout>
     </>

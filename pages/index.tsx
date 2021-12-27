@@ -96,6 +96,10 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
       {renderHead()}
       <h1 className={"hidden"}>{frontpage.data?.title[0]?.text}</h1>
 
+      <div className={styles.description}>
+          <RichText render={frontpage.data?.description} />
+        </div>
+
       <div className={styles.grid}>
 
         <Masonry
@@ -133,9 +137,7 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
           }
         </Masonry>
 
-        <div className={styles.description}>
-          <RichText render={frontpage.data?.description} />
-        </div>
+
 
       </div>
     </div>

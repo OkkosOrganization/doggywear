@@ -128,8 +128,8 @@ button
   border:1px solid var(--fg);
   border-radius:0px;
 
-  background:$white;
-  color:$black;
+  background:transparent;
+  color:var(--fg);
   min-width:150px;
   font-size:.75em;
   padding: 12px 26px;
@@ -142,7 +142,7 @@ button
   
   &:hover
   {
-    background:var(--fg); 
+    border-color:var(--secondaryAccent); 
     color:var(--secondaryAccent); 
   }
 
