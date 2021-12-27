@@ -6,7 +6,7 @@ import { ReactChildren } from 'react';
 
 type LayoutProps = {
   ww:number;
-  children?:ReactChildren
+  children?:any
 };
 const Layout = ({ww, children}:LayoutProps) => {
   const Footer = dynamic(() => import('./Footer'), {suspense:false});
