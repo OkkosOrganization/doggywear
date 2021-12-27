@@ -91,26 +91,26 @@ export const Cart = ({ww}:CartProps) => {
     if (ww >= 640 && ww < 800)
       w_percent = "-100%";
 
-    const next = document.querySelector('#__next');
+    const next:HTMLDivElement = document.querySelector('#__next');
     const body = document.querySelector('body');
   
-    body.classList.add("noscroll");
+    body.classList.add('noscroll');
     next.classList.add('cartOpen');
     gsap.set(container.current, { autoAlpha: 1, display:'block' });
     gsap.to(next, { duration:animDuration, x: w_percent });
   };
 
   const hide = () => {
-    const next = document.querySelector('#__next');
+    const next:HTMLDivElement = document.querySelector('#__next');
     const body = document.querySelector('body');
 
     gsap.to(next, {
       duration:animDuration / 2,
       x: "0%",
       onComplete: () => {
-        body.classList.remove("noscroll");
+        body.classList.remove('noscroll');
         next.classList.remove('cartOpen');
-        next.style = "";
+        next.style.removeProperty('transform');
         hideCart();
       }
     });
@@ -145,6 +145,7 @@ export const Cart = ({ww}:CartProps) => {
 
   const windowFocusHandler = (e) => {
     console.log("Window focus");
+    setUserInCheckout(false);
   }
 
   return (

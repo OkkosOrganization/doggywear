@@ -4,7 +4,7 @@ import { apiEndPoint, Prismic } from '../config/prismic';
 import Masonry from 'react-masonry-css'
 import styles from "../sass/Frontpage.module.scss";
 import { BASE_URL, DESCRIPTION, TITLE, TWITTER_HANDLE, OG_IMG, CURRENCY } from '../config/env';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { gsap } from 'gsap';
@@ -151,7 +151,6 @@ type IllustrationCardProps = {
   mouseLeaveHandler: (e) => void;
 };
 const IllustrationCard = (props: IllustrationCardProps): JSX.Element => {
-  console.log(props.data.id);
   return (
     <div
       className={`${styles.illustration} gridItem`}
@@ -238,9 +237,9 @@ const ProductCard = (props: ProductCardProps): JSX.Element => {
           })}
         </h4>
         <h3 className={styles.productPrice}>{Number(price).toFixed(0)}{CURRENCY}</h3>
-        <Link href={`/product/${props.data.data.uid}`}>
+        <Link href={`/product/${props.data.uid}`}>
           <button>
-            {'Shop now'}
+            {`Shop now`}
           </button>
         </Link>
       </div>

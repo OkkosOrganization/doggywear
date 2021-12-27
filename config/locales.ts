@@ -4,11 +4,12 @@ import { BASE_URL } from "./env";
 export const Locales:Locale[] = [
 	{
 		locale				: 'en',
-		prismicLocale : 'en-us',
+		prismicLocale : 'en-eu',
 		menuLabel			: 'English',
 		path					: '/',
 		url						: `${BASE_URL}`
 	},
+	/*
 	{
 		locale				: 'fi',
 		prismicLocale	: 'fi',
@@ -16,6 +17,7 @@ export const Locales:Locale[] = [
 		path					: '/fi/',
 		url						: `${BASE_URL}/fi`
 	},
+	*/
 ];
 
 
