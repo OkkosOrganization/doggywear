@@ -52,19 +52,19 @@ export const CartProvider = (props) => {
 		}
 	}, [client]);
 
-	useEffect(() => {
-		if (checkout)
-			console.log("Checkout updated:", checkout);
-	}, [checkout]);
-
 	const initClient = async () => {
 
-		let client = await Client.buildClient({
-			domain: SHOPIFY_DOMAIN,
-			storefrontAccessToken: SHOPIFY_API_STOREFRONT_TOKEN
-		});
-
-		setClient(client);
+		try{
+			let client = await Client.buildClient({
+				domain: SHOPIFY_DOMAIN,
+				storefrontAccessToken: SHOPIFY_API_STOREFRONT_TOKEN
+			});
+			setClient(client);
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
 	}
 
 	const createCheckout = async () => {
