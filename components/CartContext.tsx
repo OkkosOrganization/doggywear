@@ -54,9 +54,8 @@ export const CartProvider = (props) => {
 
 	useEffect(() => {
 		if (checkout)
-			console.log("Checkout:", checkout);
+			console.log("Checkout updated:", checkout);
 	}, [checkout]);
-
 
 	const initClient = async () => {
 
@@ -146,7 +145,6 @@ export const CartProvider = (props) => {
 
 		setCheckout(updatedCheckout);
 		setUpdating(false);
-
 	};
 
 	const showCart = () => {

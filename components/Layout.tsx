@@ -2,7 +2,6 @@ import Header from './Header';
 import dynamic from 'next/dynamic';
 import { CartProvider } from './CartContext';
 import { Cart } from './Cart';
-import { ReactChildren } from 'react';
 
 type LayoutProps = {
   ww:number;

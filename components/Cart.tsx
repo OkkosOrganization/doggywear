@@ -67,12 +67,7 @@ export const Cart = ({ww}:CartProps) => {
   useEffect(() => {
     if(open)
       show();
-  }, [open]); 
-
-  useEffect(() => {
-    if(checkout)
-      console.log(checkout);
-  }, [checkout]);   
+  }, [open]);    
 
   const show = () => {
 

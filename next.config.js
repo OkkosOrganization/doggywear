@@ -6,7 +6,7 @@ module.exports = {
         outputStyle:"compressed"
     },
     i18n: {
-		locales: ['en', 'fi'],
+		locales: ['en'],
 		defaultLocale: 'en',
 		localeDetection: false
 	},
