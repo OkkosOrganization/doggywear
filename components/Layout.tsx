@@ -5,7 +5,7 @@ import { Cart } from './Cart';
 
 type LayoutProps = {
   ww:number;
-  children?:any
+  children?: React.ReactNode;
 };
 const Layout = ({ww, children}:LayoutProps) => {
   const Footer = dynamic(() => import('./Footer'), {suspense:false});

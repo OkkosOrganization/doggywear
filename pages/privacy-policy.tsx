@@ -10,7 +10,7 @@ export const getStaticProps = async ({ req }) => {
 
   try {
     const prismicApi = await Prismic.getApi(apiEndPoint, { req: req });
-    about = await prismicApi.getSingle('about-page');
+    about = await prismicApi.getSingle('privacy-policy-page');
   }
   catch (e) {
     console.log(e);
@@ -25,7 +25,7 @@ export const getStaticProps = async ({ req }) => {
   };
 }
 
-const AboutPage = (props) => {
+const PrivacyPolicyPage = (props) => {
 
   return (
     <div className={styles.container}>
@@ -45,4 +45,4 @@ const AboutPage = (props) => {
     </div>
   );
 }
-export default AboutPage;
+export default PrivacyPolicyPage;

@@ -9,9 +9,9 @@ export default function DoggyApp({ Component, pageProps }) {
   const [ww,setWw]  = useState<number>(0);
   
   const handleResize = () => {
-    let vh = window.innerHeight * 0.01;
+    const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
-    let vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);  
+    const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);  
     setWw(vw);
   };
 
