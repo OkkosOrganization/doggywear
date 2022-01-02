@@ -1,6 +1,20 @@
 /*********/
 /* CART */
 /*******/
+#__next.dark .cart
+,#__next.dark .cart 
+{
+  .scroller
+  {
+    background:$darker_grey;
+
+    .lineItems .lineItem
+    {
+      background: rgba($black, .3);
+    }
+  }  
+}
+
 .cart
 {
   opacity:0;
@@ -13,7 +27,7 @@
   //height:100vh;
   overflow:hidden;
   overflow-y: auto;
-  background:#f6f6f6;
+  background:$light_grey;
 
   .scroller
   {
@@ -28,29 +42,23 @@
     */
     position: relative;
     min-height: 100%;
-    padding:0 10px 20px 10px;
+    padding:0 1rem 2rem 1rem;
     background:$light_grey;
 
     .cartTitle
     {
-      color:$dark_grey;
-      font-size: 1.25em;
+      color:var(--fg);
+      font-size: 1.875em;
       padding: 28px 0 0 0;
       margin:0;
       letter-spacing: 1px;
       font-weight:300;
     }
 
-    h4
-    {
-      margin-bottom:100px;
-      font-size:1.375em;
-    }
-
     .lineItems{
 
-      padding-top:60px;
-      margin-bottom: 20px;
+      padding-top:4rem;
+      margin-bottom: 1.25rem;
 
       .lineItem
       {
@@ -59,11 +67,11 @@
         justify-content: flex-start;
         align-content: flex-start;
         align-items:flex-start;
-        flex-wrap:wrap;
-        background:rgba($white, .75);
-        padding: 20px ;
+        flex-wrap:wrap;      
+        padding: 1rem;
         margin: 0 0 10px 0;
-        color: $dark_grey;
+        color: var(--fg);
+        background: rgba($white, .75);
 
         .image
         {
@@ -101,7 +109,6 @@
           padding:5px 0 5px 20px;
         }
 
-
         .bottom
         {
             justify-content: space-between;
@@ -137,17 +144,21 @@
           button{
             padding:0;
             margin:0 5px;
-            color:$dark_grey;
             font-size: .875em;
             font-weight:bold;
             position: relative;
 
             svg
             {
-              stroke:$dark_grey;
+              stroke:var(--fg);
               fill:none;
               height: 15px;
               width: 15px;
+            }
+
+            &:hover svg
+            {
+              stroke:var(--secondaryAccent);
             }
 
             .subtractLineItemIcon
@@ -175,26 +186,27 @@
           .removeLineItem
           {
 
-              border:0;
-              margin:0 0 0 15px;
-              padding:0;
-              outline:0;
+            border:0;
+            margin:0 0 0 15px;
+            padding:0;
+            outline:0;
 
-              svg
-              {
-                width:15px;
-                height:15px;
-                fill:$dark_grey;
-                position: relative;
-                top:-1px;
-                stroke:none;
-              }
-
-              &:hover
-              {
-
-              }
+            svg
+            {
+              width:15px;
+              height:15px;
+              fill:var(--fg);
+              position: relative;
+              top:-1px;
+              stroke:none;
             }
+
+            &:hover svg
+            {
+              fill:var(--secondaryAccent);
+              stroke: none;
+            }
+          }
 
         }
       }
@@ -214,7 +226,7 @@
         align-items:flex-start;
         border-bottom:1px solid $medium_grey;
         padding: 15px 0 ;
-        color:$dark_grey;
+        color:var(--fg);
       }
 
       .total
@@ -254,13 +266,13 @@
       text-align:right;
       .checkoutBtn
       {
-        border:1px solid $dark_grey;
-        color:$dark_grey;
+        border:1px solid var(--fg);
+        color:var(--fg);
 
         &:hover
         {
-          color:$white;
-          background:$dark_grey;
+          color:var(--secondaryAccent);
+          border-color:var(--secondaryAccent);
         }
       }
     }
@@ -272,8 +284,6 @@
     min-width: 0;
     border:0;
     background:transparent;  
-    
-
   }
 
   .closeCart
@@ -291,11 +301,16 @@
     border:0;
     background:transparent;
 
+    &:hover i
+    {
+      background:var(--secondaryAccent);
+    }
+
     i
     {
       width: 26px;
       height: 3px;
-      background:$dark_grey;
+      background:var(--fg);
 
       transform-origin: 50% 50%;
       display: block;
@@ -345,7 +360,7 @@
     margin:-12px 0 0 0;
     padding: 0;
 
-    color:$dark_grey;
+    color:var(--fg);
     font-size:1em;
   }
 }
@@ -358,10 +373,10 @@
 
   .cart{
     right:-100%;
-    height:100vh;
+    height: calc(100 * var(--vh));
 
     .scroller {
-      padding:0 20px 20px 20px;
+      padding:0 1.5rem 1.5rem 1.5rem;
     }
 
     .closeCart {
@@ -389,12 +404,12 @@
     right:-40%;
 
     .scroller {
-      padding:0 40px 40px 40px;
+      padding:0 2rem 2rem 2rem;
     }
 
     .closeCart {
-      top: 20px;
-      right: 30px;
+      top: 1.5rem;
+      right: 2rem;
     }
   }
 }
