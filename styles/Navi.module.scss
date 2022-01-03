@@ -260,6 +260,7 @@
     color:var(--fg);
     overflow: hidden;
     height:100vh;
+    height: calc(100 * var(--vh));
     bottom:0;
     position: fixed;
     z-index: 15;

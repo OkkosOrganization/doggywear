@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import { RichText } from 'prismic-reactjs';
 import { apiEndPoint, Prismic } from '../config/prismic';
-import Masonry from 'react-masonry-css'
+import Masonry from 'react-masonry-css';
 import styles from "../styles/FrontPage.module.scss";
 import { BASE_URL, DESCRIPTION, TITLE, TWITTER_HANDLE, OG_IMG, CURRENCY } from '../config/env';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { gsap } from 'gsap';
@@ -39,8 +39,20 @@ export const getStaticProps = async ({ req, locale }) => {
   };
 }
 
-const Frontpage = ({ products, illustrations, frontpage }) => {
+const Frontpage = ({ products, illustrations, frontpage, ww }) => {
 
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    const isTouchDevice = () => {
+      return (('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0) ||
+        (navigator.msMaxTouchPoints > 0));
+    }
+    if (ww < 768 && isTouchDevice())    
+      setIsMobile(true);  
+      
+  }, [ww]);
 
   const renderHead = () => {
 
@@ -81,13 +93,16 @@ const Frontpage = ({ products, illustrations, frontpage }) => {
   };
 
   const mouseEnterHandler = (id: string) => {
-    const selector = `.gridItem:not(#${id})`;
-    gsap.to(selector, { filter: "blur(2px)", autoAlpha: .5, duration: .3 });
+    if (!isMobile) {
+      //BLUR ALL OTHERS BUT THIS ITEM
+      const selector = `.gridItem:not(#${id})`;
+      gsap.to(selector, { filter: 'blur(2px)', autoAlpha: .5, duration: .3 });
+    }
   };
-  
+
   const mouseLeaveHandler = () => {
     const items = document.querySelectorAll('.gridItem');
-    gsap.to(items, { filter: "blur(0px)", autoAlpha: 1, duration: .3 });
+    gsap.to(items, { filter: 'blur(0px)', autoAlpha: 1, duration: .3 });
   };
 
   return (
@@ -137,8 +152,6 @@ const Frontpage = ({ products, illustrations, frontpage }) => {
           }
         </Masonry>
 
-
-
       </div>
     </div>
   );
@@ -184,9 +197,8 @@ const ProductCard = (props: ProductCardProps): JSX.Element => {
   const [showPager, setShowPager] = useState<boolean>(false);
 
   const flipImage = () => {
-    if(primaryImage.url && secondaryImage.url)
-    {
-      if(image === secondaryImage)
+    if (primaryImage.url && secondaryImage.url) {
+      if (image === secondaryImage)
         setImage(primaryImage);
       else
         setImage(secondaryImage);
@@ -198,7 +210,7 @@ const ProductCard = (props: ProductCardProps): JSX.Element => {
       className={`${styles.product} gridItem`}
       id={props.data.id}
     >
-      <div 
+      <div
         className={`
           ${styles.productImage}        
           ${hasImages ? styles.hasImages : ''}
@@ -232,8 +244,8 @@ const ProductCard = (props: ProductCardProps): JSX.Element => {
       <div>
         <h2 className={styles.productTitle}>{title}</h2>
         <h4 className={styles.sizeOptions}>
-          {props.data.data.shopify.options[0].values.map((o,oIndex) => {
-            return(<span className={styles.sizeOption} key={`sizeOption_${oIndex}`}>{o}</span>);
+          {props.data.data.shopify.options[0].values.map((o, oIndex) => {
+            return (<span className={styles.sizeOption} key={`sizeOption_${oIndex}`}>{o}</span>);
           })}
         </h4>
         <h3 className={styles.productPrice}>{Number(price).toFixed(0)}{CURRENCY}</h3>
