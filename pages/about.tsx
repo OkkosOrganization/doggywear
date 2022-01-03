@@ -1,13 +1,11 @@
 import React from 'react';
 import Prismic from 'prismic-javascript';
 import { apiEndPoint } from '../config/prismic';
-import styles from "../sass/AboutPage.module.scss";
+import styles from "../styles/AboutPage.module.scss";
 import { RichText } from 'prismic-reactjs';
 
 export const getStaticProps = async ({ req }) => {
-
   let about = null;
-
   try {
     const prismicApi = await Prismic.getApi(apiEndPoint, { req: req });
     about = await prismicApi.getSingle('about-page');
@@ -15,7 +13,6 @@ export const getStaticProps = async ({ req }) => {
   catch (e) {
     console.log(e);
   }
-
   return {
     props:
     {
@@ -23,10 +20,9 @@ export const getStaticProps = async ({ req }) => {
     },
     revalidate: 1
   };
-}
+};
 
 const AboutPage = (props) => {
-
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -44,5 +40,6 @@ const AboutPage = (props) => {
       </div>
     </div>
   );
-}
+};
+
 export default AboutPage;
