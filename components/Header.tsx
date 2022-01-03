@@ -30,7 +30,7 @@ const Header = (props) => {
     setNaviOpen(!naviOpen);
   };
 
-  let classes = `${styles.mainNavi} ${naviOpen ? styles.active : ""} ${scrolled && !naviOpen ? styles.showBg : ""} `;
+  const classes = `${styles.mainNavi} ${naviOpen ? styles.active : ""} ${scrolled && !naviOpen ? styles.showBg : ""} `;
 
   return (
     <>

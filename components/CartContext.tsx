@@ -25,11 +25,11 @@ export const CartProvider = (props) => {
 	useEffect(() => {
 
 		if (client && !checkout) {
-			let checkoutId = localStorage.getItem('checkoutId');
+			const checkoutId = localStorage.getItem('checkoutId');
 			if (checkoutId) {
 				const check = async () => {
 					try {
-						let newCheckout = await client.checkout.fetch(checkoutId);
+						const newCheckout = await client.checkout.fetch(checkoutId);
 						if (newCheckout.completedAt !== null) {
 							console.log("Checkout already complete, creating new");
 							createCheckout();
@@ -55,7 +55,7 @@ export const CartProvider = (props) => {
 	const initClient = async () => {
 
 		try{
-			let client = await Client.buildClient({
+			const client = await Client.buildClient({
 				domain: SHOPIFY_DOMAIN,
 				storefrontAccessToken: SHOPIFY_API_STOREFRONT_TOKEN
 			});
@@ -69,7 +69,7 @@ export const CartProvider = (props) => {
 
 	const createCheckout = async () => {
 		try {
-			let checkout = await client.checkout.create();
+			const checkout = await client.checkout.create();
 			localStorage.setItem('checkoutId', checkout.id);
 			setCheckout(checkout);
 			console.log("New checkout created", checkout);
@@ -91,13 +91,13 @@ export const CartProvider = (props) => {
 				const variantIdBase64 = btoa("gid://shopify/ProductVariant/" + vid);
 				console.log("Add to cart:", vid, variantIdBase64);
 
-				let checkoutId = checkout.id;
-				let product = [{
+				const checkoutId = checkout.id;
+				const product = [{
 					variantId: variantIdBase64,
 					quantity: 1,
 				}];
 
-				let newCheckout = await client.checkout.addLineItems(checkoutId, product);
+				const newCheckout = await client.checkout.addLineItems(checkoutId, product);
 
 				setCheckout(newCheckout);
 				setUpdating(false);
@@ -115,11 +115,11 @@ export const CartProvider = (props) => {
 			console.log("REMOVE:", vid);
 
 			setUpdating(true);
-			let checkoutId = checkout.id;
-			let product = [vid];
+			const checkoutId = checkout.id;
+			const product = [vid];
 
 			try {
-				let updatedCheckout = await client.checkout.removeLineItems(checkoutId, product);
+				const updatedCheckout = await client.checkout.removeLineItems(checkoutId, product);
 				setCheckout(updatedCheckout);
 			}
 			catch (e) {
@@ -134,14 +134,14 @@ export const CartProvider = (props) => {
 
 		setUpdating(true);
 
-		let checkoutId = checkout.id;
+		const checkoutId = checkout.id;
 		//let variantIdBase64 = btoa("gid://shopify/ProductVariant/" + vid);
-		let product = [{
+		const product = [{
 			id: vid,
 			quantity: quantity,
 		}];
 
-		let updatedCheckout = await client.checkout.updateLineItems(checkoutId, product);
+		const updatedCheckout = await client.checkout.updateLineItems(checkoutId, product);
 
 		setCheckout(updatedCheckout);
 		setUpdating(false);

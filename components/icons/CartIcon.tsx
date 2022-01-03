@@ -10,7 +10,7 @@ export const CartIcon = (props) => {
     if(checkout)
     {
       let initial = 0;
-      let sum = checkout.lineItems.reduce((prev,curr) => {     
+      const sum = checkout.lineItems.reduce((prev,curr) => {     
         return initial += Number(curr.quantity);
       },initial);
       return sum ? sum : "";

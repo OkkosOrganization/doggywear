@@ -179,7 +179,7 @@ export const Cart = ({ww}:CartProps) => {
               </div>
 
               <div className={"checkout"}>
-                <a href={`${checkout.webUrl}&locale=${'en'}`} target={"_blank"}>
+                <a href={`${checkout.webUrl}&locale=${'en'}`} target={'_blank'} rel={'noreferrer'}>
                   <button className={"checkoutBtn primary"} aria-label="Checkout" onClick={checkoutHandler}>{'CHECKOUT'}</button>
                 </a>
               </div>
