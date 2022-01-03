@@ -1,9 +1,9 @@
-import styles from "../../sass/Navi.module.scss";
+import styles from "../../styles/Navi.module.scss";
 import CloseIcon from "./CloseIcon";
 import { HamburgerIcon } from "./HamburgerIcon";
 
 const MobileNaviIcon = (props) => {
-  let classes = `${styles.mobileNaviIcon} ${props.naviOpen ? styles.active : ""}`;
+  const classes = `${styles.mobileNaviIcon} ${props.naviOpen ? styles.active : ""}`;
   return (
     <button
       role={"button"}

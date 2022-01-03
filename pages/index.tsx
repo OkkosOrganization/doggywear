@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { RichText } from 'prismic-reactjs';
 import { apiEndPoint, Prismic } from '../config/prismic';
 import Masonry from 'react-masonry-css'
-import styles from "../sass/FrontPage.module.scss";
+import styles from "../styles/FrontPage.module.scss";
 import { BASE_URL, DESCRIPTION, TITLE, TWITTER_HANDLE, OG_IMG, CURRENCY } from '../config/env';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -10,9 +10,9 @@ import Link from 'next/link';
 import { gsap } from 'gsap';
 
 export const getStaticProps = async ({ req, locale }) => {
-  let products: null | {} = null;
-  let illustrations: null | {} = null;
-  let frontpage: null | {} = null;
+  let products: unknown = null;
+  let illustrations: unknown = null;
+  let frontpage: unknown = null;
   try {
     const prismicApi = await Prismic.getApi(apiEndPoint, { req: req });
     products = await prismicApi.query(
@@ -39,17 +39,17 @@ export const getStaticProps = async ({ req, locale }) => {
   };
 }
 
-const Frontpage = ({ products, illustrations, frontpage, ww }) => {
+const Frontpage = ({ products, illustrations, frontpage }) => {
 
 
   const renderHead = () => {
 
-    let title = `${TITLE} - Products`;
-    let description = DESCRIPTION;
+    const title = `${TITLE} - Products`;
+    const description = DESCRIPTION;
     //let fbAppId = process.env.FB_APP_ID;
-    let ogUrl = `${BASE_URL}`;
-    let ogImg = `${OG_IMG}`;
-    let twitterHandle = `${TWITTER_HANDLE}`;
+    const ogUrl = `${BASE_URL}`;
+    const ogImg = `${OG_IMG}`;
+    const twitterHandle = `${TWITTER_HANDLE}`;
 
     return (
       <Head>
@@ -81,12 +81,12 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
   };
 
   const mouseEnterHandler = (id: string) => {
-    let selector = `.gridItem:not(#${id})`;
+    const selector = `.gridItem:not(#${id})`;
     gsap.to(selector, { filter: "blur(2px)", autoAlpha: .5, duration: .3 });
   };
   
-  const mouseLeaveHandler = (id: string) => {
-    let items = document.querySelectorAll('.gridItem');
+  const mouseLeaveHandler = () => {
+    const items = document.querySelectorAll('.gridItem');
     gsap.to(items, { filter: "blur(0px)", autoAlpha: 1, duration: .3 });
   };
 
@@ -114,7 +114,7 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
               const type = item.type;
 
               if (type === 'product') {
-                let data = products.results.filter((p) => p.id === id)[0];
+                const data = products.results.filter((p) => p.id === id)[0];
                 return <ProductCard
                   key={'product_' + index}
                   data={data}
@@ -123,7 +123,7 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
                 />
               }
               else if (type === 'illustration') {
-                let data = illustrations.results.filter((p) => p.id === id)[0];
+                const data = illustrations.results.filter((p) => p.id === id)[0];
                 return <IllustrationCard
                   key={'illustration_' + index}
                   data={data}

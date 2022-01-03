@@ -1,7 +1,7 @@
 import React from 'react';
 import Prismic from 'prismic-javascript';
 import { apiEndPoint } from '../config/prismic';
-import styles from "../sass/AboutPage.module.scss";
+import styles from "../styles/AboutPage.module.scss";
 import { RichText } from 'prismic-reactjs';
 
 export const getStaticProps = async ({ req }) => {

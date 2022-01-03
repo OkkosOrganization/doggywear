@@ -1,6 +1,6 @@
 import { default as NextLink } from 'next/link';
 import { useRouter } from 'next/router';
-import styles from "../sass/Navi.module.scss";
+import styles from "../styles/Navi.module.scss";
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { getNaviItems } from '../config/navi';
@@ -13,7 +13,7 @@ export const Navi = (props) => {
 	const navi = getNaviItems();
 
 	useEffect(() => {
-		let lis = pages.current.querySelectorAll('li');
+		const  lis = pages.current.querySelectorAll('li');
 
 		//console.log(props.naviOpen);
 
@@ -43,10 +43,10 @@ export const Navi = (props) => {
 		<>
 			<ul className={styles.pages} ref={pages}>
 				{navi.map((i, index) => {
-					let label = i.label.toLowerCase();
-					let href = i.href;
-					let isActive = (href === router.asPath);
-					let external = i.external;
+					const label = i.label.toLowerCase();
+					const href = i.href;
+					const isActive = (href === router.asPath);
+					const external = i.external;
 
 					return (
 						<li key={"naviItem_" + index} className={`${isActive ? styles.active : ""} `}>

@@ -1,6 +1,6 @@
 import Script from 'next/script'
 import Layout from '../components/Layout';
-import "../sass/style.scss";
+import "../styles/style.scss";
 import { GOOGLE_ANALYTICS } from '../config/env';
 import { useEffect, useState } from 'react';
 

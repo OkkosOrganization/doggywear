@@ -1,14 +1,14 @@
 import React from 'react';
 import { default as NextLink } from 'next/link';
 import { useRouter } from 'next/router';
-import styles from '../sass/Footer.module.scss';
+import styles from '../styles/Footer.module.scss';
 import { getNaviItems } from '../config/navi';
 import { TITLE } from '../config/env';
 
-const Footer = (props) => {
+const Footer = () => {
 
   const router = useRouter();
-  let navi = getNaviItems();
+  const navi = getNaviItems();
 
   return (
     <footer className={styles.footer}>
@@ -18,10 +18,10 @@ const Footer = (props) => {
         <nav className={styles.footerNavi}>
           <ul className={styles.pages}>
             {navi.map((i, index) => {
-              let label = i.label;
-              let resolvedLink = i.href;
-              let isActive = resolvedLink === router.asPath;
-              let external = i.external;
+              const label = i.label;
+              const resolvedLink = i.href;
+              const isActive = resolvedLink === router.asPath;
+              const external = i.external;
 
               return (
 
@@ -29,7 +29,7 @@ const Footer = (props) => {
                   {
                     external
                       ?
-                      <a href={i.href} aria-label={label} target={"_blank"}>{label}</a>
+                      <a href={i.href} aria-label={label} target={"_blank"} rel={'nofollow noreferrer'}>{label}</a>
                       :
                       <NextLink href={i.href} as={i.href} >
                         <a aria-label={label}>{label}</a>

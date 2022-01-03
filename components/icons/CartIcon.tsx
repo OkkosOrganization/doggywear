@@ -1,8 +1,8 @@
-import { useContext, useEffect } from "react";
-import styles from "../../sass/Navi.module.scss";
+import { useContext } from "react";
+import styles from "../../styles/Navi.module.scss";
 import { CartContext } from "../CartContext";
 
-export const CartIcon = (props) => {
+export const CartIcon = () => {
 
   const {checkout,showCart} = useContext(CartContext);
     
@@ -10,7 +10,7 @@ export const CartIcon = (props) => {
     if(checkout)
     {
       let initial = 0;
-      let sum = checkout.lineItems.reduce((prev,curr) => {     
+      const sum = checkout.lineItems.reduce((prev,curr) => {     
         return initial += Number(curr.quantity);
       },initial);
       return sum ? sum : "";
