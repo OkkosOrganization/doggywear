@@ -133,6 +133,7 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
                 return <ProductCard
                   key={'product_' + index}
                   data={data}
+                  isMobile={isMobile}
                   mouseEnterHandler={mouseEnterHandler}
                   mouseLeaveHandler={mouseLeaveHandler}
                 />
