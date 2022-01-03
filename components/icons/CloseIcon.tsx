@@ -1,6 +1,6 @@
-import styles from "../../sass/Navi.module.scss";
+import styles from "../../styles/Navi.module.scss";
 
-const CloseIcon = (props) => {
+const CloseIcon = () => {
     return(
             <svg viewBox="0 0 19 18" className={styles.closeIcon}>
                 <path d="M-1.77635684e-15,0.370963652 L16.7553549,17.274073"></path>

@@ -1,8 +1,8 @@
-import { useContext, useEffect } from "react";
-import styles from "../../sass/Navi.module.scss";
+import { useContext } from "react";
+import styles from "../../styles/Navi.module.scss";
 import { CartContext } from "../CartContext";
 
-export const CartIcon = (props) => {
+export const CartIcon = () => {
 
   const {checkout,showCart} = useContext(CartContext);
     

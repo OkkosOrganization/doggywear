@@ -1,5 +1,5 @@
 import { default as NextLink } from 'next/link';
-import styles from "../sass/Navi.module.scss";
+import styles from "../styles/Navi.module.scss";
 
 type LogoProps = {
   highlight: boolean;

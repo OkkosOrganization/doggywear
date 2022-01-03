@@ -3,7 +3,7 @@ import Prismic from 'prismic-javascript';
 import { RichText } from 'prismic-reactjs';
 import { apiEndPoint} from '../../config/prismic';
 import { CartContext } from '../../components/CartContext';
-import styles from "../../sass/ProductPage.module.scss";
+import styles from "../../styles/ProductPage.module.scss";
 import { SRLWrapper } from "simple-react-lightbox";
 import Head from 'next/head';
 import Image from 'next/image';

@@ -1,6 +1,6 @@
 import { default as NextLink } from 'next/link';
 import { useRouter } from 'next/router';
-import styles from "../sass/Navi.module.scss";
+import styles from "../styles/Navi.module.scss";
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { getNaviItems } from '../config/navi';

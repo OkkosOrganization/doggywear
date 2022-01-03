@@ -1,4 +1,4 @@
-export const RemoveFromCart = (props) => {
+export const RemoveFromCart = () => {
   return (
     <svg className={"removeFromCartIcon"} x="0px" y="0px" viewBox="0 0 14 14">
       <path d="M1.8,13.8C1.8,13.8,1.8,13.8,1.8,13.8C1.8,13.8,1.8,13.8,1.8,13.8L1.8,13.8z M1.6,13.7

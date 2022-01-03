@@ -1,4 +1,4 @@
-import styles from "../../sass/Navi.module.scss";
+import styles from "../../styles/Navi.module.scss";
 import CloseIcon from "./CloseIcon";
 import { HamburgerIcon } from "./HamburgerIcon";
 

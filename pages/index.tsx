@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { RichText } from 'prismic-reactjs';
 import { apiEndPoint, Prismic } from '../config/prismic';
 import Masonry from 'react-masonry-css'
-import styles from "../sass/FrontPage.module.scss";
+import styles from "../styles/FrontPage.module.scss";
 import { BASE_URL, DESCRIPTION, TITLE, TWITTER_HANDLE, OG_IMG, CURRENCY } from '../config/env';
 import { useState } from 'react';
 import Image from 'next/image';

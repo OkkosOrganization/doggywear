@@ -1,11 +1,11 @@
 import React from 'react';
 import { default as NextLink } from 'next/link';
 import { useRouter } from 'next/router';
-import styles from '../sass/Footer.module.scss';
+import styles from '../styles/Footer.module.scss';
 import { getNaviItems } from '../config/navi';
 import { TITLE } from '../config/env';
 
-const Footer = (props) => {
+const Footer = () => {
 
   const router = useRouter();
   const navi = getNaviItems();
