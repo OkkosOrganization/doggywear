@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import { RichText } from 'prismic-reactjs';
 import { apiEndPoint, Prismic } from '../config/prismic';
-import Masonry from 'react-masonry-css'
+import Masonry from 'react-masonry-css';
 import styles from "../styles/FrontPage.module.scss";
 import { BASE_URL, DESCRIPTION, TITLE, TWITTER_HANDLE, OG_IMG, CURRENCY } from '../config/env';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { gsap } from 'gsap';
@@ -39,8 +39,20 @@ export const getStaticProps = async ({ req, locale }) => {
   };
 }
 
-const Frontpage = ({ products, illustrations, frontpage }) => {
+const Frontpage = ({ products, illustrations, frontpage, ww }) => {
 
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    const isTouchDevice = () => {
+      return (('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0) ||
+        (navigator.msMaxTouchPoints > 0));
+    }
+    if (ww < 768 && isTouchDevice())    
+      setIsMobile(true);  
+      
+  }, [ww]);
 
   const renderHead = () => {
 
@@ -81,13 +93,16 @@ const Frontpage = ({ products, illustrations, frontpage }) => {
   };
 
   const mouseEnterHandler = (id: string) => {
-    const selector = `.gridItem:not(#${id})`;
-    gsap.to(selector, { filter: "blur(2px)", autoAlpha: .5, duration: .3 });
+    if (!isMobile) {
+      //BLUR ALL OTHERS BUT THIS ITEM
+      const selector = `.gridItem:not(#${id})`;
+      gsap.to(selector, { filter: 'blur(2px)', autoAlpha: .5, duration: .3 });
+    }
   };
-  
+
   const mouseLeaveHandler = () => {
     const items = document.querySelectorAll('.gridItem');
-    gsap.to(items, { filter: "blur(0px)", autoAlpha: 1, duration: .3 });
+    gsap.to(items, { filter: 'blur(0px)', autoAlpha: 1, duration: .3 });
   };
 
   return (
@@ -97,8 +112,8 @@ const Frontpage = ({ products, illustrations, frontpage }) => {
       <h1 className={"hidden"}>{frontpage.data?.title[0]?.text}</h1>
 
       <div className={styles.description}>
-          <RichText render={frontpage.data?.description} />
-        </div>
+        <RichText render={frontpage.data?.description} />
+      </div>
 
       <div className={styles.grid}>
 
@@ -118,6 +133,7 @@ const Frontpage = ({ products, illustrations, frontpage }) => {
                 return <ProductCard
                   key={'product_' + index}
                   data={data}
+                  isMobile={isMobile}
                   mouseEnterHandler={mouseEnterHandler}
                   mouseLeaveHandler={mouseLeaveHandler}
                 />
@@ -136,8 +152,6 @@ const Frontpage = ({ products, illustrations, frontpage }) => {
             })
           }
         </Masonry>
-
-
 
       </div>
     </div>
@@ -170,6 +184,7 @@ const IllustrationCard = (props: IllustrationCardProps): JSX.Element => {
 
 type ProductCardProps = {
   data: any;
+  isMobile: boolean;
   mouseEnterHandler: (e) => void;
   mouseLeaveHandler: (e) => void;
 };
@@ -181,12 +196,11 @@ const ProductCard = (props: ProductCardProps): JSX.Element => {
   const hasImages = primaryImage.url && secondaryImage.url;
 
   const [image, setImage] = useState(primaryImage);
-  const [showPager, setShowPager] = useState<boolean>(false);
+  const [showPager, setShowPager] = useState<boolean>(props.isMobile);
 
   const flipImage = () => {
-    if(primaryImage.url && secondaryImage.url)
-    {
-      if(image === secondaryImage)
+    if (primaryImage.url && secondaryImage.url) {
+      if (image === secondaryImage)
         setImage(primaryImage);
       else
         setImage(secondaryImage);
@@ -198,19 +212,25 @@ const ProductCard = (props: ProductCardProps): JSX.Element => {
       className={`${styles.product} gridItem`}
       id={props.data.id}
     >
-      <div 
+      <div
         className={`
           ${styles.productImage}        
           ${hasImages ? styles.hasImages : ''}
         `}
         onClick={flipImage}
         onMouseEnter={() => {
-          setShowPager(!showPager);
-          props.mouseEnterHandler(props.data.id);
+          if(!props.isMobile)
+          {
+            setShowPager(!showPager);
+            props.mouseEnterHandler(props.data.id);
+          }
         }}
         onMouseLeave={() => {
-          setShowPager(!showPager);
-          props.mouseLeaveHandler(props.data.id)
+          if(!props.isMobile)
+          {
+            setShowPager(!showPager);
+            props.mouseLeaveHandler(props.data.id);
+          }
         }}
       >
         <Image
@@ -218,6 +238,7 @@ const ProductCard = (props: ProductCardProps): JSX.Element => {
           width={image.dimensions?.width}
           height={image.dimensions?.height}
           layout='responsive'
+          alt='Product image'
         />
 
         {
@@ -232,12 +253,12 @@ const ProductCard = (props: ProductCardProps): JSX.Element => {
       <div>
         <h2 className={styles.productTitle}>{title}</h2>
         <h4 className={styles.sizeOptions}>
-          {props.data.data.shopify.options[0].values.map((o,oIndex) => {
-            return(<span className={styles.sizeOption} key={`sizeOption_${oIndex}`}>{o}</span>);
+          {props.data.data.shopify.options[0].values.map((o, oIndex) => {
+            return (<span className={styles.sizeOption} key={`sizeOption_${oIndex}`}>{o}</span>);
           })}
         </h4>
         <h3 className={styles.productPrice}>{Number(price).toFixed(0)}{CURRENCY}</h3>
-        <Link href={`/product/${props.data.uid}`}>
+        <Link href={`/product/${props.data.uid}`} passHref>
           <button>
             {`Shop now`}
           </button>

@@ -40,7 +40,7 @@ const CartLineItem = (props) => {
 type CartProps = {
   ww:number;
 };
-export const Cart = ({ww}:CartProps) => {
+const Cart = ({ww}:CartProps) => {
 
   const {
     checkout,
@@ -205,3 +205,5 @@ export const Cart = ({ww}:CartProps) => {
     </div>
   );
 }
+
+export default Cart;

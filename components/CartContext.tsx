@@ -2,12 +2,13 @@ import React from 'react';
 import Client from 'shopify-buy';
 import { useState, useEffect } from 'react';
 import { SHOPIFY_DOMAIN, SHOPIFY_API_STOREFRONT_TOKEN } from '../config/env';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export const CartContext = React.createContext(null);
 
 export const CartProvider = (props) => {
 
-	const [checkout, setCheckout] = useState<any>(null);
+	const [checkout, setCheckout] = useLocalStorage('checkoutId', null);
 	const [client, setClient] = useState<any>(null);
 	const [updating, setUpdating] = useState<boolean>(false);
 	const [open, setOpen] = useState<boolean>(false);

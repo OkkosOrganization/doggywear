@@ -1,19 +1,20 @@
 import { default as NextLink } from 'next/link';
 import { useRouter } from 'next/router';
 import styles from "../styles/Navi.module.scss";
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { getNaviItems } from '../config/navi';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export const Navi = (props) => {
-
-	const [darkMode, setDarkmode] = useState(false);
+	
+	const [darkMode, setDarkmode] = useLocalStorage('darkMode', false);
 	const router = useRouter();
 	const pages = useRef(null);
 	const navi = getNaviItems();
 
 	useEffect(() => {
-		const  lis = pages.current.querySelectorAll('li');
+		const lis = pages.current.querySelectorAll('li');
 
 		//console.log(props.naviOpen);
 

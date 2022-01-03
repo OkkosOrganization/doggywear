@@ -9,6 +9,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import {getCurrentLocale} from '../../config/locales';
 import { BASE_URL,TITLE,TWITTER_HANDLE } from '../../config/env';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 export async function getStaticPaths({req,locales}) {
 
@@ -71,6 +72,7 @@ export const getStaticProps = async (context) => {
 
 const ProductPage = (props) => {
 
+  const [dark] = useLocalStorage('darkMode');
   const { addToCart, client } = React.useContext(CartContext);
   const [available, setAvailable] = useState(false);
   const [chosenVariant, setChosenVariant] = useState("");
@@ -177,14 +179,12 @@ const ProductPage = (props) => {
 
       <div className={styles.wrapper}>
         <div className={styles.productInfo}>
-          <div className={styles.productImages}>
+          <div className={`${styles.productImages}`}>
             <SRLWrapper options={options}>
 
-
-              <div className={`${styles.imageBg}`} key={`productImage`}>
+              <div className={`${styles.imageBg} imageBg`} key={`productImage`}>
                 <img src={props.product.data.primary_image.url} data-attribute={"SRL"} />
               </div>
-
 
               {
                 props.product.data.secondary_image.url
@@ -239,6 +239,7 @@ const ProductPage = (props) => {
                 width={600}
                 height={732}
                 layout='responsive'
+                alt='Packaging image 1'
               />
             </div>
             <div className={styles.packageImage}>
@@ -247,6 +248,7 @@ const ProductPage = (props) => {
               width={600}
               height={732}
               layout='responsive'
+              alt='Packaging image 2'
             />
           </div>
           <div className={styles.packageImage}>
@@ -255,6 +257,7 @@ const ProductPage = (props) => {
               width={600}
               height={732}
               layout='responsive'
+              alt='Packaging image 3'
             />
           </div>
         </div>

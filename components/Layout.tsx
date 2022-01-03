@@ -1,13 +1,13 @@
 import Header from './Header';
 import dynamic from 'next/dynamic';
 import { CartProvider } from './CartContext';
-import { Cart } from './Cart';
 
 type LayoutProps = {
   ww:number;
   children?: React.ReactNode;
 };
 const Layout = ({ww, children}:LayoutProps) => {
+  const Cart = dynamic(() => import('./Cart'), {suspense:false});
   const Footer = dynamic(() => import('./Footer'), {suspense:false});
 
   return (

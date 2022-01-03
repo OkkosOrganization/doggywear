@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CartIcon } from './icons/CartIcon';
+import dynamic from 'next/dynamic';
 import MobileNaviIcon from './icons/MobileNaviIcon';
 import { Logo } from './Logo';
 import styles from "../styles/Navi.module.scss";
@@ -7,6 +7,8 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { Navi } from './Navi';
 gsap.registerPlugin(ScrollTrigger);
+
+const CartIcon = dynamic(() => import('./icons/CartIcon'), {suspense:false});
 
 const Header = (props) => {
 
