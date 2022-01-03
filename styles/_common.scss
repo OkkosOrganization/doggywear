@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+#__next.dark .imageBg
+{
+  background: rgba($black, .3) !important;
+}
+
 html,body
 {
   font-family:$openSans;

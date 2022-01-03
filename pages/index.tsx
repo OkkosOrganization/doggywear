@@ -97,8 +97,8 @@ const Frontpage = ({ products, illustrations, frontpage }) => {
       <h1 className={"hidden"}>{frontpage.data?.title[0]?.text}</h1>
 
       <div className={styles.description}>
-          <RichText render={frontpage.data?.description} />
-        </div>
+        <RichText render={frontpage.data?.description} />
+      </div>
 
       <div className={styles.grid}>
 
