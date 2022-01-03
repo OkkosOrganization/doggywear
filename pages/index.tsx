@@ -183,6 +183,7 @@ const IllustrationCard = (props: IllustrationCardProps): JSX.Element => {
 
 type ProductCardProps = {
   data: any;
+  isMobile: boolean;
   mouseEnterHandler: (e) => void;
   mouseLeaveHandler: (e) => void;
 };
@@ -194,7 +195,7 @@ const ProductCard = (props: ProductCardProps): JSX.Element => {
   const hasImages = primaryImage.url && secondaryImage.url;
 
   const [image, setImage] = useState(primaryImage);
-  const [showPager, setShowPager] = useState<boolean>(false);
+  const [showPager, setShowPager] = useState<boolean>(props.isMobile);
 
   const flipImage = () => {
     if (primaryImage.url && secondaryImage.url) {
@@ -230,6 +231,7 @@ const ProductCard = (props: ProductCardProps): JSX.Element => {
           width={image.dimensions?.width}
           height={image.dimensions?.height}
           layout='responsive'
+          alt='Product image'
         />
 
         {
@@ -249,7 +251,7 @@ const ProductCard = (props: ProductCardProps): JSX.Element => {
           })}
         </h4>
         <h3 className={styles.productPrice}>{Number(price).toFixed(0)}{CURRENCY}</h3>
-        <Link href={`/product/${props.data.uid}`}>
+        <Link href={`/product/${props.data.uid}`} passHref>
           <button>
             {`Shop now`}
           </button>
