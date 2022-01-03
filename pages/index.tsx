@@ -219,12 +219,18 @@ const ProductCard = (props: ProductCardProps): JSX.Element => {
         `}
         onClick={flipImage}
         onMouseEnter={() => {
-          setShowPager(!showPager);
-          props.mouseEnterHandler(props.data.id);
+          if(!props.isMobile)
+          {
+            setShowPager(!showPager);
+            props.mouseEnterHandler(props.data.id);
+          }
         }}
         onMouseLeave={() => {
-          setShowPager(!showPager);
-          props.mouseLeaveHandler(props.data.id)
+          if(!props.isMobile)
+          {
+            setShowPager(!showPager);
+            props.mouseLeaveHandler(props.data.id);
+          }
         }}
       >
         <Image
