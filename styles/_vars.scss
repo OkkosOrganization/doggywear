@@ -24,6 +24,7 @@ $pink : #ff51b0;
 $cart_red : #F44336;
 $turqoise:#b2dadd;
 $cartEmpty: #9B9B9B;
+$lime: #5fd835;
 
 $roboto : "Roboto", sans-serif;
 $openSans : "Open Sans", sans-serif;
@@ -34,7 +35,7 @@ $openSans : "Open Sans", sans-serif;
   --bg: #{$lighter_grey};
   --fg: #{$darker_grey};
   --primaryAccent: #{$gold};
-  --secondaryAccent: #{$pink};
+  --secondaryAccent: #{$lime};
 }
 #__next.dark
 {
