@@ -38,9 +38,9 @@ const CartLineItem = (props) => {
 };
 
 type CartProps = {
-  ww:number;
+  ww: number;
 };
-const Cart = ({ww}:CartProps) => {
+const Cart = ({ ww }: CartProps) => {
 
   const {
     checkout,
@@ -48,9 +48,9 @@ const Cart = ({ww}:CartProps) => {
     open,
     hideCart,
     updating,
-    updateLineItemQuantity} = useContext(CartContext);
+    updateLineItemQuantity } = useContext(CartContext);
 
-  const [userInCheckOut,setUserInCheckout] = useState<boolean>(false);
+  const [, setUserInCheckout] = useState<boolean>(false);
   const container = useRef(null);
   const scroller = useRef(null);
   const animDuration = .4;
@@ -58,49 +58,51 @@ const Cart = ({ww}:CartProps) => {
   useEffect(() => {
     window.addEventListener('blur', windowBlurHandler);
     window.addEventListener('focus', windowFocusHandler);
-    return(() => {
+    return (() => {
       window.removeEventListener('blur', windowBlurHandler);
-      window.removeEventListener('focus', windowFocusHandler);      
+      window.removeEventListener('focus', windowFocusHandler);
     });
   }, []);
 
   useEffect(() => {
-    if(open)
+
+    const show = () => {
+
+      //MOBILE
+      let w_percent = "-100%";
+
+      //DESKTOP
+      if (ww >= 960)
+        w_percent = "-40%";
+
+      //MEDIUM DESKTOP / TABLET
+      if (ww >= 800 && ww < 960)
+        w_percent = "-50%";
+
+      //SMALL DESKTOP / TABLET    
+      if (ww >= 640 && ww < 800)
+        w_percent = "-100%";
+
+      const next: HTMLDivElement = document.querySelector('#__next');
+      const body = document.querySelector('body');
+
+      body.classList.add('noscroll');
+      next.classList.add('cartOpen');
+      gsap.set(container.current, { autoAlpha: 1, display: 'block' });
+      gsap.to(next, { duration: animDuration, x: w_percent });
+    };
+
+    if (open)
       show();
-  }, [open]);    
+  }, [open]);
 
-  const show = () => {
-
-    //MOBILE
-    let w_percent = "-100%";
-
-    //DESKTOP
-    if (ww >= 960)
-      w_percent = "-40%";
-
-    //MEDIUM DESKTOP / TABLET
-    if (ww >= 800 && ww < 960)
-      w_percent = "-50%";
-
-    //SMALL DESKTOP / TABLET    
-    if (ww >= 640 && ww < 800)
-      w_percent = "-100%";
-
-    const next:HTMLDivElement = document.querySelector('#__next');
-    const body = document.querySelector('body');
-  
-    body.classList.add('noscroll');
-    next.classList.add('cartOpen');
-    gsap.set(container.current, { autoAlpha: 1, display:'block' });
-    gsap.to(next, { duration:animDuration, x: w_percent });
-  };
 
   const hide = () => {
-    const next:HTMLDivElement = document.querySelector('#__next');
+    const next: HTMLDivElement = document.querySelector('#__next');
     const body = document.querySelector('body');
 
     gsap.to(next, {
-      duration:animDuration / 2,
+      duration: animDuration / 2,
       x: "0%",
       onComplete: () => {
         body.classList.remove('noscroll');
@@ -134,6 +136,10 @@ const Cart = ({ww}:CartProps) => {
     setUserInCheckout(true);
   }
 
+  const hasItems = () => {
+    return checkout.lineItems.length;
+  };
+
   const windowBlurHandler = (e) => {
     console.log("Window blur");
   }
@@ -149,8 +155,7 @@ const Cart = ({ww}:CartProps) => {
 
         <h2 className={"cartTitle"}>{"Cart"}</h2>
         {
-          checkout ?
-
+          checkout && hasItems() ?
             <>
               <div className={"lineItems"}>
                 {checkout.lineItems.map((i, index) => {
@@ -184,7 +189,6 @@ const Cart = ({ww}:CartProps) => {
                 </a>
               </div>
             </>
-
             :
             <p className={"cartEmpty"}>{"CART EMPTY"}</p>
         }
