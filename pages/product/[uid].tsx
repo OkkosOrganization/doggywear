@@ -6,14 +6,23 @@ import { CartContext } from '../../components/CartContext';
 import styles from "../../styles/ProductPage.module.scss";
 import { SRLWrapper } from "simple-react-lightbox";
 import Head from 'next/head';
-import Image from 'next/image';
 import {getCurrentLocale} from '../../config/locales';
 import { BASE_URL,TITLE,TWITTER_HANDLE } from '../../config/env';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { ProductPackagingInfo } from '../../components/ProductPackagingInfo';
+
+type ProductResults = {
+  lang:string;
+  data:unknown[];
+  uid:string;
+};
+type ProductsResponse = {
+  results?:ProductResults[];
+} | null;
 
 export async function getStaticPaths({req,locales}) {
 
-  let products = false;
+  let products:ProductsResponse = null;
 
   try {
     const prismicApi = await Prismic.getApi(apiEndPoint, { req: req });
@@ -22,7 +31,7 @@ export async function getStaticPaths({req,locales}) {
       {
         lang:'*'
       }
-    );
+    ) as ProductsResponse;
   }
   catch (e) {
     console.log(e);
@@ -49,11 +58,11 @@ export async function getStaticPaths({req,locales}) {
 
 export const getStaticProps = async (context) => {
 
-  let product = false;
+  let product:unknown = null;
 
   try {
-    let uid = context.params.uid;
-    let prismicApi = await Prismic.getApi(apiEndPoint, {req: context.req });
+    const uid = context.params.uid;
+    const prismicApi = await Prismic.getApi(apiEndPoint, {req: context.req });
 
     product = await prismicApi.getByUID('product', uid);
   }
@@ -72,7 +81,7 @@ export const getStaticProps = async (context) => {
 
 const ProductPage = (props) => {
 
-  const [dark] = useLocalStorage('darkMode');
+  const [dark] = useLocalStorage('darkMode', false);
   const { addToCart, client } = React.useContext(CartContext);
   const [available, setAvailable] = useState(false);
   const [chosenVariant, setChosenVariant] = useState("");
@@ -99,22 +108,19 @@ const ProductPage = (props) => {
     }
   };
 
-  let pid = props?.product?.data?.shopify?.id;
-  let vid = props?.product?.data?.shopify?.variants[0]?.id;
-  let price = props?.product?.data?.shopify?.variants[0]?.price;
-  let tags = props?.product?.tags || [];
-
-  let variants = props?.product?.data?.shopify?.variants;
+  const pid = props?.product?.data?.shopify?.id;
+  const vid = props?.product?.data?.shopify?.variants[0]?.id;
+  const price = props?.product?.data?.shopify?.variants[0]?.price;
+  const variants = props?.product?.data?.shopify?.variants;
 
   useEffect(() => {
 
-    let getProduct = async () => {
+    const getProduct = async () => {
 
       try {
-        let variantIdBase64 = btoa("gid://shopify/Product/" + pid); //NOTE: THIS FETCHES PRODUCT NOT PRODUCTVARIANT  
-        let product = await client.product.fetch(variantIdBase64);
-        let isAvailable = product.availableForSale;
-        console.log(product);
+        const variantIdBase64 = btoa("gid://shopify/Product/" + pid); //NOTE: THIS FETCHES PRODUCT NOT PRODUCTVARIANT  
+        const product = await client.product.fetch(variantIdBase64);
+        const isAvailable = product.availableForSale;
         setAvailable(isAvailable);
 
       }
@@ -141,12 +147,12 @@ const ProductPage = (props) => {
 
   const renderHead = () => {
 
-    let title = `${TITLE} - Product - ${props.product.data.title[0].text}`;
-    let description = props.product.data.description.length ? props.product.data.description[0].text : "";
+    const title = `${TITLE} - Product - ${props.product.data.title[0].text}`;
+    const description = props.product.data.description.length ? props.product.data.description[0].text : "";
     //let fbAppId = process.env.FB_APP_ID;
-    let ogUrl = `${BASE_URL}/product/${props.product.uid}`;
-    let ogImg = props.product.data.primary_image;
-    let twitterHandle = `${TWITTER_HANDLE}`;
+    const ogUrl = `${BASE_URL}/product/${props.product.uid}`;
+    const ogImg = props.product.data.primary_image;
+    const twitterHandle = `${TWITTER_HANDLE}`;
 
     return (
       <Head>
@@ -183,14 +189,14 @@ const ProductPage = (props) => {
             <SRLWrapper options={options}>
 
               <div className={`${styles.imageBg} imageBg`} key={`productImage`}>
-                <img src={props.product.data.primary_image.url} data-attribute={"SRL"} />
+                <img src={props.product.data.primary_image.url} data-attribute={'SRL'} alt={'Product image'} />
               </div>
 
               {
                 props.product.data.secondary_image.url
                   ?
                   <div className={styles.productGallery}>
-                    <img src={props.product.data.secondary_image.url} data-attribute={"SRL"} />
+                    <img src={props.product.data.secondary_image.url} data-attribute={'SRL'} alt={'Product image'} />
                   </div>
                   :
                   null
@@ -229,39 +235,8 @@ const ProductPage = (props) => {
           <button onClick={(e) => available ? addToCart(chosenVariant) : null} disabled={!available}>Add to cart</button>
         </div>
 
-        <div className={styles.packageInfo}>
-          <h2>Packaging</h2>
-          <p>All clothing items are wrapped in protective paper, carefully packed in hand-printed cardboard boxes and then shipped out to our customers.</p>
-          <div className={styles.packageImages}>
-            <div className={styles.packageImage}>
-              <Image
-                src={'/box4.jpg'}
-                width={600}
-                height={732}
-                layout='responsive'
-                alt='Packaging image 1'
-              />
-            </div>
-            <div className={styles.packageImage}>
-            <Image
-              src={'/box2.jpg'}
-              width={600}
-              height={732}
-              layout='responsive'
-              alt='Packaging image 2'
-            />
-          </div>
-          <div className={styles.packageImage}>
-            <Image
-              src={'/box1.jpg'}
-              width={600}
-              height={732}
-              layout='responsive'
-              alt='Packaging image 3'
-            />
-          </div>
-        </div>
-        </div>
+        <ProductPackagingInfo />
+
       </div>
     </section >
   );
