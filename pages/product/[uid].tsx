@@ -10,6 +10,7 @@ import {getCurrentLocale} from '../../config/locales';
 import { BASE_URL,TITLE,TWITTER_HANDLE } from '../../config/env';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { ProductPackagingInfo } from '../../components/ProductPackagingInfo';
+import { TickIcon } from '../../components/icons/TickIcon';
 
 type ProductResults = {
   lang:string;
@@ -207,7 +208,7 @@ const ProductPage = (props) => {
         </div>
 
         <div className={styles.productDescription}>
-          <h1>{props.product.data.title[0].text}</h1>
+          <h1 className={styles.productTitle}>{props.product.data.title[0].text}</h1>
           <div>
             {RichText.render(props.product.data.description)}
           </div>
@@ -218,21 +219,25 @@ const ProductPage = (props) => {
               ?
               <div className={styles.variants}>
                 <span className={styles.variantsLabel}>CHOOSE {props.product.data.shopify.options[0].name}:</span>
-                <select onChange={variantChange} value={chosenVariant}>
-                  {
-                    variants.map((v, vindex) => {
-                      return (
-                        <option value={v.id} key={`variant_${vindex}`}>{v.title}</option>
-                      )
-                    })
-                  }
-                </select>
+                
+                <div className={styles.selectContainer}>
+                  <select onChange={variantChange} value={chosenVariant}>                    
+                    {
+                      variants.map((v, vindex) => {
+                        return (
+                          <option value={v.id} key={`variant_${vindex}`}>{v.title}</option>
+                        )
+                      })
+                    }
+                  </select>
+                  <TickIcon />
+                </div>
               </div>
               :
               null
           }
 
-          <button onClick={(e) => available ? addToCart(chosenVariant) : null} disabled={!available}>Add to cart</button>
+          <button onClick={() => available ? addToCart(chosenVariant) : null} disabled={!available}>Add to cart</button>
         </div>
 
         <ProductPackagingInfo />
