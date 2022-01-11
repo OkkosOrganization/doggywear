@@ -115,13 +115,12 @@ const ProductPage = (props) => {
 
   useEffect(() => {
 
-    let getProduct = async () => {
+    const getProduct = async () => {
 
       try {
-        let variantIdBase64 = btoa("gid://shopify/Product/" + pid); //NOTE: THIS FETCHES PRODUCT NOT PRODUCTVARIANT  
-        let product = await client.product.fetch(variantIdBase64);
-        let isAvailable = product.availableForSale;
-        console.log(product);
+        const variantIdBase64 = btoa("gid://shopify/Product/" + pid); //NOTE: THIS FETCHES PRODUCT NOT PRODUCTVARIANT  
+        const product = await client.product.fetch(variantIdBase64);
+        const isAvailable = product.availableForSale;
         setAvailable(isAvailable);
 
       }
@@ -148,12 +147,12 @@ const ProductPage = (props) => {
 
   const renderHead = () => {
 
-    let title = `${TITLE} - Product - ${props.product.data.title[0].text}`;
-    let description = props.product.data.description.length ? props.product.data.description[0].text : "";
+    const title = `${TITLE} - Product - ${props.product.data.title[0].text}`;
+    const description = props.product.data.description.length ? props.product.data.description[0].text : "";
     //let fbAppId = process.env.FB_APP_ID;
-    let ogUrl = `${BASE_URL}/product/${props.product.uid}`;
-    let ogImg = props.product.data.primary_image;
-    let twitterHandle = `${TWITTER_HANDLE}`;
+    const ogUrl = `${BASE_URL}/product/${props.product.uid}`;
+    const ogImg = props.product.data.primary_image;
+    const twitterHandle = `${TWITTER_HANDLE}`;
 
     return (
       <Head>
