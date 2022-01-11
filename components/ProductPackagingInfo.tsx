@@ -1,4 +1,4 @@
-import styles from "../../styles/ProductPage.module.scss";
+import styles from "../../styles/PackagingInfo.module.scss";
 import Image from "next/image";
 
 export const ProductPackagingInfo = () => {

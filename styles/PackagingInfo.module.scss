@@ -1,0 +1,27 @@
+.packageImages
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0 -1rem;
+  
+}
+
+.packageImage
+{
+  width:100%;
+  height:auto;
+  padding: 1rem;
+  margin: 0 0 1rem 0;
+}
+
+/******************/
+/* MEDIA QUERIES */
+/****************/
+@media all and (min-width: 640px) {
+  .packageImage
+  {
+    width:33%;
+    margin: 0;
+  }
+}
