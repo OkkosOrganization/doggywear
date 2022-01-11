@@ -7,6 +7,7 @@ import { BASE_URL, DESCRIPTION, TITLE, TWITTER_HANDLE, OG_IMG, CURRENCY } from '
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import {LoadingIndicator} from '../components/LoadingIndicator';
 import { gsap } from 'gsap';
 
 export const getStaticProps = async ({ req, locale }) => {
@@ -233,13 +234,39 @@ const ProductCard = (props: ProductCardProps): JSX.Element => {
           }
         }}
       >
-        <Image
-          src={image.url}
-          width={image.dimensions?.width}
-          height={image.dimensions?.height}
-          layout='responsive'
-          alt='Product image'
-        />
+
+        {
+          primaryImage.url
+          &&
+          <div
+            className={image === primaryImage ? '' : 'hidden'}
+          >
+            <Image
+              src={primaryImage.url}
+              width={primaryImage.dimensions?.width}
+              height={primaryImage.dimensions?.height}
+              layout='responsive'
+              alt='Primary product image'
+            />
+          </div>
+        }
+
+        {
+          secondaryImage.url
+          &&
+          <div
+            className={image === secondaryImage ? '' : 'hidden'}
+          >
+            <Image
+              src={secondaryImage.url}
+              width={secondaryImage.dimensions?.width}
+              height={secondaryImage.dimensions?.height}
+              layout='responsive'
+              alt='Secondary product image'
+            />
+          </div>
+        }
+
 
         {
           hasImages && showPager

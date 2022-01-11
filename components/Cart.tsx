@@ -5,6 +5,7 @@ import { AddLineItem } from './icons/AddLineItem';
 import { SubtractLineItem } from './icons/SubtractLineItem';
 import { CURRENCY } from '../config/env';
 import { CartContext } from './CartContext';
+import { LoadingIndicator } from './LoadingIndicator';
 
 const CartLineItem = (props) => {
   return (
@@ -152,7 +153,6 @@ const Cart = ({ ww }: CartProps) => {
   return (
     <div className={"cart"} ref={container}>
       <div className={"scroller"} ref={scroller}>
-
         <h2 className={"cartTitle"}>{"Cart"}</h2>
         {
           checkout && hasItems() ?
@@ -192,22 +192,16 @@ const Cart = ({ ww }: CartProps) => {
             :
             <p className={"cartEmpty"}>{"CART EMPTY"}</p>
         }
-
         <button className={"closeCart"} onClick={hide} aria-label="Close cart"><i></i><i></i></button>
-
-        {
-          updating
-            ?
-            <div className={"spinner"}>
-              <div className={"spin"}></div>
-            </div>
-            :
-            null
-        }
       </div>
-
+      {
+        updating
+          ?
+          <LoadingIndicator />
+          :
+          null
+      }
     </div>
   );
 }
-
 export default Cart;
