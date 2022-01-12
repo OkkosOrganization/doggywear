@@ -8,7 +8,7 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export const Navi = (props) => {
 
-	const [darkMode, setDarkmode] = useLocalStorage('darkMode', undefined);
+	const [darkMode, setDarkmode] = useLocalStorage('darkMode', false);
 	const [showDarkModeToggle, setShowDarkModeToggle] = useState<boolean>(false);
 	const router = useRouter();
 	const pages = useRef(null);
@@ -16,9 +16,6 @@ export const Navi = (props) => {
 
 	useEffect(() => {
 		const lis = pages.current.querySelectorAll('li');
-
-		//console.log(props.naviOpen);
-
 		if (props.naviOpen) {
 			gsap.to(lis, { duration: .2, autoAlpha: 1, y: "0%", delay: .22, stagger: 0.1 });
 		}
@@ -27,7 +24,6 @@ export const Navi = (props) => {
 				gsap.set(element, { autoAlpha: 0, y: "-10%" });
 			});
 		}
-
 	}, [props.naviOpen]);
 
 	useEffect(() => {
