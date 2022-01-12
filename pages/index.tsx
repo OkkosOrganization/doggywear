@@ -7,7 +7,6 @@ import { BASE_URL, DESCRIPTION, TITLE, TWITTER_HANDLE, OG_IMG, CURRENCY } from '
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {LoadingIndicator} from '../components/LoadingIndicator';
 import { gsap } from 'gsap';
 
 export const getStaticProps = async ({ req, locale }) => {
@@ -178,6 +177,7 @@ const IllustrationCard = (props: IllustrationCardProps): JSX.Element => {
         layout='responsive'
         width={props.data?.data?.image?.dimensions?.width}
         height={props.data?.data?.image?.dimensions?.height}
+        alt={'Illustration image'}
       />
     </div>
   );

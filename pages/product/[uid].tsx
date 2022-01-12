@@ -1,36 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import Prismic from 'prismic-javascript';
 import { RichText } from 'prismic-reactjs';
-import { apiEndPoint} from '../../config/prismic';
+import { apiEndPoint } from '../../config/prismic';
 import { CartContext } from '../../components/CartContext';
 import styles from "../../styles/ProductPage.module.scss";
 import { SRLWrapper } from "simple-react-lightbox";
 import Head from 'next/head';
-import {getCurrentLocale} from '../../config/locales';
-import { BASE_URL,TITLE,TWITTER_HANDLE } from '../../config/env';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { getCurrentLocale } from '../../config/locales';
+import { BASE_URL, TITLE, TWITTER_HANDLE } from '../../config/env';
 import { ProductPackagingInfo } from '../../components/ProductPackagingInfo';
 import { TickIcon } from '../../components/icons/TickIcon';
+import Image from 'next/image';
 
 type ProductResults = {
-  lang:string;
-  data:unknown[];
-  uid:string;
+  lang: string;
+  data: unknown[];
+  uid: string;
 };
 type ProductsResponse = {
-  results?:ProductResults[];
+  results?: ProductResults[];
 } | null;
 
-export async function getStaticPaths({req,locales}) {
+export async function getStaticPaths({ req, locales }) {
 
-  let products:ProductsResponse = null;
+  let products: ProductsResponse = null;
 
   try {
     const prismicApi = await Prismic.getApi(apiEndPoint, { req: req });
     products = await prismicApi.query(
       Prismic.Predicates.at('document.type', 'product'),
       {
-        lang:'*'
+        lang: '*'
       }
     ) as ProductsResponse;
   }
@@ -41,12 +41,12 @@ export async function getStaticPaths({req,locales}) {
   const paths = [];
   products.results.forEach((b) => {
     locales.forEach((i) => {
-      if(b.lang === getCurrentLocale(i).prismicLocale)
+      if (b.lang === getCurrentLocale(i).prismicLocale)
         paths.push({
           params: {
-            uid: String(b.uid) 
+            uid: String(b.uid)
           },
-          locale:i
+          locale: i
         });
     });
   });
@@ -59,11 +59,11 @@ export async function getStaticPaths({req,locales}) {
 
 export const getStaticProps = async (context) => {
 
-  let product:unknown = null;
+  let product: unknown = null;
 
   try {
     const uid = context.params.uid;
-    const prismicApi = await Prismic.getApi(apiEndPoint, {req: context.req });
+    const prismicApi = await Prismic.getApi(apiEndPoint, { req: context.req });
 
     product = await prismicApi.getByUID('product', uid);
   }
@@ -82,7 +82,6 @@ export const getStaticProps = async (context) => {
 
 const ProductPage = (props) => {
 
-  const [dark] = useLocalStorage('darkMode', false);
   const { addToCart, client } = React.useContext(CartContext);
   const [available, setAvailable] = useState(false);
   const [chosenVariant, setChosenVariant] = useState("");
@@ -110,7 +109,7 @@ const ProductPage = (props) => {
   };
 
   const pid = props?.product?.data?.shopify?.id;
-  const vid = props?.product?.data?.shopify?.variants[0]?.id;
+  //const vid = props?.product?.data?.shopify?.variants[0]?.id;
   const price = props?.product?.data?.shopify?.variants[0]?.price;
   const variants = props?.product?.data?.shopify?.variants;
 
@@ -123,7 +122,6 @@ const ProductPage = (props) => {
         const product = await client.product.fetch(variantIdBase64);
         const isAvailable = product.availableForSale;
         setAvailable(isAvailable);
-
       }
       catch (e) {
         console.log(e);
@@ -133,14 +131,14 @@ const ProductPage = (props) => {
     if (client)
       getProduct();
 
-  }, [client]);
+  }, [client, pid]);
 
   useEffect(() => {
 
     if (!chosenVariant && variants)
       setChosenVariant(variants[0]?.id)
 
-  }, [chosenVariant]);
+  }, [chosenVariant, variants]);
 
   const variantChange = (e) => {
     setChosenVariant(e.target.value);
@@ -188,16 +186,28 @@ const ProductPage = (props) => {
         <div className={styles.productInfo}>
           <div className={`${styles.productImages}`}>
             <SRLWrapper options={options}>
-
-              <div className={`${styles.imageBg} imageBg`} key={`productImage`}>
-                <img src={props.product.data.primary_image.url} data-attribute={'SRL'} alt={'Product image'} />
+              <div className={`${styles.imageBg} imageBg`}>
+                <Image
+                  src={props.product.data.primary_image.url}
+                  width={props.product.data.primary_image.dimensions.width}
+                  height={props.product.data.primary_image.dimensions.height}
+                  layout='responsive'
+                  alt={'Primary product image'}
+                />
               </div>
-
               {
                 props.product.data.secondary_image.url
                   ?
                   <div className={styles.productGallery}>
-                    <img src={props.product.data.secondary_image.url} data-attribute={'SRL'} alt={'Product image'} />
+                    <div className={'imageBg'}>
+                      <Image
+                        src={props.product.data.secondary_image.url}
+                        width={props.product.data.secondary_image.dimensions.width}
+                        height={props.product.data.secondary_image.dimensions.height}
+                        layout='responsive'
+                        alt={'Secondary product image'}                    
+                      />
+                    </div>
                   </div>
                   :
                   null
@@ -219,9 +229,9 @@ const ProductPage = (props) => {
               ?
               <div className={styles.variants}>
                 <span className={styles.variantsLabel}>CHOOSE {props.product.data.shopify.options[0].name}:</span>
-                
+
                 <div className={styles.selectContainer}>
-                  <select onChange={variantChange} value={chosenVariant}>                    
+                  <select onChange={variantChange} value={chosenVariant}>
                     {
                       variants.map((v, vindex) => {
                         return (

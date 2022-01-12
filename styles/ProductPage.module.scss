@@ -80,28 +80,27 @@
   margin:0;
   padding: 0;
 
-  img
+  span
   {
     width:100%;
     height:auto;
     margin: 0 auto;
     display:block;
   }
+}
 
-  .productGallery
+.productGallery
+{
+  text-align: center;
+  margin-top:1rem;
+
+  div
   {
-    display: flex;
-    align-items: flex-start;
-    align-content: flex-start ;
-    justify-content: flex-start;
-    justify-items: flex-start;
-
-    img
-    {
-      width:25%;
-      margin: 10px 10px 0 0;
-    }
+    background: $medium_grey;
+    width:25%;
+    padding: 1rem;
   }
+
 }
 
 .productDescription
@@ -182,7 +181,6 @@
     width:1rem;
     height:auto;
     transform: rotate(180deg);
-    
   }
 }
 
