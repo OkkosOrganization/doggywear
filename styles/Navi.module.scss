@@ -25,6 +25,7 @@
   background:transparent;
   min-width: 0px;
   width:auto;
+
   &:hover
   {
     background:transparent;
@@ -42,6 +43,7 @@
     &:hover * {
       fill:var(--secondaryAccent);
     }
+    
   }
 
   .moon
@@ -50,6 +52,10 @@
     &:hover * {
       stroke:var(--secondaryAccent);
     }
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    stroke-width:2px;
+    fill:none;
   }
 }
 
