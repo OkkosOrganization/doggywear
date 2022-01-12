@@ -157,7 +157,7 @@ select{
   display: block;
   width: auto;
   min-width:64px;
-  border: 1px solid $darker_grey;
+  border: 1px solid var(--fg);
   height: 34px;
   margin-bottom: 10px;
   padding: 0 5px;

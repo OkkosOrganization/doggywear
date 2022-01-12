@@ -1,10 +1,17 @@
+.packageInfo
+{
+  color: var(--fg);
+  width: 100%;
+  text-align: center;
+  padding: 0rem;
+}
+
 .packageImages
 {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
-  margin: 0 -1rem;
-  
+  margin: 0 -1rem;  
 }
 
 .packageImage
@@ -19,9 +26,19 @@
 /* MEDIA QUERIES */
 /****************/
 @media all and (min-width: 640px) {
+  .packageInfo
+  {
+    padding-top:4rem;    
+  }
+  .packageImages
+  {
+    flex-direction: row;
+    margin: 0 -.5rem;
+  }
   .packageImage
   {
-    width:33%;
+    width:33.33%;
     margin: 0;
+    padding: 0 .5rem;
   }
 }
