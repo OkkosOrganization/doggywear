@@ -3,14 +3,15 @@ import Prismic from 'prismic-javascript';
 import { RichText } from 'prismic-reactjs';
 import { apiEndPoint } from '../../config/prismic';
 import { CartContext } from '../../components/CartContext';
-import styles from "../../styles/ProductPage.module.scss";
-import { SRLWrapper } from "simple-react-lightbox";
+import styles from '../../styles/ProductPage.module.scss';
+import { SRLWrapper } from 'simple-react-lightbox';
 import Head from 'next/head';
 import { getCurrentLocale } from '../../config/locales';
 import { BASE_URL, TITLE, TWITTER_HANDLE } from '../../config/env';
 import { ProductPackagingInfo } from '../../components/ProductPackagingInfo';
 import { TickIcon } from '../../components/icons/TickIcon';
 import Image from 'next/image';
+import { RelatedProducts } from '../../components/RelatedProducts';
 
 type ProductResults = {
   lang: string;
@@ -22,19 +23,17 @@ type ProductsResponse = {
 } | null;
 
 export async function getStaticPaths({ req, locales }) {
-
   let products: ProductsResponse = null;
 
   try {
     const prismicApi = await Prismic.getApi(apiEndPoint, { req: req });
-    products = await prismicApi.query(
+    products = (await prismicApi.query(
       Prismic.Predicates.at('document.type', 'product'),
       {
-        lang: '*'
+        lang: '*',
       }
-    ) as ProductsResponse;
-  }
-  catch (e) {
+    )) as ProductsResponse;
+  } catch (e) {
     console.log(e);
   }
 
@@ -44,68 +43,74 @@ export async function getStaticPaths({ req, locales }) {
       if (b.lang === getCurrentLocale(i).prismicLocale)
         paths.push({
           params: {
-            uid: String(b.uid)
+            uid: String(b.uid),
           },
-          locale: i
+          locale: i,
         });
     });
   });
 
   return {
     paths: paths,
-    fallback: false
+    fallback: false,
   };
 }
 
 export const getStaticProps = async (context) => {
-
   let product: unknown = null;
+  let relatedProducts: unknown = null;
 
   try {
     const uid = context.params.uid;
     const prismicApi = await Prismic.getApi(apiEndPoint, { req: context.req });
 
     product = await prismicApi.getByUID('product', uid);
-  }
-  catch (e) {
+
+    //FETCH ALL PRODUCTS FOR THE RELATED PRODUCTS COMPONENT
+    relatedProducts = (await prismicApi.query(
+      Prismic.Predicates.at('document.type', 'product'),
+      {
+        lang: '*',
+      }
+    )) as ProductsResponse;
+  } catch (e) {
     console.log(e);
   }
 
   return {
-    props:
-    {
-      product: product
+    props: {
+      product: product,
+      relatedProducts: relatedProducts,
     },
-    revalidate: 1
+    revalidate: 1,
   };
-}
+};
 
 const ProductPage = (props) => {
-
   const { addToCart, client } = React.useContext(CartContext);
   const [available, setAvailable] = useState(false);
-  const [chosenVariant, setChosenVariant] = useState("");
+  const [chosenVariant, setChosenVariant] = useState('');
 
   const options = {
     settings: {
-      overlayColor: "#fff",
+      overlayColor: '#fff',
       autoplaySpeed: 0,
       disableKeyboardControls: true,
       transitionSpeed: 200,
-      lightboxTransitionSpeed: 0.2
+      lightboxTransitionSpeed: 0.2,
     },
     buttons: {
-      backgroundColor: "#fff",
-      iconColor: "#fff",
+      backgroundColor: '#fff',
+      iconColor: '#fff',
       showDownloadButton: false,
       showFullscreenButton: false,
-      showThumbnailsButton: false
+      showThumbnailsButton: false,
     },
     caption: {
-      captionColor: "#fff",
-      captionFontFamily: "Roboto, sans-serif",
-      captionFontWeight: "300"
-    }
+      captionColor: '#fff',
+      captionFontFamily: 'Roboto, sans-serif',
+      captionFontWeight: '300',
+    },
   };
 
   const pid = props?.product?.data?.shopify?.id;
@@ -114,40 +119,33 @@ const ProductPage = (props) => {
   const variants = props?.product?.data?.shopify?.variants;
 
   useEffect(() => {
-
     const getProduct = async () => {
-
       try {
-        const variantIdBase64 = btoa("gid://shopify/Product/" + pid); //NOTE: THIS FETCHES PRODUCT NOT PRODUCTVARIANT  
+        const variantIdBase64 = btoa('gid://shopify/Product/' + pid); //NOTE: THIS FETCHES PRODUCT NOT PRODUCTVARIANT
         const product = await client.product.fetch(variantIdBase64);
         const isAvailable = product.availableForSale;
         setAvailable(isAvailable);
-      }
-      catch (e) {
+      } catch (e) {
         console.log(e);
       }
-    }
+    };
 
-    if (client)
-      getProduct();
-
+    if (client) getProduct();
   }, [client, pid]);
 
   useEffect(() => {
-
-    if (!chosenVariant && variants)
-      setChosenVariant(variants[0]?.id)
-
+    if (!chosenVariant && variants) setChosenVariant(variants[0]?.id);
   }, [chosenVariant, variants]);
 
   const variantChange = (e) => {
     setChosenVariant(e.target.value);
-  }
+  };
 
   const renderHead = () => {
-
     const title = `${TITLE} - Product - ${props.product.data.title[0].text}`;
-    const description = props.product.data.description.length ? props.product.data.description[0].text : "";
+    const description = props.product.data.description.length
+      ? props.product.data.description[0].text
+      : '';
     //let fbAppId = process.env.FB_APP_ID;
     const ogUrl = `${BASE_URL}/product/${props.product.uid}`;
     const ogImg = props.product.data.primary_image;
@@ -174,12 +172,10 @@ const ProductPage = (props) => {
         <meta name="twitter:image" content={ogImg} />
       </Head>
     );
-  }
+  };
 
   return (
-
     <section className={styles.container}>
-
       {renderHead()}
 
       <div className={styles.wrapper}>
@@ -191,70 +187,76 @@ const ProductPage = (props) => {
                   src={props.product.data.primary_image.url}
                   width={props.product.data.primary_image.dimensions.width}
                   height={props.product.data.primary_image.dimensions.height}
-                  layout='responsive'
+                  layout="responsive"
                   alt={'Primary product image'}
                 />
               </div>
-              {
-                props.product.data.secondary_image.url
-                  ?
-                  <div className={styles.productGallery}>
-                    <div className={'imageBg'}>
-                      <Image
-                        src={props.product.data.secondary_image.url}
-                        width={props.product.data.secondary_image.dimensions.width}
-                        height={props.product.data.secondary_image.dimensions.height}
-                        layout='responsive'
-                        alt={'Secondary product image'}                    
-                      />
-                    </div>
+              {props.product.data.secondary_image.url ? (
+                <div className={styles.productGallery}>
+                  <div className={'imageBg'}>
+                    <Image
+                      src={props.product.data.secondary_image.url}
+                      width={
+                        props.product.data.secondary_image.dimensions.width
+                      }
+                      height={
+                        props.product.data.secondary_image.dimensions.height
+                      }
+                      layout="responsive"
+                      alt={'Secondary product image'}
+                    />
                   </div>
-                  :
-                  null
-              }
+                </div>
+              ) : null}
             </SRLWrapper>
           </div>
-
         </div>
 
         <div className={styles.productDescription}>
-          <h1 className={styles.productTitle}>{props.product.data.title[0].text}</h1>
-          <div>
-            {RichText.render(props.product.data.description)}
-          </div>
+          <h1 className={styles.productTitle}>
+            {props.product.data.title[0].text}
+          </h1>
+          <div>{RichText.render(props.product.data.description)}</div>
           <div className={styles.price}>{parseFloat(price).toFixed(0)}€</div>
 
-          {
-            variants
-              ?
-              <div className={styles.variants}>
-                <span className={styles.variantsLabel}>CHOOSE {props.product.data.shopify.options[0].name}:</span>
+          {variants ? (
+            <div className={styles.variants}>
+              <span className={styles.variantsLabel}>
+                CHOOSE {props.product.data.shopify.options[0].name}:
+              </span>
 
-                <div className={styles.selectContainer}>
-                  <select onChange={variantChange} value={chosenVariant}>
-                    {
-                      variants.map((v, vindex) => {
-                        return (
-                          <option value={v.id} key={`variant_${vindex}`}>{v.title}</option>
-                        )
-                      })
-                    }
-                  </select>
-                  <TickIcon />
-                </div>
+              <div className={styles.selectContainer}>
+                <select onChange={variantChange} value={chosenVariant}>
+                  {variants.map((v, vindex) => {
+                    return (
+                      <option value={v.id} key={`variant_${vindex}`}>
+                        {v.title}
+                      </option>
+                    );
+                  })}
+                </select>
+                <TickIcon />
               </div>
-              :
-              null
-          }
+            </div>
+          ) : null}
 
-          <button onClick={() => available ? addToCart(chosenVariant) : null} disabled={!available}>Add to cart</button>
+          <button
+            onClick={() => (available ? addToCart(chosenVariant) : null)}
+            disabled={!available}
+          >
+            Add to cart
+          </button>
         </div>
 
         <ProductPackagingInfo />
 
+        <RelatedProducts
+          products={props?.relatedProducts?.results}
+          exclude={props?.product?.uid}
+        />
       </div>
-    </section >
+    </section>
   );
-}
+};
 
 export default ProductPage;
