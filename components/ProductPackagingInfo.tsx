@@ -4,7 +4,7 @@ import Image from 'next/image';
 export const ProductPackagingInfo = () => {
   return (
     <div className={styles.packageInfo}>
-      <h2>Packaging</h2>
+      <h2 className={styles.title}>Packaging</h2>
       <p>
         All clothing items are wrapped in protective paper, carefully packed in
         hand-printed cardboard boxes and then shipped out to our customers.

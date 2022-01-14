@@ -1,0 +1,71 @@
+@import '_vars.scss';
+
+.product {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* IMAGES */
+.productImage {
+  margin: 0 0 0.5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.hiddenImage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* PRODUCT INFO */
+.productTitle {
+  font-size: 1.875rem;
+  font-weight: 300;
+  margin: 0 0 0.5rem 0;
+  color: var(--fg);
+}
+.productPrice {
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+  font-size: 1em;
+  text-transform: uppercase;
+  letter-spacing: 0.0075rem;
+  color: var(--fg);
+}
+.sizeOptions {
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  opacity: 0.75;
+  margin: 0 0 0.5rem 0;
+  color: var(--fg);
+}
+.sizeOption {
+  margin: 0 0.125rem;
+}
+.hasImages {
+  cursor: pointer;
+  cursor: hand;
+}
+
+/* PAGER */
+.pager {
+  position: relative;
+  margin: 0 0 0.5rem 0;
+}
+.pagerItem {
+  display: inline-block;
+  margin: 0 0.1875rem;
+  border: 1px solid white;
+  border-radius: 100%;
+  width: 0.6875rem;
+  height: 0.6875rem;
+  background: transparent;
+}
+.active {
+  border-color: var(--secondaryAccent);
+  background: var(--secondaryAccent);
+}

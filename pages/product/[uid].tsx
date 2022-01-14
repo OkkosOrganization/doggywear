@@ -179,37 +179,33 @@ const ProductPage = (props) => {
       {renderHead()}
 
       <div className={styles.wrapper}>
-        <div className={styles.productInfo}>
-          <div className={`${styles.productImages}`}>
-            <SRLWrapper options={options}>
-              <div className={`${styles.imageBg} imageBg`}>
-                <Image
-                  src={props.product.data.primary_image.url}
-                  width={props.product.data.primary_image.dimensions.width}
-                  height={props.product.data.primary_image.dimensions.height}
-                  layout="responsive"
-                  alt={'Primary product image'}
-                />
-              </div>
-              {props.product.data.secondary_image.url ? (
-                <div className={styles.productGallery}>
-                  <div className={'imageBg'}>
-                    <Image
-                      src={props.product.data.secondary_image.url}
-                      width={
-                        props.product.data.secondary_image.dimensions.width
-                      }
-                      height={
-                        props.product.data.secondary_image.dimensions.height
-                      }
-                      layout="responsive"
-                      alt={'Secondary product image'}
-                    />
-                  </div>
+        <div className={`${styles.productImages}`}>
+          <SRLWrapper options={options}>
+            <div className={`${styles.imageBg} imageBg`}>
+              <Image
+                src={props.product.data.primary_image.url}
+                width={props.product.data.primary_image.dimensions.width}
+                height={props.product.data.primary_image.dimensions.height}
+                layout="responsive"
+                alt={'Primary product image'}
+              />
+            </div>
+            {props.product.data.secondary_image.url ? (
+              <div className={styles.productGallery}>
+                <div className={'imageBg'}>
+                  <Image
+                    src={props.product.data.secondary_image.url}
+                    width={props.product.data.secondary_image.dimensions.width}
+                    height={
+                      props.product.data.secondary_image.dimensions.height
+                    }
+                    layout="responsive"
+                    alt={'Secondary product image'}
+                  />
                 </div>
-              ) : null}
-            </SRLWrapper>
-          </div>
+              </div>
+            ) : null}
+          </SRLWrapper>
         </div>
 
         <div className={styles.productDescription}>
@@ -253,6 +249,7 @@ const ProductPage = (props) => {
         <RelatedProducts
           products={props?.relatedProducts?.results}
           exclude={props?.product?.uid}
+          isMobile={props.isMobile}
         />
       </div>
     </section>
