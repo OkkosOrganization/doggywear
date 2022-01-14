@@ -1,186 +1,137 @@
 @import '_vars.scss';
 
-.container
-{
+.container {
   max-width: $maxWidth;
   margin: 0 auto;
-  padding:2rem 0;
+  padding: 2rem 0;
   display: flex;
   flex-wrap: wrap;
 }
 
-.smallHeading
-{
+.smallHeading {
   text-transform: uppercase;
-  font-size:.6875em;
+  font-size: 0.6875em;
   letter-spacing: 2px;
-  color:var(--fg);
+  color: var(--fg);
   margin: 0 0 1rem 0;
 }
 
-.wrapper
-{
+.wrapper {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 0 1rem;
+  overflow: hidden;
 }
 
-.productInfo
-{
-  .info
-  {
-    width: 100%;
-    margin:0 0 2rem 0;
-    color:var(--bg);
-    padding: 0 20px;
-
-    .description
-    {
-      margin: 0 0 2rem 0;
-      border-bottom: 1px solid $medium_grey;
-      padding-bottom:1rem;
-
-      p
-      {
-        font-size: .875rem;
-        margin: 0 ;
-      }
-    }
-
-
-    .options
-    {
-      margin-bottom: 1rem;
-    }
-
-    .addToCart
-    {
-      width:100%;
-      margin-bottom:1rem;
-    }
-  }
-}
-
-.productTitle
-{
-  font-size:3rem;
+.productTitle {
+  font-size: 3rem;
   margin: 20px 0 10px 0;
 }
 
-.price
-{
+.price {
   font-weight: 700;
   margin: 0 0 20px 0;
 }
 
-.productImages
-{
+.productImages {
   width: 100%;
-  margin:0;
+  margin: 0;
   padding: 0;
 
-  span
-  {
-    width:100%;
-    height:auto;
+  span {
+    width: 100%;
+    height: auto;
     margin: 0 auto;
-    display:block;
+    display: block;
   }
 }
 
-.productGallery
-{
+.productGallery {
   text-align: center;
-  margin-top:1rem;
+  margin-top: 1rem;
 
-  div
-  {
+  div {
     background: $medium_grey;
-    width:25%;
+    width: 25%;
     padding: 1rem;
   }
-
 }
 
-.productDescription
-{
-  width:100%;
-  padding:2rem 0rem;
-  min-height:400px;
-  text-align:center;
+.productDescription {
+  width: 100%;
+  padding: 2rem 0rem;
+  min-height: 400px;
+  text-align: center;
   color: var(--fg);
 
-  .wrapper
-  {
+  .wrapper {
     display: block;
     text-align: center;
-    font-size:1.375em;
-    line-height:1.5em;
+    font-size: 1.375em;
+    line-height: 1.5em;
   }
 
-  p
-  {
-    width:100%;
+  p {
+    width: 100%;
     margin: 0 0 1rem 0;
 
-    strong
-    {
-      font-size:.75rem;
+    strong {
+      font-size: 0.75rem;
       //font-weight:700;
     }
   }
 
-  h1
-  {
-    width:100%;
+  h1 {
+    width: 100%;
     margin: 0 0 1rem 0;
-    font-size:2.5rem;
-    font-weight:300;
+    font-size: 2.5rem;
+    font-weight: 300;
   }
-
 }
 
-.imageBg{
+.imageBg {
   background: $medium_grey;
-  padding:2rem;
+  padding: 2rem;
 }
 
-.shadow img
-{
-  box-shadow:5px 5px 5px 0px rgba($black, .25);
-}
-
-.variants
-{
+.variants {
   display: flex;
   justify-content: center;
   margin: 0 0 1rem 0;
 
-  span
-  {
-    font-size: .75rem;
+  span {
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.025rem;
-    margin:0 1rem 0 0;
-    padding:0;
+    margin: 0 1rem 0 0;
+    padding: 0;
     line-height: 34px;
   }
 }
 
-.selectContainer
-{
+.selectContainer {
   position: relative;
-  width:5rem;
+  width: 5rem;
 
-  svg
-  {
+  svg {
     position: absolute;
-    right:1.5rem;
-    top:.75rem;
-    width:1rem;
-    height:auto;
+    right: 1.5rem;
+    top: 0.75rem;
+    width: 1rem;
+    height: auto;
     transform: rotate(180deg);
+    transform-origin: 50% 50%;
+  }
+
+  &:hover select {
+    border-color: var(--secondaryAccent);
+    color: var(--secondaryAccent);
+  }
+
+  &:hover svg {
+    fill: var(--secondaryAccent);
   }
 }
 
@@ -188,79 +139,54 @@
 /* MEDIA QUERIES */
 /****************/
 @media all and (min-width: 640px) {
-
-  .wrapper{
+  .wrapper {
     padding: 0 1rem;
     flex-direction: row;
   }
 
-  .productDescription
-  {
-    text-align:left;
-    width:50%;
+  .productDescription {
+    text-align: left;
+    width: 50%;
   }
 
-  .productInfo
-  {
-    width:50%;
-
-    .info {
-      width: 50%;
-      margin:1rem 0 3rem 0;
-      padding: 0 3rem 0 0;
-    }
-  }
-
-  .variants
-  {
+  .variants {
     justify-content: flex-start;
   }
 
-  .productImages
-  {
+  .productImages {
+    width: 50%;
+
     padding: 2rem 2rem 2rem 0;
 
-    img
-    {
-      width:100%;
-      height:auto;
-      margin:0 auto 0 auto;
+    img {
+      width: 100%;
+      height: auto;
+      margin: 0 auto 0 auto;
     }
   }
 
-
-  .relatedProducts
-  {
-
+  .relatedProducts {
     max-width: $maxWidth;
 
-    .products
-    {
+    .products {
       display: flex;
       flex-wrap: wrap;
 
-      .product
-      {
-        width:50%;
+      .product {
+        width: 50%;
       }
     }
   }
-
 }
-
 
 @media all and (min-width: 960px) {
-.productPage
-{
-  .relatedProducts
-  {
-    .products
-    {
-      .product
-      {
-        width:25%;
+  .productPage {
+    .relatedProducts {
+      .products {
+        .product {
+          width: 25%;
+        }
       }
     }
   }
-}
 }
