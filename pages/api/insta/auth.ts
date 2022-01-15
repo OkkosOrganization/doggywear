@@ -5,6 +5,11 @@ const APP_ID = '934906070506923';
 const APP_SECRET = '27f20da90dfbc94abe998130008187dd';
 const REDIRECT_URI = 'https://doggywear.shop/api/insta/token';
 
+type ApiResponse = {
+  access_token?:string;
+  user_id?:string
+}
+
 const authHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   let code = String(req.query?.code);
   if(code.includes('#_'))
@@ -24,8 +29,8 @@ const authHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       method:'POST',
       body: formData,
     });
-    const json = await res.json();
-    token = json?.access_token;    
+    const json = await res.json() as ApiResponse;
+    token = json.access_token;    
   }
   catch(e){
     console.log(e);
