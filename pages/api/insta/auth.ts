@@ -7,7 +7,8 @@ const REDIRECT_URI = 'https://doggywear.shop/api/insta/auth';
 
 type ApiResponse = {
   access_token?:string;
-  user_id?:string
+  user_id?:string;
+  expires_in?:string;
 }
 
 const authHandler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -15,29 +16,44 @@ const authHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if(code.includes('#_'))
     code = code.replace('#_', '');
 
-  const endPoint = `https://api.instagram.com/oauth/access_token`;
-  const formData = new URLSearchParams();
-  formData.append('client_id', APP_ID);
-  formData.append('client_secret', APP_SECRET);
-  formData.append('redirect_uri', REDIRECT_URI);
-  formData.append('grant_type', 'authorization_code');
-  formData.append('code', code);
   let token = '';
+  let longToken = '';  
+  let longTokenExpires = '';
+
+  const tokenEndPoint = `https://api.instagram.com/oauth/access_token`;
+  const tokenFormData = new URLSearchParams();
+  tokenFormData.append('client_id', APP_ID);
+  tokenFormData.append('client_secret', APP_SECRET);
+  tokenFormData.append('redirect_uri', REDIRECT_URI);
+  tokenFormData.append('grant_type', 'authorization_code');
+  tokenFormData.append('code', code);
 
   try{
-     const res = await fetch(endPoint, {
+    //GET SHORT-LIVED TOKEN
+    const res = await fetch(tokenEndPoint, {
       method:'POST',
-      body: formData,
+      body: tokenFormData,
     });
     const json = await res.json() as ApiResponse;
-    token = json.access_token;    
+    token = json?.access_token;    
+
+    //GET LONG-LIVED TOKEN
+    const longTokenEndPoint = `https://graph.instagram.com/access_token?grant_type=${'ig_exchange_token'}&client_secret=${APP_SECRET}&access_token=${token}`;
+    const longTokenRes = await fetch(longTokenEndPoint, {method:'GET'});
+    const longTokenJson = await longTokenRes.json() as ApiResponse;
+    longToken = longTokenJson?.access_token;
+    longTokenExpires = longTokenJson?.expires_in;
   }
   catch(e){
     console.log(e);
     return res.status(400).json({ error: e });
   }
 
-  res.status(200).json({ token: token });
+  res.status(200).json({ 
+    token: token,
+    longToken: longToken,
+    longTokenExpires: longTokenExpires
+   });
 };
 
 export default authHandler;
