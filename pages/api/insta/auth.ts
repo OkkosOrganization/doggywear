@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 
 const APP_ID = '934906070506923';
 const APP_SECRET = '27f20da90dfbc94abe998130008187dd';
-const REDIRECT_URI = 'https://doggywear.shop/api/insta/token';
+const REDIRECT_URI = 'https://doggywear.shop/api/insta/auth';
 
 type ApiResponse = {
   access_token?:string;
