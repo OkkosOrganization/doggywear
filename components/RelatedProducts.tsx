@@ -40,7 +40,7 @@ export const RelatedProducts = ({
           .map((p, pindex) => {
             return (
               <ProductCard
-                key={'RelatedProduct_' + pindex}
+                key={'RelatedProduct_' + p.uid}
                 data={p}
                 mouseEnterHandler={mouseEnterHandler}
                 mouseLeaveHandler={mouseLeaveHandler}

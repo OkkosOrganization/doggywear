@@ -11,10 +11,10 @@ import {
   OG_IMG,
 } from '../config/env';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { gsap } from 'gsap';
 import { ProductCard } from '../components/ProductCard';
+import { IllustrationCard } from '../components/IllustrationCard';
 
 export const getStaticProps = async ({ req, locale }) => {
   let products: unknown = null;
@@ -162,27 +162,3 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
   );
 };
 export default Frontpage;
-
-type IllustrationCardProps = {
-  data: any;
-  mouseEnterHandler: (e) => void;
-  mouseLeaveHandler: (e) => void;
-};
-const IllustrationCard = (props: IllustrationCardProps): JSX.Element => {
-  return (
-    <div
-      className={`${styles.illustration} gridItem`}
-      id={props.data.id}
-      onMouseEnter={() => null} //props.mouseEnterHandler(props.data.id)}
-      onMouseLeave={() => null} //props.mouseLeaveHandler(props.data.id)}
-    >
-      <Image
-        src={props.data?.data?.image?.url}
-        layout="responsive"
-        width={props.data?.data?.image?.dimensions?.width}
-        height={props.data?.data?.image?.dimensions?.height}
-        alt={'Illustration image'}
-      />
-    </div>
-  );
-};
