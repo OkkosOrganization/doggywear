@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import fetch from 'node-fetch';
-import { client } from '../../../config/redis';
+import { getClient } from '../../../config/redis';
 import {
   INSTAGRAM_APP_ID,
   INSTAGRAM_APP_SECRET,
@@ -21,7 +21,7 @@ const authHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (code.includes('#_')) code = code.replace('#_', '');
 
   //CONNECT REDIS
-  await client.connect();
+  const client = await getClient();
 
   let token = '';
   let longToken = '';
