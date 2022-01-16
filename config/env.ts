@@ -16,5 +16,6 @@ export const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL;
 export const INSTAGRAM_APP_ID = process.env.INSTAGRAM_APP_ID;
 export const INSTAGRAM_APP_SECRET = process.env.INSTAGRAM_APP_SECRET;
 export const INSTAGRAM_REDIRECT_URL = process.env.INSTAGRAM_REDIRECT_URL;
+export const INSTAGRAM_USER_NAME = process.env.NEXT_PUBLIC_INSTAGRAM_USER_NAME;
 export const CURRENCY = process.env.NEXT_PUBLIC_CURRENCY;
 export const REDIS_URL = process.env.REDIS_URL;

@@ -1,0 +1,25 @@
+.instaContainer {
+  padding: 4rem 0;
+  color: var(--fg);
+  text-align: center;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 300;
+  margin: 0 0 0.25rem 0;
+  color: var(--fg);
+}
+
+.link a {
+  font-weight: 300;
+  font-size: 0.6875rem;
+  opacity: 0.75;
+  margin: 0 0 0.5rem 0;
+  padding: 0;
+  color: var(--fg);
+
+  &:hover {
+    color: var(--secondaryAccent);
+  }
+}
