@@ -17,13 +17,12 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
   const secondaryImage = props.data?.data?.secondary_image;
   const hasImages = primaryImage.url && secondaryImage.url;
 
-  const [image, setImage] = useState(primaryImage);
-  const [showPager, setShowPager] = useState<boolean>(props.isMobile);
+  const [image, setImage] = useState(primaryImage.url);
 
   const flipImage = () => {
     if (primaryImage.url && secondaryImage.url) {
-      if (image === secondaryImage) setImage(primaryImage);
-      else setImage(secondaryImage);
+      if (image === secondaryImage.url) setImage(primaryImage.url);
+      else setImage(secondaryImage.url);
     }
   };
 
@@ -36,20 +35,14 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
         `}
         onClick={flipImage}
         onMouseEnter={() => {
-          if (!props.isMobile) {
-            setShowPager(!showPager);
-            props.mouseEnterHandler(props.data.id);
-          }
+          props.mouseEnterHandler(props.data.id);
         }}
         onMouseLeave={() => {
-          if (!props.isMobile) {
-            setShowPager(!showPager);
-            props.mouseLeaveHandler(props.data.id);
-          }
+          props.mouseLeaveHandler(props.data.id);
         }}
       >
         {primaryImage.url && (
-          <div className={image === primaryImage ? '' : styles.hiddenImage}>
+          <div className={image === primaryImage.url ? '' : styles.hiddenImage}>
             <Image
               src={primaryImage.url}
               width={primaryImage.dimensions?.width}
@@ -61,7 +54,9 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
         )}
 
         {secondaryImage.url && (
-          <div className={image === secondaryImage ? '' : styles.hiddenImage}>
+          <div
+            className={image === secondaryImage.url ? '' : styles.hiddenImage}
+          >
             <Image
               src={secondaryImage.url}
               width={secondaryImage.dimensions?.width}
@@ -75,12 +70,12 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
       <div className={`${styles.pager} ${!hasImages ? 'hidden' : ''} pager`}>
         <span
           className={`${styles.pagerItem} ${
-            image.url === primaryImage.url ? styles.active : ''
+            image === primaryImage.url ? styles.active : ''
           }`}
         ></span>
         <span
           className={`${styles.pagerItem} ${
-            image.url === secondaryImage.url ? styles.active : ''
+            image === secondaryImage.url ? styles.active : ''
           }`}
         ></span>
       </div>
