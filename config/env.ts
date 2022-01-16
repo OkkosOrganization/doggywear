@@ -11,5 +11,12 @@ export const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION;
 export const TWITTER_HANDLE = process.env.NEXT_PUBLIC_TWITTER_HANDLE
 export const OG_IMG = process.env.NEXT_PUBLIC_OG_IMG;
 export const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL;
+export const INSTAGRAM_APP_ID = process.env.INSTAGRAM_APP_ID;
+export const INSTAGRAM_APP_SECRET = process.env.INSTAGRAM_APP_SECRET;
+export const INSTAGRAM_REDIRECT_URL = process.env.INSTAGRAM_REDIRECT_URL;
 export const CURRENCY = process.env.NEXT_PUBLIC_CURRENCY;
+export const REDIS_HOST = process.env.REDIS_HOST;
+export const REDIS_PORT = process.env.REDIS_PORT;
+export const REDIS_PASSWORD = process.env.REDIS_PASSWORD;
+export const REDIS_URL = process.env.REDIS_URL;
 
