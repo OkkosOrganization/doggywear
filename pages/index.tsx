@@ -12,7 +12,7 @@ import {
 } from '../config/env';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { gsap } from 'gsap';
 import { ProductCard } from '../components/ProductCard';
 
@@ -46,6 +46,10 @@ export const getStaticProps = async ({ req, locale }) => {
 
 const Frontpage = ({ products, illustrations, frontpage, ww }) => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  const InstaFeed = dynamic(() => import('../components/InstaFeed'), {
+    suspense: false,
+  });
 
   useEffect(() => {
     const isTouchDevice = () => {
@@ -153,6 +157,7 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
           })}
         </Masonry>
       </div>
+      <InstaFeed />
     </div>
   );
 };
