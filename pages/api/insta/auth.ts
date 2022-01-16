@@ -47,7 +47,7 @@ const authHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     userId = json?.user_id;
 
     //GET LONG-LIVED TOKEN
-    const longTokenEndPoint = `https://graph.instagram.com/access_token?grant_type=${'ig_exchange_token'}&client_secret=${APP_SECRET}&access_token=${token}`;
+    const longTokenEndPoint = `https://graph.instagram.com/access_token?grant_type=${'ig_exchange_token'}&client_secret=${INSTAGRAM_APP_SECRET}&access_token=${token}`;
     const longTokenRes = await fetch(longTokenEndPoint, { method: 'GET' });
     const longTokenJson = (await longTokenRes.json()) as ApiResponse;
     longToken = longTokenJson?.access_token;
