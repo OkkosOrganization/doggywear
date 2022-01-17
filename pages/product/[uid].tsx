@@ -12,6 +12,8 @@ import { ProductPackagingInfo } from '../../components/ProductPackagingInfo';
 import { TickIcon } from '../../components/icons/TickIcon';
 import Image from 'next/image';
 import { RelatedProducts } from '../../components/RelatedProducts';
+import { getProductVariants } from '../../config/shopify';
+import { LoadingIndicator } from '../../components/LoadingIndicator';
 
 type ProductResults = {
   lang: string;
@@ -86,10 +88,20 @@ export const getStaticProps = async (context) => {
   };
 };
 
-const ProductPage = (props) => {
+type ProductPageProps = {
+  ww: number;
+  isTouchDevice: boolean;
+  product: any;
+  relatedProducts: any;
+};
+
+const ProductPage = (props: ProductPageProps): JSX.Element => {
+  const pid = props?.product?.data?.shopify?.id;
+  const price = props?.product?.data?.shopify?.variants[0]?.price;
+
   const { addToCart, client } = React.useContext(CartContext);
-  const [available, setAvailable] = useState(false);
-  const [chosenVariant, setChosenVariant] = useState('');
+  const [variants, setVariants] = useState([]);
+  const [chosenVariant, setChosenVariant] = useState(null);
 
   const options = {
     settings: {
@@ -113,18 +125,16 @@ const ProductPage = (props) => {
     },
   };
 
-  const pid = props?.product?.data?.shopify?.id;
-  //const vid = props?.product?.data?.shopify?.variants[0]?.id;
-  const price = props?.product?.data?.shopify?.variants[0]?.price;
-  const variants = props?.product?.data?.shopify?.variants;
-
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const variantIdBase64 = btoa('gid://shopify/Product/' + pid); //NOTE: THIS FETCHES PRODUCT NOT PRODUCTVARIANT
-        const product = await client.product.fetch(variantIdBase64);
-        const isAvailable = product.availableForSale;
-        setAvailable(isAvailable);
+        const json = await getProductVariants(pid, [
+          'title',
+          'id',
+          'availableForSale',
+        ]);
+        setVariants(json.data.node.variants.edges);
+        setChosenVariant(json.data.node.variants.edges[0]);
       } catch (e) {
         console.log(e);
       }
@@ -133,12 +143,9 @@ const ProductPage = (props) => {
     if (client) getProduct();
   }, [client, pid]);
 
-  useEffect(() => {
-    if (!chosenVariant && variants) setChosenVariant(variants[0]?.id);
-  }, [chosenVariant, variants]);
-
   const variantChange = (e) => {
-    setChosenVariant(e.target.value);
+    const newVariant = variants.filter((v) => v.node.id === e.target.value);
+    setChosenVariant(newVariant[0]);
   };
 
   const renderHead = () => {
@@ -215,33 +222,52 @@ const ProductPage = (props) => {
           <div>{RichText.render(props.product.data.description)}</div>
           <div className={styles.price}>{parseFloat(price).toFixed(0)}€</div>
 
-          {variants ? (
-            <div className={styles.variants}>
-              <span className={styles.variantsLabel}>
-                CHOOSE {props.product.data.shopify.options[0].name}:
-              </span>
+          <div className={styles.variantsContainer}>
+            {!variants || !chosenVariant ? (
+              <LoadingIndicator showBg={false} />
+            ) : (
+              <div className={styles.variants}>
+                <div className={styles.top}>
+                  <span className={styles.variantsLabel}>
+                    CHOOSE&nbsp;{props.product.data.shopify.options[0].name}:
+                  </span>
+                  <div className={styles.selectContainer}>
+                    <select
+                      onChange={variantChange}
+                      value={chosenVariant?.node?.id}
+                    >
+                      {variants.map((v, vindex) => {
+                        return (
+                          <option
+                            value={v.node.id}
+                            key={`variant_${v.node.id}`}
+                          >
+                            {v.node.title}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <TickIcon />
+                  </div>
+                </div>
 
-              <div className={styles.selectContainer}>
-                <select onChange={variantChange} value={chosenVariant}>
-                  {variants.map((v, vindex) => {
-                    return (
-                      <option value={v.id} key={`variant_${vindex}`}>
-                        {v.title}
-                      </option>
-                    );
-                  })}
-                </select>
-                <TickIcon />
+                <div className={styles.bottom}>
+                  <button
+                    onClick={() =>
+                      chosenVariant.node.availableForSale
+                        ? addToCart(chosenVariant)
+                        : null
+                    }
+                    disabled={!chosenVariant.node.availableForSale}
+                  >
+                    {chosenVariant.node.availableForSale
+                      ? 'Add to cart'
+                      : 'Out of stock'}
+                  </button>
+                </div>
               </div>
-            </div>
-          ) : null}
-
-          <button
-            onClick={() => (available ? addToCart(chosenVariant) : null)}
-            disabled={!available}
-          >
-            Add to cart
-          </button>
+            )}
+          </div>
         </div>
 
         <ProductPackagingInfo />
@@ -249,7 +275,7 @@ const ProductPage = (props) => {
         <RelatedProducts
           products={props?.relatedProducts?.results}
           exclude={props?.product?.uid}
-          isMobile={props.isMobile}
+          isMobile={props.isTouchDevice}
         />
       </div>
     </section>

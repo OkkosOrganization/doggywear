@@ -1,8 +1,7 @@
-import { useEffect } from 'react';
 import styles from '../styles/RelatedProducts.module.scss';
-import productStyles from '../styles/FrontPage.module.scss';
 import { ProductCard } from './ProductCard';
 import { gsap } from 'gsap';
+import { blurOthers, unBlur } from '../config/utils';
 
 type RelatedProductsProps = {
   products: any;
@@ -16,15 +15,13 @@ export const RelatedProducts = ({
 }: RelatedProductsProps): JSX.Element => {
   const mouseEnterHandler = (id: string) => {
     if (!isMobile) {
-      //BLUR ALL OTHERS BUT THIS ITEM
       const selector = `.gridItem:not(#${id})`;
-      gsap.to(selector, { filter: 'blur(2px)', autoAlpha: 0.5, duration: 0.3 });
+      blurOthers(selector);
     }
   };
 
   const mouseLeaveHandler = () => {
-    const items = document.querySelectorAll('.gridItem');
-    gsap.to(items, { filter: 'blur(0px)', autoAlpha: 1, duration: 0.3 });
+    unBlur('.gridItem');
   };
 
   if (!products) return null;
@@ -44,7 +41,6 @@ export const RelatedProducts = ({
                 data={p}
                 mouseEnterHandler={mouseEnterHandler}
                 mouseLeaveHandler={mouseLeaveHandler}
-                isMobile={isMobile}
               />
             );
           })}

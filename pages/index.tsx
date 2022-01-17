@@ -12,9 +12,9 @@ import {
 } from '../config/env';
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { gsap } from 'gsap';
 import { ProductCard } from '../components/ProductCard';
 import { IllustrationCard } from '../components/IllustrationCard';
+import { blurOthers, unBlur } from '../config/utils';
 
 export const getStaticProps = async ({ req, locale }) => {
   let products: unknown = null;
@@ -44,23 +44,36 @@ export const getStaticProps = async ({ req, locale }) => {
   };
 };
 
-const Frontpage = ({ products, illustrations, frontpage, ww }) => {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
+type InstaJson = {
+  data?: any[];
+};
+
+const Frontpage = ({
+  products,
+  illustrations,
+  frontpage,
+  ww,
+  isTouchDevice,
+}) => {
+  const [feed, setFeed] = useState<InstaJson | null>(null);
 
   const InstaFeed = dynamic(() => import('../components/InstaFeed'), {
     suspense: false,
   });
 
   useEffect(() => {
-    const isTouchDevice = () => {
-      return (
-        'ontouchstart' in window ||
-        navigator.maxTouchPoints > 0 ||
-        navigator.msMaxTouchPoints > 0
-      );
+    const getFeed = async () => {
+      try {
+        const res = await fetch('/api/insta/feed');
+        const json = (await res.json()) as InstaJson;
+        setFeed(json);
+        console.log(json);
+      } catch (e) {
+        console.log(e);
+      }
     };
-    if (ww < 768 && isTouchDevice()) setIsMobile(true);
-  }, [ww]);
+    getFeed();
+  }, []);
 
   const renderHead = () => {
     const title = `${TITLE} - Products`;
@@ -100,16 +113,14 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
   };
 
   const mouseEnterHandler = (id: string) => {
-    if (!isMobile) {
-      //BLUR ALL OTHERS BUT THIS ITEM
+    if (!isTouchDevice) {
       const selector = `.gridItem:not(#${id})`;
-      gsap.to(selector, { filter: 'blur(2px)', autoAlpha: 0.5, duration: 0.3 });
+      blurOthers(selector);
     }
   };
 
   const mouseLeaveHandler = () => {
-    const items = document.querySelectorAll('.gridItem');
-    gsap.to(items, { filter: 'blur(0px)', autoAlpha: 1, duration: 0.3 });
+    unBlur('.gridItem');
   };
 
   return (
@@ -138,7 +149,6 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
                 <ProductCard
                   key={'product_' + index}
                   data={data}
-                  isMobile={isMobile}
                   mouseEnterHandler={mouseEnterHandler}
                   mouseLeaveHandler={mouseLeaveHandler}
                 />
@@ -157,7 +167,7 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
           })}
         </Masonry>
       </div>
-      <InstaFeed />
+      <InstaFeed feed={feed} />
     </div>
   );
 };

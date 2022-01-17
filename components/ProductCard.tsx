@@ -6,7 +6,6 @@ import Link from 'next/link';
 
 type ProductCardProps = {
   data: any;
-  isMobile: boolean;
   mouseEnterHandler: (e) => void;
   mouseLeaveHandler: (e) => void;
 };
