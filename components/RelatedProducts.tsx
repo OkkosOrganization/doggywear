@@ -36,12 +36,16 @@ export const RelatedProducts = ({
           })
           .map((p, pindex) => {
             return (
-              <ProductCard
+              <div
+                className={styles.scrollerItem}
                 key={'RelatedProduct_' + p.uid}
-                data={p}
-                mouseEnterHandler={mouseEnterHandler}
-                mouseLeaveHandler={mouseLeaveHandler}
-              />
+              >
+                <ProductCard
+                  data={p}
+                  mouseEnterHandler={mouseEnterHandler}
+                  mouseLeaveHandler={mouseLeaveHandler}
+                />
+              </div>
             );
           })}
       </div>

@@ -7,7 +7,7 @@
 
 /* IMAGES */
 .productImage {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.25rem 0;
   position: relative;
   overflow: hidden;
 }
@@ -54,12 +54,15 @@
 /* PAGER */
 .pager {
   position: relative;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.25rem 0;
+}
+.hide {
+  opacity: 0;
 }
 .pagerItem {
   display: inline-block;
   margin: 0 0.1875rem;
-  border: 1px solid white;
+  border: 1px solid var(--fg);
   border-radius: 100%;
   width: 0.6875rem;
   height: 0.6875rem;
