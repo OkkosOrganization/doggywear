@@ -1,28 +1,16 @@
-import { useEffect, useState } from 'react';
+import { memo } from 'react';
 import { INSTAGRAM_URL, INSTAGRAM_USER_NAME } from '../config/env';
 import styles from '../styles/Insta.module.scss';
 
-type InstaJson = {
-  data?: any[];
+type InstaProps = {
+  feed?: {
+    data?: any[];
+  };
 };
-
-const InstaFeed = (): JSX.Element => {
-  const [feed, setFeed] = useState<InstaJson | null>(null);
-  useEffect(() => {
-    const getFeed = async () => {
-      try {
-        const res = await fetch('/api/insta/feed');
-        const json = (await res.json()) as InstaJson;
-        setFeed(json);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getFeed();
-  }, []);
-
-  if (!feed) return null;
-
+const compareProps = (prevProps, nextProps) => {
+  return prevProps.feed.data.length === nextProps.feed.data.length;
+};
+const InstaFeed = memo((props: InstaProps): JSX.Element => {
   return (
     <div className={styles.instaContainer}>
       <h3 className={styles.title}>Follow Doggy Wear on Instagram</h3>
@@ -31,15 +19,28 @@ const InstaFeed = (): JSX.Element => {
           @{INSTAGRAM_USER_NAME}
         </a>
       </h4>
-      {feed?.data.length ? (
-        feed?.data.map((p, pindex) => {
-          <div key={`${'post'} + pindex`}>{JSON.stringify(p)}</div>;
-        })
-      ) : (
-        <div>No posts</div>
-      )}
+      <div className={styles.instaGrid}>
+        {props?.feed?.data.length
+          ? props?.feed?.data
+              .filter((p, pindex) => p.media_type === 'IMAGE')
+              .map((p, pindex) => {
+                return (
+                  <a
+                    href={p?.permalink}
+                    target={'_blank'}
+                    rel={'nofollow noreferrer'}
+                    className={styles.instaPost}
+                    key={`${'post_'}${pindex}`}
+                    style={{
+                      backgroundImage: `url(${p?.media_url})`,
+                    }}
+                  ></a>
+                );
+              })
+          : null}
+      </div>
     </div>
   );
-};
-
+}, compareProps);
+InstaFeed.displayName = 'InstaFeed';
 export default InstaFeed;

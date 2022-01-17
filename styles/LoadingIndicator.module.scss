@@ -1,15 +1,22 @@
 @import './_vars.scss';
-.loaderContainer
-{
-  position:absolute;
-  left:0;right:0;top:0;bottom:0;
-  z-index: 1000; 
-  background:rgba($white,.5);
+.loaderContainer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+.showBg {
+  background: rgba($white, 0.5);
+}
+.noBg {
+  background: transparent;
 }
 .loader {
-  position:absolute;
-  left:50%;
-  top:50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
   margin: -2rem 0 0 -2rem;
   display: inline-block;
   width: 4rem;
@@ -17,7 +24,7 @@
 }
 .loader div {
   position: absolute;
-  border: .5rem solid var(--secondaryAccent);
+  border: 0.5rem solid var(--secondaryAccent);
   opacity: 1;
   border-radius: 50%;
   animation: ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
@@ -32,14 +39,14 @@
     width: 4rem;
     height: 4rem;
     opacity: 1;
-    transform:scale(0);
+    transform: scale(0);
   }
   100% {
     top: 0rem;
     left: 0rem;
     width: 4rem;
-    height: 4rem;    
+    height: 4rem;
     opacity: 0;
-    transform:scale(1);
+    transform: scale(1);
   }
 }

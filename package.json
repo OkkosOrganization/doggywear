@@ -27,7 +27,8 @@
     "sanitize.scss": "^1.0.0",
     "sass": "^1.45.0",
     "shopify-buy": "^2.13.0",
-    "simple-react-lightbox": "^3.6.9-0"
+    "simple-react-lightbox": "^3.6.9-0",
+    "ts-debounce": "^4.0.0"
   },
   "devDependencies": {
     "@prismicio/types": "^0.1.21",

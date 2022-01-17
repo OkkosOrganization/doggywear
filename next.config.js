@@ -12,7 +12,7 @@ module.exports = {
 	},
 	images: {
 		domains:['images.prismic.io', 'doggywear.cdn.prismic.io'],
-		quality:85,
-		deviceSizes: [480, 768, 1024, 1366, 1920, 2560],
+		quality:90,
+		deviceSizes: [480, 960, 1280, 1440, 1920, 2560],
 	},
 };

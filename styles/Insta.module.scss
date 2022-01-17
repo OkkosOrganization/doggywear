@@ -23,3 +23,18 @@
     color: var(--secondaryAccent);
   }
 }
+
+.instaGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
+  padding: 0 1rem;
+}
+.instaPost {
+  width: 100%;
+  padding: 0 0 100% 0;
+  height: auto;
+  position: relative;
+  background-size: cover;
+  background-position: center center;
+}
