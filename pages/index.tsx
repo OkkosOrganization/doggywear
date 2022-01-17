@@ -10,11 +10,12 @@ import {
   TWITTER_HANDLE,
   OG_IMG,
 } from '../config/env';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { ProductCard } from '../components/ProductCard';
 import { IllustrationCard } from '../components/IllustrationCard';
 import { blurOthers, unBlur } from '../config/utils';
+import gsap from 'gsap';
 
 export const getStaticProps = async ({ req, locale }) => {
   let products: unknown = null;
@@ -56,23 +57,34 @@ const Frontpage = ({
   isTouchDevice,
 }) => {
   const [feed, setFeed] = useState<InstaJson | null>(null);
+  const [revealed, setRevealed] = useState<boolean>(false);
+  const grid = useRef(null);
 
   const InstaFeed = dynamic(() => import('../components/InstaFeed'), {
     suspense: false,
   });
 
   useEffect(() => {
+    //FETCH INSTA FEED
     const getFeed = async () => {
       try {
         const res = await fetch('/api/insta/feed');
         const json = (await res.json()) as InstaJson;
         setFeed(json);
-        console.log(json);
       } catch (e) {
         console.log(e);
       }
     };
     getFeed();
+
+    //REVEAL GRID
+    gsap.to(grid.current, {
+      autoAlpha: 1,
+      duration: 0.2,
+      onComplete: () => {
+        setRevealed(true);
+      },
+    });
   }, []);
 
   const renderHead = () => {
@@ -113,14 +125,14 @@ const Frontpage = ({
   };
 
   const mouseEnterHandler = (id: string) => {
-    if (!isTouchDevice) {
+    if (!isTouchDevice && revealed) {
       const selector = `.gridItem:not(#${id})`;
       blurOthers(selector);
     }
   };
 
   const mouseLeaveHandler = () => {
-    unBlur('.gridItem');
+    if (revealed) unBlur('.gridItem');
   };
 
   return (
@@ -132,7 +144,7 @@ const Frontpage = ({
         <RichText render={frontpage.data?.description} />
       </div>
 
-      <div className={styles.grid}>
+      <div className={styles.grid} ref={grid}>
         <Masonry
           breakpointCols={columns}
           className={styles.masonryGrid}

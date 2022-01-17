@@ -66,7 +66,7 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
           </div>
         )}
       </div>
-      <div className={`${styles.pager} ${!hasImages ? 'hidden' : ''} pager`}>
+      <div className={`${styles.pager} ${!hasImages ? styles.hide : ''} pager`}>
         <span
           className={`${styles.pagerItem} ${
             image === primaryImage.url ? styles.active : ''
