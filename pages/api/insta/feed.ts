@@ -25,7 +25,6 @@ const feedHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     await client.set('instaFeedSaveTime', currTime);
     instaFeed = json;
     console.log('Feed updated in Redis, expiry time:', currTime + cacheAge);
-    console.log(instaFeed);
   }
 
   res.json(instaFeed);
