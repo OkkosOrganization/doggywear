@@ -93,7 +93,7 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
           {Number(price).toFixed(0) + CURRENCY}
         </h3>
         <Link href={`/product/${props.data.uid}`} passHref>
-          <button>{`Shop now`}</button>
+          <button data-cy={'productBtn'}>{`Shop now`}</button>
         </Link>
       </div>
     </div>

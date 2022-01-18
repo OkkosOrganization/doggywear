@@ -253,9 +253,10 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
 
                 <div className={styles.bottom}>
                   <button
+                    data-cy={'addToCartBtn'}
                     onClick={() =>
                       chosenVariant.node.availableForSale
-                        ? addToCart(chosenVariant)
+                        ? addToCart(chosenVariant.node.id)
                         : null
                     }
                     disabled={!chosenVariant.node.availableForSale}

@@ -1,15 +1,18 @@
-import styles from "../../styles/Navi.module.scss";
-import CloseIcon from "./CloseIcon";
-import { HamburgerIcon } from "./HamburgerIcon";
+import styles from '../../styles/Navi.module.scss';
+import CloseIcon from './CloseIcon';
+import { HamburgerIcon } from './HamburgerIcon';
 
 const MobileNaviIcon = (props) => {
-  const classes = `${styles.mobileNaviIcon} ${props.naviOpen ? styles.active : ""}`;
+  const classes = `${styles.mobileNaviIcon} ${
+    props.naviOpen ? styles.active : ''
+  }`;
   return (
     <button
-      role={"button"}
+      role={'button'}
       className={classes}
       onClick={props.toggleNavi}
       aria-label="Navigation"
+      data-cy="naviBtn"
     >
       <HamburgerIcon />
       <CloseIcon />

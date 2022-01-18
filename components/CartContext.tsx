@@ -7,168 +7,163 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 export const CartContext = React.createContext(null);
 
 export const CartProvider = (props) => {
+  const [checkout, setCheckout] = useLocalStorage('checkoutId', null);
+  const [client, setClient] = useState<any>(null);
+  const [updating, setUpdating] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
-	const [checkout, setCheckout] = useLocalStorage('checkoutId', null);
-	const [client, setClient] = useState<any>(null);
-	const [updating, setUpdating] = useState<boolean>(false);
-	const [open, setOpen] = useState<boolean>(false);
+  useEffect(() => {
+    console.log('Init cart');
+    if (!client) initClient();
+    else if (!checkout) createCheckout();
+    else console.log('');
+  }, []);
 
-	useEffect(() => {
-		console.log("Init cart");
-		if (!client)
-			initClient();
-		else if (!checkout)
-			createCheckout();
-		else
-			console.log("");
-	}, []);
+  useEffect(() => {
+    if (client && !checkout) {
+      const checkoutId = localStorage.getItem('checkoutId');
+      if (checkoutId) {
+        const check = async () => {
+          try {
+            const newCheckout = await client.checkout.fetch(checkoutId);
+            if (newCheckout.completedAt !== null) {
+              console.log('Checkout already complete, creating new');
+              createCheckout();
+            } else {
+              console.log('Using existing checkout');
+              setCheckout(newCheckout);
+            }
+          } catch (e) {
+            console.log('Could not find existing checkout, create new');
+            createCheckout();
+          }
+        };
+        check();
+      } else {
+        createCheckout();
+      }
+    }
+  }, [client]);
 
-	useEffect(() => {
+  const initClient = async () => {
+    try {
+      const client = await Client.buildClient({
+        domain: SHOPIFY_DOMAIN,
+        storefrontAccessToken: SHOPIFY_API_STOREFRONT_TOKEN,
+      });
+      setClient(client);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-		if (client && !checkout) {
-			const checkoutId = localStorage.getItem('checkoutId');
-			if (checkoutId) {
-				const check = async () => {
-					try {
-						const newCheckout = await client.checkout.fetch(checkoutId);
-						if (newCheckout.completedAt !== null) {
-							console.log("Checkout already complete, creating new");
-							createCheckout();
-						}
-						else {
-							console.log("Using existing checkout");
-							setCheckout(newCheckout);
-						}
-					}
-					catch (e) {
-						console.log("Could not find existing checkout, create new");
-						createCheckout();
-					}
-				}
-				check();
-			}
-			else {
-				createCheckout();
-			}
-		}
-	}, [client]);
+  const createCheckout = async () => {
+    try {
+      const checkout = await client.checkout.create();
+      localStorage.setItem('checkoutId', checkout.id);
+      setCheckout(checkout);
+      console.log('New checkout created', checkout);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-	const initClient = async () => {
+  const addToCart = async (vid) => {
+    if (client) {
+      setUpdating(true);
+      setOpen(true);
 
-		try{
-			const client = await Client.buildClient({
-				domain: SHOPIFY_DOMAIN,
-				storefrontAccessToken: SHOPIFY_API_STOREFRONT_TOKEN
-			});
-			setClient(client);
-		}
-		catch(e)
-		{
-			console.log(e);
-		}
-	}
+      try {
+        console.log('Add to cart:', vid);
 
-	const createCheckout = async () => {
-		try {
-			const checkout = await client.checkout.create();
-			localStorage.setItem('checkoutId', checkout.id);
-			setCheckout(checkout);
-			console.log("New checkout created", checkout);
-		}
-		catch (e) {
-			console.log(e);
-		}
-	}
+        const checkoutId = checkout.id;
+        const product = [
+          {
+            variantId: vid,
+            quantity: 1,
+          },
+        ];
 
-	const addToCart = async (vid) => {
+        const newCheckout = await client.checkout.addLineItems(
+          checkoutId,
+          product
+        );
 
-		if (client) {
+        setCheckout(newCheckout);
+        setUpdating(false);
+      } catch (e) {
+        console.log(e);
+        setUpdating(false);
+      }
+    }
+  };
 
-			setUpdating(true);
-			setOpen(true);
+  const removeLineItem = async (vid) => {
+    if (client) {
+      console.log('REMOVE:', vid);
 
-			try {
-				// Fetch a single product by ID, numeric id must be base64 encoded!
-				const variantIdBase64 = btoa("gid://shopify/ProductVariant/" + vid);
-				console.log("Add to cart:", vid, variantIdBase64);
+      setUpdating(true);
+      const checkoutId = checkout.id;
+      const product = [vid];
 
-				const checkoutId = checkout.id;
-				const product = [{
-					variantId: variantIdBase64,
-					quantity: 1,
-				}];
+      try {
+        const updatedCheckout = await client.checkout.removeLineItems(
+          checkoutId,
+          product
+        );
+        setCheckout(updatedCheckout);
+      } catch (e) {
+        console.log(e);
+      }
 
-				const newCheckout = await client.checkout.addLineItems(checkoutId, product);
+      setUpdating(false);
+    }
+  };
 
-				setCheckout(newCheckout);
-				setUpdating(false);
-			}
-			catch (e) {
-				console.log(e);
-				setUpdating(false);
-			}
-		}
-	}
+  const updateLineItemQuantity = async (vid, quantity) => {
+    setUpdating(true);
 
-	const removeLineItem = async (vid) => {
+    const checkoutId = checkout.id;
+    //let variantIdBase64 = btoa("gid://shopify/ProductVariant/" + vid);
+    const product = [
+      {
+        id: vid,
+        quantity: quantity,
+      },
+    ];
 
-		if (client) {
-			console.log("REMOVE:", vid);
+    const updatedCheckout = await client.checkout.updateLineItems(
+      checkoutId,
+      product
+    );
 
-			setUpdating(true);
-			const checkoutId = checkout.id;
-			const product = [vid];
+    setCheckout(updatedCheckout);
+    setUpdating(false);
+  };
 
-			try {
-				const updatedCheckout = await client.checkout.removeLineItems(checkoutId, product);
-				setCheckout(updatedCheckout);
-			}
-			catch (e) {
-				console.log(e);
-			}
+  const showCart = () => {
+    setOpen(true);
+  };
 
-			setUpdating(false);
-		}
-	};
+  const hideCart = () => {
+    setOpen(false);
+  };
 
-	const updateLineItemQuantity = async (vid, quantity) => {
-
-		setUpdating(true);
-
-		const checkoutId = checkout.id;
-		//let variantIdBase64 = btoa("gid://shopify/ProductVariant/" + vid);
-		const product = [{
-			id: vid,
-			quantity: quantity,
-		}];
-
-		const updatedCheckout = await client.checkout.updateLineItems(checkoutId, product);
-
-		setCheckout(updatedCheckout);
-		setUpdating(false);
-	};
-
-	const showCart = () => {
-		setOpen(true);
-	}
-
-	const hideCart = () => {
-		setOpen(false);
-	}
-
-	return (
-		<CartContext.Provider value={{
-			client,
-			checkout,
-			addToCart,
-			showCart,
-			hideCart,
-			removeLineItem,
-			open,
-			updating,
-			updateLineItemQuantity
-		}}>
-			{props.children}
-		</CartContext.Provider>
-	);
-}
+  return (
+    <CartContext.Provider
+      value={{
+        client,
+        checkout,
+        addToCart,
+        showCart,
+        hideCart,
+        removeLineItem,
+        open,
+        updating,
+        updateLineItemQuantity,
+      }}
+    >
+      {props.children}
+    </CartContext.Provider>
+  );
+};
