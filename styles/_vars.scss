@@ -35,8 +35,12 @@ $openSans : "Open Sans", sans-serif;
   --fg: #{$darker_grey};
   --primaryAccent: #{$gold};
   --secondaryAccent: #{$lime};
+  --mainTitleSize: 
+  --subTitleSize: 
+  --mainTextSize: 1rem;
+  --subTextSize: .875rem;
 }
-#__next.dark
+.dark #__next
 {
   --bg: #{$darker_grey};
   --fg: #{$lighter_grey};

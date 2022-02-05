@@ -31,8 +31,8 @@ export const Navi = (props) => {
   }, [props.naviOpen]);
 
   useEffect(() => {
-    if (darkMode) document.querySelector('#__next').classList.add('dark');
-    else document.querySelector('#__next').classList.remove('dark');
+    if (darkMode) document.querySelector('body').classList.add('dark');
+    else document.querySelector('body').classList.remove('dark');
 
     setShowDarkModeToggle(true);
   }, [darkMode]);
