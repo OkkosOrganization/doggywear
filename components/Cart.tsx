@@ -83,13 +83,7 @@ const Cart = ({ ww }: CartProps) => {
       let w_percent = '-100%';
 
       //DESKTOP
-      if (ww >= 960) w_percent = '-40%';
-
-      //MEDIUM DESKTOP / TABLET
-      if (ww >= 800 && ww < 960) w_percent = '-50%';
-
-      //SMALL DESKTOP / TABLET
-      if (ww >= 640 && ww < 800) w_percent = '-100%';
+      if (ww >= 768) w_percent = '-40%';
 
       const next: HTMLDivElement = document.querySelector('#__next');
       const body = document.querySelector('body');
