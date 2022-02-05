@@ -1,47 +1,78 @@
 //DIMENSIONS
-$maxWidth : 1680px;
-$maxWidthBig : 1280px;
-$maxWidthMedium : 960px;
-$maxWidthSmall : 640px;
-$maxWidthMini : 320px;
+$maxWidth: 1680px;
+$maxWidthBig: 1280px;
+$maxWidthMedium: 960px;
+$maxWidthSmall: 640px;
+$maxWidthMini: 320px;
 $mainNavHeight: 90px;
 
 //COLORS
-$white : #fff;
-$black : #000;
-$grey : #9c9c9c;
-$medium_grey :#efefef;
-$light_grey :#f6f6f6;
-$lighter_grey :#fafafa;
-$dark_grey :#4a4a4a;
-$darker_grey :#2e2e2e;
-$gray :#d9d9d9;
-$cartSelectGrey:#e6e6e6;
-$blue : #DBEEEB;
-$gold : #fffb52;
-$red : #d43d24;
-$pink : #ff51b0;
-$cart_red : #F44336;
-$turqoise:#b2dadd;
+$white: #fff;
+$black: #000;
+$grey: #9c9c9c;
+$medium_grey: #efefef;
+$light_grey: #f6f6f6;
+$lighter_grey: #fafafa;
+$dark_grey: #4a4a4a;
+$darker_grey: #2e2e2e;
+$gray: #d9d9d9;
+$cartSelectGrey: #e6e6e6;
+$blue: #dbeeeb;
+$gold: #fffb52;
+$red: #d43d24;
+$pink: #ff51b0;
+$cart_red: #f44336;
+$turqoise: #b2dadd;
 $lime: #5fd835;
 
-$roboto : "Roboto", sans-serif;
-$openSans : "Open Sans", sans-serif;
+$roboto: 'Roboto', sans-serif;
+$openSans: 'Open Sans', sans-serif;
 
 //CSS VARS
-#__next
-{
+#__next {
   --bg: #{$lighter_grey};
   --fg: #{$darker_grey};
   --primaryAccent: #{$gold};
   --secondaryAccent: #{$lime};
-  --mainTitleSize: 
-  --subTitleSize: 
+  --mainNavHeight: 5.625rem;
+  --mainTitleSize: 1.875rem;
+  --subTitleSize: 1.5rem;
+  --bigTextSize: 1.25rem;
   --mainTextSize: 1rem;
-  --subTextSize: .875rem;
+  --subTextSize: 0.875rem;
+  --miniTextSize: 0.6875rem;
+  --buttonTextSize: 0.75rem;
 }
-.dark #__next
-{
+.dark #__next {
   --bg: #{$darker_grey};
   --fg: #{$lighter_grey};
+}
+
+/******************/
+/* MEDIA QUERIES */
+/****************/
+@media all and (min-width: 768px) {
+  #__next {
+    --mainNavHeight: 7rem;
+    --mainTitleSize: 2.34375rem;
+    --subTitleSize: 1.875rem;
+    --bigTextSize: 1.875rem;
+    --mainTextSize: 1.25rem;
+    --subTextSize: 1.09375rem;
+    --miniTextSize: 0.859375rem;
+    --buttonTextSize: 0.9375rem;
+  }
+}
+
+@media all and (min-width: 1440px) {
+  #__next {
+    --mainNavHeight: 7rem;
+    --mainTitleSize: 2.34375rem;
+    --subTitleSize: 1.875rem;
+    --bigTextSize: 1.875rem;
+    --mainTextSize: 1.25rem;
+    --subTextSize: 1.09375rem;
+    --miniTextSize: 0.859375rem;
+    --buttonTextSize: 0.9375rem;
+  }
 }

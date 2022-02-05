@@ -3,6 +3,7 @@ import { INSTAGRAM_URL, INSTAGRAM_USER_NAME } from '../config/env';
 import styles from '../styles/Insta.module.scss';
 
 type InstaProps = {
+  title: string;
   feed?: {
     data?: any[];
   };
@@ -13,7 +14,7 @@ const compareProps = (prevProps, nextProps) => {
 const InstaFeed = memo((props: InstaProps): JSX.Element => {
   return (
     <div className={styles.instaContainer}>
-      <h3 className={styles.title}>Follow Doggy Wear on Instagram</h3>
+      <h3 className={styles.title}>{props.title}</h3>
       <h4 className={styles.link}>
         <a href={INSTAGRAM_URL} target={'_blank'} rel="nofollow noreferrer">
           @{INSTAGRAM_USER_NAME}
@@ -22,7 +23,7 @@ const InstaFeed = memo((props: InstaProps): JSX.Element => {
       <div className={styles.instaGrid}>
         {props?.feed?.data.length
           ? props?.feed?.data
-              .filter((p, pindex) => p.media_type === 'IMAGE')
+              .filter((p) => p.media_type === 'IMAGE')
               .map((p, pindex) => {
                 return (
                   <a

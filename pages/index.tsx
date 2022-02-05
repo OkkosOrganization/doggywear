@@ -16,6 +16,7 @@ import { ProductCard } from '../components/ProductCard';
 import { IllustrationCard } from '../components/IllustrationCard';
 import { blurOthers, unBlur } from '../config/utils';
 import gsap from 'gsap';
+import { PrintsSection } from '../components/PrintsSection';
 
 export const getStaticProps = async ({ req, locale }) => {
   let products: unknown = null;
@@ -179,7 +180,20 @@ const Frontpage = ({
           })}
         </Masonry>
       </div>
-      <InstaFeed feed={feed} />
+
+      <PrintsSection
+        title={frontpage.data.secondary_title[0]?.text}
+        description={frontpage.data.secondary_description}
+        items={frontpage.data.secondary_items.map((i) => {
+          const data = products.results.filter((p) => p.id === i.item.id)[0];
+          return data;
+        })}
+      />
+
+      <InstaFeed
+        title={frontpage?.data?.instagram_title[0]?.text}
+        feed={feed}
+      />
     </div>
   );
 };

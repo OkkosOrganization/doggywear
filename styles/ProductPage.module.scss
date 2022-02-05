@@ -51,12 +51,16 @@
 .productGallery {
   text-align: center;
   margin-top: 1rem;
+}
 
-  div {
-    background: $medium_grey;
-    width: 25%;
-    padding: 1rem;
-  }
+.imageBgInner {
+  background: $medium_grey;
+  width: 100%;
+  padding: 1rem;
+}
+
+.poster {
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba($black, 0.25);
 }
 
 .productDescription {
