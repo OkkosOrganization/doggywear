@@ -22,7 +22,7 @@
 
 /* PRODUCT INFO */
 .productTitle {
-  font-size: 1.875rem;
+  font-size: var(--mainTitleSize);
   font-weight: 300;
   margin: 0 0 0.5rem 0;
   color: var(--fg);
@@ -30,7 +30,7 @@
 .productPrice {
   margin: 0 0 1rem 0;
   font-weight: 600;
-  font-size: 1em;
+  font-size: var(--mainTextSize);
   text-transform: uppercase;
   letter-spacing: 0.0075rem;
   color: var(--fg);
@@ -38,7 +38,7 @@
 .sizeOptions {
   font-weight: 300;
   text-transform: uppercase;
-  font-size: 0.6875rem;
+  font-size: var(--miniTextSize);
   opacity: 0.75;
   margin: 0 0 0.5rem 0;
   color: var(--fg);
@@ -67,8 +67,34 @@
   width: 0.6875rem;
   height: 0.6875rem;
   background: transparent;
+  position: relative;
 }
 .active {
-  border-color: var(--secondaryAccent);
-  background: var(--secondaryAccent);
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    top: 2px;
+    bottom: 2px;
+    background: var(--secondaryAccent);
+    border-radius: 100%;
+    overflow: hidden;
+  }
+}
+
+/******************/
+/* MEDIA QUERIES */
+/****************/
+
+@media all and (min-width: 768px) {
+  .pagerItem {
+    display: inline-block;
+    margin: 0 0.1875rem;
+    border: 1px solid var(--fg);
+    border-radius: 100%;
+    width: 0.859375rem;
+    height: 0.859375rem;
+  }
 }

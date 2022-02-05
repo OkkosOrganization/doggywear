@@ -1,17 +1,18 @@
 import styles from '../styles/RelatedProducts.module.scss';
 import { ProductCard } from './ProductCard';
-import { gsap } from 'gsap';
 import { blurOthers, unBlur } from '../config/utils';
 
 type RelatedProductsProps = {
   products: any;
   exclude?: string;
+  filterByTag?: string;
   isMobile: boolean;
 };
 export const RelatedProducts = ({
   products,
   exclude,
   isMobile,
+  filterByTag,
 }: RelatedProductsProps): JSX.Element => {
   const mouseEnterHandler = (id: string) => {
     if (!isMobile) {
@@ -34,17 +35,22 @@ export const RelatedProducts = ({
           .filter((p) => {
             return p.uid !== exclude;
           })
+          .filter((p) => {
+            return p.tags.includes(filterByTag);
+          })
           .map((p, pindex) => {
             return (
               <div
                 className={styles.scrollerItem}
                 key={'RelatedProduct_' + p.uid}
               >
-                <ProductCard
-                  data={p}
-                  mouseEnterHandler={mouseEnterHandler}
-                  mouseLeaveHandler={mouseLeaveHandler}
-                />
+                <div className={styles.scrollerItemInner}>
+                  <ProductCard
+                    data={p}
+                    mouseEnterHandler={mouseEnterHandler}
+                    mouseLeaveHandler={mouseLeaveHandler}
+                  />
+                </div>
               </div>
             );
           })}

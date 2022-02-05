@@ -98,6 +98,8 @@ type ProductPageProps = {
 const ProductPage = (props: ProductPageProps): JSX.Element => {
   const pid = props?.product?.data?.shopify?.id;
   const price = props?.product?.data?.shopify?.variants[0]?.price;
+  const tags: string[] = props.product.tags;
+  const isPoster = tags.includes('poster');
 
   const { addToCart, client } = React.useContext(CartContext);
   const [variants, setVariants] = useState([]);
@@ -189,13 +191,19 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
         <div className={`${styles.productImages}`}>
           <SRLWrapper options={options}>
             <div className={`${styles.imageBg} imageBg`}>
-              <Image
-                src={props.product.data.primary_image.url}
-                width={props.product.data.primary_image.dimensions.width}
-                height={props.product.data.primary_image.dimensions.height}
-                layout="responsive"
-                alt={'Primary product image'}
-              />
+              <div
+                className={`styles.imageBgInner ${
+                  isPoster ? styles.poster : ''
+                }`}
+              >
+                <Image
+                  src={props.product.data.primary_image.url}
+                  width={props.product.data.primary_image.dimensions.width}
+                  height={props.product.data.primary_image.dimensions.height}
+                  layout="responsive"
+                  alt={'Primary product image'}
+                />
+              </div>
             </div>
             {props.product.data.secondary_image.url ? (
               <div className={styles.productGallery}>
@@ -227,29 +235,31 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
               <LoadingIndicator showBg={false} />
             ) : (
               <div className={styles.variants}>
-                <div className={styles.top}>
-                  <span className={styles.variantsLabel}>
-                    CHOOSE&nbsp;{props.product.data.shopify.options[0].name}:
-                  </span>
-                  <div className={styles.selectContainer}>
-                    <select
-                      onChange={variantChange}
-                      value={chosenVariant?.node?.id}
-                    >
-                      {variants.map((v, vindex) => {
-                        return (
-                          <option
-                            value={v.node.id}
-                            key={`variant_${v.node.id}`}
-                          >
-                            {v.node.title}
-                          </option>
-                        );
-                      })}
-                    </select>
-                    <TickIcon />
+                {variants.length > 1 && (
+                  <div className={styles.top}>
+                    <span className={styles.variantsLabel}>
+                      CHOOSE&nbsp;{props.product.data.shopify.options[0].name}:
+                    </span>
+                    <div className={styles.selectContainer}>
+                      <select
+                        onChange={variantChange}
+                        value={chosenVariant?.node?.id}
+                      >
+                        {variants.map((v, vindex) => {
+                          return (
+                            <option
+                              value={v.node.id}
+                              key={`variant_${v.node.id}`}
+                            >
+                              {v.node.title}
+                            </option>
+                          );
+                        })}
+                      </select>
+                      <TickIcon />
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <div className={styles.bottom}>
                   <button
@@ -271,12 +281,13 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
           </div>
         </div>
 
-        <ProductPackagingInfo />
+        {!isPoster && <ProductPackagingInfo />}
 
         <RelatedProducts
           products={props?.relatedProducts?.results}
           exclude={props?.product?.uid}
           isMobile={props.isTouchDevice}
+          filterByTag={props.product.tags[0]}
         />
       </div>
     </section>

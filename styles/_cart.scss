@@ -38,7 +38,7 @@
     */
     position: relative;
     min-height: 100%;
-    padding: 1rem 1rem 2rem 1rem;
+    padding: 1.5rem 1rem 2rem 1rem;
     background: $light_grey;
 
     .cartTitle {
@@ -249,7 +249,7 @@
 
   .closeCart {
     position: absolute;
-    top: 1.25rem;
+    top: 1.5rem;
     right: 1rem;
     width: 2rem;
     height: 2rem;
@@ -323,12 +323,12 @@
     right: -40%;
 
     .scroller {
-      padding: 1.75rem;
+      padding: 2.2785rem 1rem;
     }
 
     .closeCart {
-      top: 1.75rem;
-      right: 1.5rem;
+      top: 2.25rem;
+      right: 1rem;
     }
   }
 }

@@ -8,10 +8,11 @@
 }
 .description {
   text-align: center;
-  max-width: $maxWidthSmall;
+  max-width: 75%;
   margin: 4rem auto;
   padding: 0 1rem;
   color: var(--fg);
+  font-size: var(--bigTextSize);
 
   p {
     margin: 0;
