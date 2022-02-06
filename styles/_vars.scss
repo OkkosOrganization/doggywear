@@ -17,14 +17,11 @@ $dark_grey: #4a4a4a;
 $darker_grey: #2e2e2e;
 $gray: #d9d9d9;
 $cartSelectGrey: #e6e6e6;
-$blue: #dbeeeb;
 $gold: #fffb52;
-$red: #d43d24;
 $pink: #ff51b0;
-$cart_red: #f44336;
-$turqoise: #b2dadd;
 $lime: #5fd835;
 
+//FONTS
 $roboto: 'Roboto', sans-serif;
 $openSans: 'Open Sans', sans-serif;
 
@@ -34,7 +31,10 @@ $openSans: 'Open Sans', sans-serif;
   --fg: #{$darker_grey};
   --primaryAccent: #{$gold};
   --secondaryAccent: #{$lime};
+
   --mainNavHeight: 5.625rem;
+  --logoWidth: 9.375rem;
+
   --mainTitleSize: 1.875rem;
   --subTitleSize: 1.5rem;
   --bigTextSize: 1.25rem;
@@ -54,25 +54,29 @@ $openSans: 'Open Sans', sans-serif;
 @media all and (min-width: 768px) {
   #__next {
     --mainNavHeight: 7rem;
-    --mainTitleSize: 2.34375rem;
+    --logoWidth: 11.6875rem;
+
+    --mainTitleSize: 2.25rem;
     --subTitleSize: 1.875rem;
     --bigTextSize: 1.875rem;
     --mainTextSize: 1.25rem;
-    --subTextSize: 1.09375rem;
-    --miniTextSize: 0.859375rem;
+    --subTextSize: 1.0625rem;
+    --miniTextSize: 0.8125rem;
     --buttonTextSize: 0.9375rem;
   }
 }
 
-@media all and (min-width: 1440px) {
+@media all and (min-width: 1280px) {
   #__next {
     --mainNavHeight: 7rem;
-    --mainTitleSize: 2.34375rem;
+    --logoWidth: 11.6875rem;
+
+    --mainTitleSize: 2.25rem;
     --subTitleSize: 1.875rem;
     --bigTextSize: 1.875rem;
     --mainTextSize: 1.25rem;
-    --subTextSize: 1.09375rem;
-    --miniTextSize: 0.859375rem;
+    --subTextSize: 1.0625rem;
+    --miniTextSize: 0.8125rem;
     --buttonTextSize: 0.9375rem;
   }
 }

@@ -56,7 +56,7 @@
   top: calc(var(--mainNavHeight) / 2);
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 150px;
+  width: var(--logoWidth);
   height: auto;
   z-index: 20;
   margin: 0;
@@ -315,9 +315,6 @@
 /* MEDIA QUERIES */
 /****************/
 @media all and (min-width: 768px) {
-  .logo {
-    width: 187px;
-  }
   .mainNavi .mobileNaviIcon {
     top: 3rem;
   }
