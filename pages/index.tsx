@@ -125,17 +125,6 @@ const Frontpage = ({
     768: 1,
   };
 
-  const mouseEnterHandler = (id: string) => {
-    if (!isTouchDevice && revealed) {
-      const selector = `.gridItem:not(#${id})`;
-      blurOthers(selector);
-    }
-  };
-
-  const mouseLeaveHandler = () => {
-    if (revealed) unBlur('.gridItem');
-  };
-
   return (
     <div className={styles.container}>
       {renderHead()}
@@ -162,19 +151,13 @@ const Frontpage = ({
                 <ProductCard
                   key={'product_' + index}
                   data={data}
-                  mouseEnterHandler={mouseEnterHandler}
-                  mouseLeaveHandler={mouseLeaveHandler}
+                  showMultipleImages
                 />
               );
             } else if (type === 'illustration') {
               const data = illustrations.results.filter((p) => p.id === id)[0];
               return (
-                <IllustrationCard
-                  key={'illustration_' + index}
-                  data={data}
-                  mouseEnterHandler={mouseEnterHandler}
-                  mouseLeaveHandler={mouseLeaveHandler}
-                />
+                <IllustrationCard key={'illustration_' + index} data={data} />
               );
             } else return null;
           })}

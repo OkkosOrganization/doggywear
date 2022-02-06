@@ -109,9 +109,11 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
     settings: {
       overlayColor: '#fff',
       autoplaySpeed: 0,
-      disableKeyboardControls: true,
       transitionSpeed: 200,
       lightboxTransitionSpeed: 0.2,
+      disableKeyboardControls: true,
+      disablePanzoom: true,
+      disableWheelControls: true,
     },
     buttons: {
       backgroundColor: '#fff',
@@ -122,8 +124,14 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
     },
     caption: {
       captionColor: '#fff',
-      captionFontFamily: 'Roboto, sans-serif',
+      captionFontFamily: 'Inter, sans-serif',
       captionFontWeight: '300',
+    },
+    progressBar: {
+      showProgressBar: false,
+    },
+    thumbnails: {
+      showThumbnails: false,
     },
   };
 

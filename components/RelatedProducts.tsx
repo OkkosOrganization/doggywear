@@ -45,11 +45,7 @@ export const RelatedProducts = ({
                 key={'RelatedProduct_' + p.uid}
               >
                 <div className={styles.scrollerItemInner}>
-                  <ProductCard
-                    data={p}
-                    mouseEnterHandler={mouseEnterHandler}
-                    mouseLeaveHandler={mouseLeaveHandler}
-                  />
+                  <ProductCard data={p} showMultipleImages={false} />
                 </div>
               </div>
             );

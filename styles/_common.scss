@@ -13,7 +13,7 @@
 
 html,
 body {
-  font-family: $openSans;
+  font-family: $inter;
   font-size: 16px;
   font-weight: 300;
   margin: 0;
@@ -106,7 +106,6 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: $roboto;
   font-size: 1em;
   line-height: 1.25em;
   font-weight: 500;
@@ -124,7 +123,6 @@ button {
   line-height: 1rem;
   font-size: 0.875rem;
   font-weight: 300;
-  font-family: $roboto;
   cursor: pointer;
   cursor: hand;
   letter-spacing: 0.05rem;
@@ -159,7 +157,6 @@ select {
   margin: 0;
   padding: 0;
   text-indent: 0.75rem;
-  font-family: $roboto;
   text-transform: uppercase;
   font-size: 0.875rem;
   appearance: none;
