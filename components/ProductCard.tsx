@@ -25,6 +25,8 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
     }
   };
 
+  console.log(props);
+
   return (
     <div className={`${styles.product} gridItem`} id={props.data.id}>
       <div
@@ -80,20 +82,21 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
       </div>
       <div>
         <h2 className={styles.productTitle}>{title}</h2>
-        {props.data.data.shopify && props.data.data.shopify.options.length > 1 && (
-          <h4 className={styles.sizeOptions}>
-            {props.data.data.shopify.options[0].values.map((o, oIndex) => {
-              return (
-                <span
-                  className={styles.sizeOption}
-                  key={`sizeOption_${oIndex}`}
-                >
-                  {o}
-                </span>
-              );
-            })}
-          </h4>
-        )}
+        {props.data.data.shopify &&
+          props.data.data.shopify.options[0].values.length > 1 && (
+            <h4 className={styles.sizeOptions}>
+              {props.data.data.shopify.options[0].values.map((o, oIndex) => {
+                return (
+                  <span
+                    className={styles.sizeOption}
+                    key={`sizeOption_${oIndex}`}
+                  >
+                    {o}
+                  </span>
+                );
+              })}
+            </h4>
+          )}
         <h3 className={styles.productPrice}>
           {Number(price).toFixed(0) + CURRENCY}
         </h3>

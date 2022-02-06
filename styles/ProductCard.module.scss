@@ -29,11 +29,12 @@
 }
 .productPrice {
   margin: 0 0 1rem 0;
-  font-weight: 600;
+  font-weight: 500;
   font-size: var(--mainTextSize);
   text-transform: uppercase;
   letter-spacing: 0.0075rem;
   color: var(--fg);
+  font-family: 'Open Sans';
 }
 .sizeOptions {
   font-weight: 300;

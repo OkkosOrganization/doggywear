@@ -120,11 +120,10 @@ button {
   box-sizing: border-box;
   display: inline-block;
   margin: 0;
-
   outline: 0;
-
-  line-height: 1em;
+  line-height: 1rem;
   font-size: 0.875rem;
+  font-weight: 300;
   font-family: $roboto;
   cursor: pointer;
   cursor: hand;
