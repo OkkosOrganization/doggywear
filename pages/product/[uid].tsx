@@ -124,7 +124,7 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
     },
     caption: {
       captionColor: '#fff',
-      captionFontFamily: 'Inter, sans-serif',
+      captionFontFamily: 'Arial, Helvetica, sans-serif',
       captionFontWeight: '300',
     },
     progressBar: {
