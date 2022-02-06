@@ -6,15 +6,12 @@ import { getNaviItems } from '../config/navi';
 import { TITLE } from '../config/env';
 
 const Footer = () => {
-
   const router = useRouter();
   const navi = getNaviItems();
 
   return (
     <footer className={styles.footer}>
-
       <div className={''}>
-
         <nav className={styles.footerNavi}>
           <ul className={styles.pages}>
             {navi.map((i, index) => {
@@ -24,31 +21,33 @@ const Footer = () => {
               const external = i.external;
 
               return (
-
-                <li key={"footer_navi_item_" + index} className={`${isActive ? styles.active : ""}`}>
-                  {
-                    external
-                      ?
-                      <a href={i.href} aria-label={label} target={"_blank"} rel={'nofollow noreferrer'}>{label}</a>
-                      :
-                      <NextLink href={i.href} as={i.href} >
-                        <a aria-label={label}>{label}</a>
-                      </NextLink>
-                  }
+                <li
+                  key={'footer_navi_item_' + index}
+                  className={`${isActive ? styles.active : ''}`}
+                >
+                  {external ? (
+                    <a
+                      href={i.href}
+                      aria-label={label}
+                      target={'_blank'}
+                      rel={'nofollow noreferrer'}
+                    >
+                      {label}
+                    </a>
+                  ) : (
+                    <NextLink href={i.href} as={i.href}>
+                      <a aria-label={label}>{label}</a>
+                    </NextLink>
+                  )}
                 </li>
-
               );
             })}
           </ul>
         </nav>
 
-        <div className={styles.some + " hidden"}>
-          <a href={process.env.INSTA_URL} target={"_blank"} rel={"noreferrer"} className={styles.someBtn + " " + styles.instaBtn} aria-label={"Link to Instagram"}>
-            <span>Instagram</span>
-          </a>
-        </div>
-
-        <p className={styles.copyright}>&copy;{`${TITLE} ${new Date().getFullYear()}`}</p>
+        <p className={styles.copyright}>
+          &copy;{`${TITLE} ${new Date().getFullYear()}`}
+        </p>
       </div>
     </footer>
   );
