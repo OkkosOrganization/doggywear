@@ -16,8 +16,14 @@ class DoggyDocument extends Document {
     return (
       <Html>
         <Head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300,500;0,500,700;1,300&family=Roboto:wght@300;500;700&display=swap"
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossOrigin={'true'}
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&family=Roboto:wght@300;400;500&display=swap"
             rel="stylesheet"
           />
         </Head>

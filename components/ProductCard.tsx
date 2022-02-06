@@ -25,8 +25,6 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
     }
   };
 
-  console.log(props);
-
   return (
     <div className={`${styles.product} gridItem`} id={props.data.id}>
       <div
