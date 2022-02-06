@@ -78,14 +78,14 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
         ></span>
       </div>
       <div>
-        <Link href={`/product/${props.data.uid}`} passHref>
+        <Link href={`/product/${props.data.uid}`}>
           <a>
             <h2 className={styles.productTitle}>{title}</h2>
           </a>
         </Link>
         {props.data.data.shopify &&
           props.data.data.shopify.options[0].values.length > 1 && (
-            <h4 className={styles.sizeOptions}>
+            <h3 className={styles.sizeOptions}>
               {props.data.data.shopify.options[0].values.map((o, oIndex) => {
                 return (
                   <span
@@ -96,12 +96,12 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
                   </span>
                 );
               })}
-            </h4>
+            </h3>
           )}
 
-        <h3 className={styles.productPrice}>
+        <h4 className={styles.productPrice}>
           {Number(price).toFixed(0) + CURRENCY}
-        </h3>
+        </h4>
       </div>
     </div>
   );
