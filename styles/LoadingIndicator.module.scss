@@ -8,10 +8,13 @@
   z-index: 1000;
 }
 .showBg {
-  background: rgba($white, 0.5);
+  background: rgba(var(--bg), 0.5);
 }
 .noBg {
   background: transparent;
+}
+.fixed {
+  position: fixed;
 }
 .loader {
   position: absolute;

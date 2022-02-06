@@ -30,8 +30,7 @@ export const PrintsSection = (props: PrintsSectionProps): JSX.Element => {
                 <ProductCard
                   key={`printItem_${index}`}
                   data={i}
-                  mouseEnterHandler={() => null}
-                  mouseLeaveHandler={() => null}
+                  showMultipleImages={false}
                 />
               </div>
             </div>

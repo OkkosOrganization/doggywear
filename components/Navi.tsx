@@ -66,7 +66,9 @@ export const Navi = (props) => {
                 </a>
               ) : (
                 <NextLink href={href}>
-                  <a aria-label={label}>{label}</a>
+                  <a aria-label={label} onClick={props.toggleNavi}>
+                    {label}
+                  </a>
                 </NextLink>
               )}
             </li>

@@ -6,15 +6,15 @@ import Link from 'next/link';
 
 type ProductCardProps = {
   data: any;
-  mouseEnterHandler: (e) => void;
-  mouseLeaveHandler: (e) => void;
+  showMultipleImages: boolean;
 };
 export const ProductCard = (props: ProductCardProps): JSX.Element => {
   const price = props.data?.data?.shopify?.variants[0]?.price;
   const title = props.data?.data?.title[0]?.text;
   const primaryImage = props.data?.data?.primary_image;
   const secondaryImage = props.data?.data?.secondary_image;
-  const hasImages = primaryImage.url && secondaryImage.url;
+  const hasImages =
+    props.showMultipleImages && primaryImage.url && secondaryImage.url;
 
   const [image, setImage] = useState(primaryImage.url);
 
@@ -30,14 +30,13 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
       <div
         className={`
           ${styles.productImage}        
-          ${hasImages ? styles.hasImages : ''}
+          ${hasImages ? styles.hasImages : styles.hideSecondaryImage}
         `}
-        onClick={flipImage}
         onMouseEnter={() => {
-          props.mouseEnterHandler(props.data.id);
+          if (props.showMultipleImages) flipImage();
         }}
         onMouseLeave={() => {
-          props.mouseLeaveHandler(props.data.id);
+          if (props.showMultipleImages) flipImage();
         }}
       >
         {primaryImage.url && (
@@ -79,7 +78,11 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
         ></span>
       </div>
       <div>
-        <h2 className={styles.productTitle}>{title}</h2>
+        <Link href={`/product/${props.data.uid}`} passHref>
+          <a>
+            <h2 className={styles.productTitle}>{title}</h2>
+          </a>
+        </Link>
         {props.data.data.shopify &&
           props.data.data.shopify.options[0].values.length > 1 && (
             <h4 className={styles.sizeOptions}>
@@ -95,12 +98,10 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
               })}
             </h4>
           )}
+
         <h3 className={styles.productPrice}>
           {Number(price).toFixed(0) + CURRENCY}
         </h3>
-        <Link href={`/product/${props.data.uid}`} passHref>
-          <button data-cy={'productBtn'}>{`Shop now`}</button>
-        </Link>
       </div>
     </div>
   );

@@ -10,6 +10,8 @@ $mainNavHeight: 90px;
 $white: #fff;
 $black: #000;
 $grey: #9c9c9c;
+$blue: #0059e9;
+$light_blue: #5194ff;
 $medium_grey: #efefef;
 $light_grey: #f6f6f6;
 $lighter_grey: #fafafa;
@@ -17,25 +19,26 @@ $dark_grey: #4a4a4a;
 $darker_grey: #2e2e2e;
 $gray: #d9d9d9;
 $cartSelectGrey: #e6e6e6;
-$gold: #fffb52;
+$yellow: #fffb52;
 $pink: #ff51b0;
 $lime: #5fd835;
 
 //FONTS
-$roboto: 'Roboto', sans-serif;
-$openSans: 'Open Sans', sans-serif;
+$inter: 'Inter', sans-serif;
+//$openSans: 'Open Sans', sans-serif;
 
 //CSS VARS
 #__next {
   --bg: #{$lighter_grey};
   --fg: #{$darker_grey};
-  --primaryAccent: #{$gold};
-  --secondaryAccent: #{$lime};
+  --primaryAccent: #{$yellow};
+  --secondaryAccent: #{$blue};
+  --linkBlue: #{$blue};
 
   --mainNavHeight: 5.625rem;
   --logoWidth: 9.375rem;
 
-  --mainTitleSize: 1.875rem;
+  --mainTitleSize: 1.6875rem;
   --subTitleSize: 1.5rem;
   --bigTextSize: 1.25rem;
   --mainTextSize: 1rem;
@@ -46,6 +49,8 @@ $openSans: 'Open Sans', sans-serif;
 .dark #__next {
   --bg: #{$darker_grey};
   --fg: #{$lighter_grey};
+  --secondaryAccent: #{$light_blue};
+  --linkBlue: #{$light_blue};
 }
 
 /******************/
@@ -56,9 +61,9 @@ $openSans: 'Open Sans', sans-serif;
     --mainNavHeight: 7rem;
     --logoWidth: 11.6875rem;
 
-    --mainTitleSize: 2.25rem;
-    --subTitleSize: 1.875rem;
-    --bigTextSize: 1.875rem;
+    --mainTitleSize: 2rem;
+    --subTitleSize: 1.6875rem;
+    --bigTextSize: 1.6875rem;
     --mainTextSize: 1.25rem;
     --subTextSize: 1.0625rem;
     --miniTextSize: 0.8125rem;

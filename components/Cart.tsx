@@ -11,15 +11,20 @@ const CartLineItem = (props) => {
   return (
     <div className={'lineItem'}>
       <div className={'image'}>
-        <img src={props.lineItem.variant.image.src} />
+        <img src={props.lineItem.variant.image.src} alt={'Product image'} />
       </div>
 
       <div className={'info'}>
         <div className={'top'}>
           {props.lineItem.title}
-          {props.lineItem.variant.title.includes('Default')
-            ? null
-            : ' - ' + props.lineItem.variant.title}
+          {props.lineItem.variant.title.includes('Default') ? null : (
+            <>
+              &nbsp;-&nbsp;
+              <span className={'selectedOptionValue'}>
+                {props.lineItem.variant.title}
+              </span>
+            </>
+          )}
         </div>
 
         <div className={'bottom'}>
@@ -209,7 +214,7 @@ const Cart = ({ ww }: CartProps) => {
             </div>
           </>
         ) : (
-          <p className={'cartEmpty'}>{'CART EMPTY'}</p>
+          !updating && <p className={'cartEmpty'}>{'CART EMPTY'}</p>
         )}
         <button className={'closeCart'} onClick={hide} aria-label="Close cart">
           <i></i>
