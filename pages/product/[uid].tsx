@@ -211,6 +211,7 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
                   height={props.product.data.primary_image.dimensions.height}
                   layout="responsive"
                   alt={'Primary product image'}
+                  // @ts-expect-error: no allowed prop, but this makes the lightbox work
                   srl_gallery_image="true"
                 />
               </div>
@@ -226,6 +227,7 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
                     }
                     layout="responsive"
                     alt={'Secondary product image'}
+                    // @ts-expect-error: no allowed prop, but this makes the lightbox work
                     srl_gallery_image="true"
                   />
                 </div>
@@ -240,6 +242,7 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
                       height={i.image.dimensions.height}
                       layout="responsive"
                       alt={'Product gallery image'}
+                      // @ts-expect-error: no allowed prop, but this makes the lightbox work
                       srl_gallery_image="true"
                     />
                   </div>
