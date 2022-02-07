@@ -2,7 +2,7 @@ import React from 'react';
 import Prismic from 'prismic-javascript';
 import { apiEndPoint } from '../config/prismic';
 import { RichText } from 'prismic-reactjs';
-import styles from '../styles/AboutPage.module.scss';
+import styles from '../styles/InfoPage.module.scss';
 
 export const getStaticProps = async ({ req }) => {
   let about = null;
