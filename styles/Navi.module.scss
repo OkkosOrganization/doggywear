@@ -24,6 +24,10 @@
 
   &:hover {
     background: transparent;
+
+    &::after {
+      display: none;
+    }
   }
 
   svg {
