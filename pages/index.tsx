@@ -14,7 +14,6 @@ import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { ProductCard } from '../components/ProductCard';
 import { IllustrationCard } from '../components/IllustrationCard';
-import { blurOthers, unBlur } from '../config/utils';
 import gsap from 'gsap';
 import { PrintsSection } from '../components/PrintsSection';
 
@@ -50,13 +49,7 @@ type InstaJson = {
   data?: any[];
 };
 
-const Frontpage = ({
-  products,
-  illustrations,
-  frontpage,
-  ww,
-  isTouchDevice,
-}) => {
+const Frontpage = ({ products, illustrations, frontpage }) => {
   const [feed, setFeed] = useState<InstaJson | null>(null);
   const [revealed, setRevealed] = useState<boolean>(false);
   const grid = useRef(null);
@@ -88,13 +81,13 @@ const Frontpage = ({
     });
   }, []);
 
-  const renderHead = () => {
-    const title = `${TITLE} - Products`;
-    const description = DESCRIPTION;
+  const renderHead = (data: any) => {
+    const title = `${TITLE} - Home`;
+    const description = data?.description[0]?.text;
     //let fbAppId = process.env.FB_APP_ID;
     const ogUrl = `${BASE_URL}`;
-    const ogImg = `${OG_IMG}`;
-    const twitterHandle = `${TWITTER_HANDLE}`;
+    const ogImg = `${data.share_image.url}`;
+    const twitterHandle = TWITTER_HANDLE;
 
     return (
       <Head>
@@ -110,8 +103,13 @@ const Frontpage = ({
         <meta property="og:image:height" content={'630'} />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={twitterHandle} />
-        <meta name="twitter:creator" content={twitterHandle} />
+
+        {twitterHandle && (
+          <>
+            <meta name="twitter:site" content={twitterHandle} />
+            <meta name="twitter:creator" content={twitterHandle} />
+          </>
+        )}
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={ogImg} />
@@ -127,7 +125,7 @@ const Frontpage = ({
 
   return (
     <div className={styles.container}>
-      {renderHead()}
+      {renderHead(frontpage.data)}
       <h1 className={'hidden'}>{frontpage.data?.title[0]?.text}</h1>
 
       <div className={styles.description}>
