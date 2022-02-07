@@ -37,7 +37,7 @@ $font: Arial, Helvetica, sans-serif;
   --mainNavHeight: 5.625rem;
   --logoWidth: 9.375rem;
 
-  --mainTitleSize: 1.6875rem;
+  --mainTitleSize: 1.5rem;
   --subTitleSize: 1.5rem;
   --bigTextSize: 1.25rem;
   --mainTextSize: 1rem;
@@ -60,9 +60,9 @@ $font: Arial, Helvetica, sans-serif;
     --mainNavHeight: 7rem;
     --logoWidth: 11.6875rem;
 
-    --mainTitleSize: 2rem;
-    --subTitleSize: 1.6875rem;
-    --bigTextSize: 1.6875rem;
+    --mainTitleSize: 1.5rem;
+    --subTitleSize: 1.3875rem;
+    --bigTextSize: 1.3875rem;
     --mainTextSize: 1.25rem;
     --subTextSize: 1.0625rem;
     --miniTextSize: 0.8125rem;
@@ -70,6 +70,7 @@ $font: Arial, Helvetica, sans-serif;
   }
 }
 
+/*
 @media all and (min-width: 1280px) {
   #__next {
     --mainNavHeight: 7rem;
@@ -84,3 +85,4 @@ $font: Arial, Helvetica, sans-serif;
     --buttonTextSize: 0.9375rem;
   }
 }
+*/

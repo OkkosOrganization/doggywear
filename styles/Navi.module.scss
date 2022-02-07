@@ -152,6 +152,10 @@
       stroke-linecap: square;
     }
 
+    &:hover:after {
+      display: none;
+    }
+
     &:hover svg {
       fill: var(--secondaryAccent);
     }
@@ -189,6 +193,9 @@
     display: block;
     min-width: 0px;
     background: transparent;
+    &:hover:after {
+      display: none;
+    }
 
     .hamburgerIcon {
       position: absolute;
@@ -204,6 +211,9 @@
 
       &:hover {
         stroke: var(--secondaryAccent);
+      }
+      &:hover:after {
+        display: none;
       }
     }
 
@@ -221,6 +231,9 @@
       &:hover {
         stroke: var(--secondaryAccent);
       }
+      &:hover:after {
+        display: none;
+      }
     }
 
     &.active {
@@ -233,6 +246,9 @@
 
         &:hover {
           stroke: var(--secondaryAccent);
+        }
+        &:hover:after {
+          display: none;
         }
       }
     }
