@@ -43,7 +43,7 @@
 
     .cartTitle {
       color: var(--fg);
-      font-size: 1.875em;
+      font-size: var(--mainTitleSize);
       padding: 0;
       margin: 0;
       letter-spacing: 1px;
@@ -78,6 +78,7 @@
         }
         .selectedOptionValue {
           text-transform: uppercase;
+          font-weight: 600;
         }
 
         .info {
@@ -91,13 +92,14 @@
           justify-content: flex-start;
           align-content: flex-start;
           align-items: center;
-          padding-left: 20px;
+          padding-left: 1rem;
         }
 
         .top {
-          font-size: 1.25em;
-          line-height: 1em;
-          padding: 5px 0 5px 20px;
+          font-size: var(--mainTextSize);
+          line-height: 1rem;
+          padding: 0.5rem 0 0.5rem 1rem;
+          display: block;
         }
 
         .bottom {
@@ -106,7 +108,8 @@
 
         .price,
         .totalPrice {
-          font-size: 1em;
+          font-size: var(--mainTextSize);
+          font-weight: 600;
         }
 
         .quantity {
@@ -119,7 +122,7 @@
             border: 0;
             padding: 0;
             margin: 0 5px;
-            font-size: 0.625em;
+            font-size: var(--miniTextSize);
 
             &:first-of-type {
               padding-left: 0;
@@ -129,7 +132,7 @@
           button {
             padding: 0;
             margin: 0 5px;
-            font-size: 0.875em;
+            font-size: var(--subTextSize);
             font-weight: bold;
             position: relative;
 
@@ -213,23 +216,27 @@
       .subtotal_label,
       .subtotal_label,
       .total_label {
-        font-size: 0.75em;
-        line-height: 1em;
+        font-size: var(--subTextSize);
+        line-height: var(--mainTextSize);
         text-transform: uppercase;
         letter-spacing: 1px;
       }
 
-      .subtotal_value,
+      .shipping .subtotal_value {
+        font-weight: 400;
+      }
+
       .subtotal_value {
-        font-size: 0.75em;
-        line-height: 1em;
+        font-size: var(--subTextSize);
+        font-weight: 600;
+        line-height: var(--mainTextSize);
         text-transform: uppercase;
       }
 
       .total_value {
-        font-size: 1em;
-        line-height: 1em;
-        font-weight: 500;
+        font-size: var(--mainTextSize);
+        line-height: var(--mainTextSize);
+        font-weight: 600;
       }
     }
 
@@ -320,7 +327,7 @@
     padding: 0;
 
     color: var(--fg);
-    font-size: 1em;
+    font-size: var(--mainTextSize);
   }
 }
 

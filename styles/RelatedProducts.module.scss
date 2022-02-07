@@ -19,8 +19,7 @@
   overflow-x: scroll;
   overflow-y: hidden;
 
-  scroll-snap-type: block;
-  scroll-snap-align: start;
+  scroll-snap-type: x mandatory;
 
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -31,6 +30,7 @@
 
 .scrollerItem {
   flex: 1 0 90%;
+  scroll-snap-align: start;
 }
 
 .scrollerItemInner {
@@ -45,6 +45,6 @@
     flex: 1 0 25%;
   }
   .scrollerItemInner {
-    margin: 0 0.25rem;
+    margin: 0 0.5rem;
   }
 }

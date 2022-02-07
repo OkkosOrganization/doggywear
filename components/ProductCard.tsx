@@ -16,6 +16,7 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
   const secondaryImage = props.data?.data?.secondary_image;
   const hasImages =
     props.showMultipleImages && primaryImage.url && secondaryImage.url;
+  const isPoster = props.data?.tags.includes('poster');
 
   const [image, setImage] = useState(primaryImage.url);
 
@@ -30,7 +31,8 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
     <div className={`${styles.product} gridItem`} id={props.data.id}>
       <div
         className={`
-          ${styles.productImage}        
+          ${styles.productImage}     
+          ${isPoster ? styles.showShadow : ''}   
           ${hasImages ? styles.hasImages : styles.hideSecondaryImage}
         `}
         onMouseEnter={() => {
@@ -41,7 +43,11 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
         }}
       >
         {primaryImage.url && (
-          <div className={image === primaryImage.url ? '' : styles.hiddenImage}>
+          <div
+            className={`${
+              image === primaryImage.url ? '' : styles.hiddenImage
+            } `}
+          >
             <Image
               src={primaryImage.url}
               width={primaryImage.dimensions?.width}

@@ -12,6 +12,11 @@
   overflow: hidden;
 }
 
+.showShadow {
+  overflow: visible;
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba($black, 0.25);
+}
+
 .hideSecondaryImage div:nth-child(2) {
   display: none;
 }
@@ -23,8 +28,7 @@
   display: flex;
   flex-direction: row;
   overflow-x: scroll;
-  scroll-snap-type: block;
-  scroll-snap-align: start;
+  scroll-snap-type: x mandatory;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -36,7 +40,12 @@
   }
 
   div:first-child {
-    margin-right: 1rem;
+    margin-right: 0.5rem;
+    scroll-snap-align: start;
+  }
+  div:nth-child(2) {
+    margin-left: 0.5rem;
+    scroll-snap-align: end;
   }
 }
 
@@ -102,6 +111,7 @@
   .hasImages div {
     display: block;
     width: 100%;
+    margin: 0;
   }
 
   .hiddenImage {

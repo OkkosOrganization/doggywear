@@ -204,22 +204,19 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
         <div className={`${styles.productImages}`}>
           <SRLWrapper options={options}>
             <div className={`${styles.imageBg} imageBg`}>
-              <div
-                className={`styles.imageBgInner ${
-                  isPoster ? styles.poster : ''
-                }`}
-              >
+              <div className={`${isPoster ? 'poster' : ''}`}>
                 <Image
                   src={props.product.data.primary_image.url}
                   width={props.product.data.primary_image.dimensions.width}
                   height={props.product.data.primary_image.dimensions.height}
                   layout="responsive"
                   alt={'Primary product image'}
+                  srl_gallery_image="true"
                 />
               </div>
             </div>
-            {props.product.data.secondary_image.url ? (
-              <div className={styles.productGallery}>
+            <div className={styles.productGallery}>
+              {props.product.data.secondary_image.url ? (
                 <div className={'imageBg'}>
                   <Image
                     src={props.product.data.secondary_image.url}
@@ -229,10 +226,26 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
                     }
                     layout="responsive"
                     alt={'Secondary product image'}
+                    srl_gallery_image="true"
                   />
                 </div>
-              </div>
-            ) : null}
+              ) : null}
+
+              {props.product.data.gallery.map((i, index) => {
+                return (
+                  <div className={'imageBg'} key={`galleryImage_${index}`}>
+                    <Image
+                      src={i.image.url}
+                      width={i.image.dimensions.width}
+                      height={i.image.dimensions.height}
+                      layout="responsive"
+                      alt={'Product gallery image'}
+                      srl_gallery_image="true"
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </SRLWrapper>
         </div>
 

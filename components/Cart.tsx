@@ -6,6 +6,7 @@ import { SubtractLineItem } from './icons/SubtractLineItem';
 import { CURRENCY } from '../config/env';
 import { CartContext } from './CartContext';
 import { LoadingIndicator } from './LoadingIndicator';
+import { getTranslation } from '../config/translations';
 
 const CartLineItem = (props) => {
   return (
@@ -185,7 +186,7 @@ const Cart = ({ ww }: CartProps) => {
               <div className={'shipping'}>
                 <span className={'subtotal_label'}>{'SHIPPING'}</span>
                 <span className={'subtotal_value'}>
-                  {'SHIPPING_WILL_BE_CALCULATED_IN_THE_NEXT_STEP'}
+                  {getTranslation('CALCULATED_AT_THE_NEXT_STEP')}
                 </span>
               </div>
 
