@@ -13,6 +13,10 @@ const translations = {
     en: 'Out of stock',
     fi: 'Loppu varastosta',
   },
+  CALCULATED_AT_THE_NEXT_STEP: {
+    en: 'Calculated at the next step',
+    fi: 'Lasketaan seuraavassa vaiheessa',
+  },
   SHOP_NOW: {
     en: 'Shop now',
     fi: 'Osta',

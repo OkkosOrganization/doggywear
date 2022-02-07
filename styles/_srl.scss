@@ -6,7 +6,7 @@
   .SRLNextButton,
   .SRLPrevButton {
     background: transparent;
-
+    justify-content: flex-end;
     svg * {
       fill: $blue;
     }
@@ -16,6 +16,10 @@
   }
   .SRLCaptionContainer {
     display: none;
+  }
+
+  .SRLElementWrapper {
+    padding: 0 1rem;
   }
 }
 

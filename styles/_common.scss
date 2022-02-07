@@ -7,8 +7,15 @@
   -webkit-font-smoothing: antialiased;
 }
 
+/* DARK MODE OVERRIDES */
+.poster {
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba($black, 0.25);
+}
+.imageBg .poster {
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba($black, 0.25);
+}
 .dark .imageBg {
-  background: rgba($black, 0.3) !important;
+  background: rgba($black, 0.3);
 }
 
 html,

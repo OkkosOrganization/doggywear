@@ -20,7 +20,7 @@ export const Logo = (props: LogoProps) => {
         scrollTo: 0,
         duration: 0.3,
         onComplete: () => {
-          logo.current.blur();
+          (document.activeElement as HTMLElement).blur();
         },
       });
     else {
