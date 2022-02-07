@@ -14,6 +14,8 @@ import Image from 'next/image';
 import { RelatedProducts } from '../../components/RelatedProducts';
 import { getProductVariants } from '../../config/shopify';
 import { LoadingIndicator } from '../../components/LoadingIndicator';
+import { getTranslation } from '../../config/translations';
+import { Locale } from '../../types';
 
 type ProductResults = {
   lang: string;
@@ -61,6 +63,7 @@ export async function getStaticPaths({ req, locales }) {
 export const getStaticProps = async (context) => {
   let product: unknown = null;
   let relatedProducts: unknown = null;
+  const currLocale = getCurrentLocale(context.lang);
 
   try {
     const uid = context.params.uid;
@@ -83,6 +86,7 @@ export const getStaticProps = async (context) => {
     props: {
       product: product,
       relatedProducts: relatedProducts,
+      currLocale: currLocale,
     },
     revalidate: 1,
   };
@@ -93,6 +97,7 @@ type ProductPageProps = {
   isTouchDevice: boolean;
   product: any;
   relatedProducts: any;
+  currLocale: Locale;
 };
 
 const ProductPage = (props: ProductPageProps): JSX.Element => {
@@ -280,8 +285,8 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
                     disabled={!chosenVariant.node.availableForSale}
                   >
                     {chosenVariant.node.availableForSale
-                      ? 'Add to cart'
-                      : 'Out of stock'}
+                      ? getTranslation('ADD_TO_CART', props.currLocale.locale)
+                      : getTranslation('OUT_OF_STOCK', props.currLocale.locale)}
                   </button>
                 </div>
               </div>

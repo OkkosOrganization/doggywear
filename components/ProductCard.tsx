@@ -3,6 +3,7 @@ import { CURRENCY } from '../config/env';
 import styles from '../styles/ProductCard.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getTranslation } from '../config/translations';
 
 type ProductCardProps = {
   data: any;
@@ -102,6 +103,16 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
         <h4 className={styles.productPrice}>
           {Number(price).toFixed(0) + CURRENCY}
         </h4>
+
+        <Link href={`/product/${props.data.uid}`} passHref>
+          <button
+            className={styles.shopNowBtn}
+            role={'button'}
+            aria-label={getTranslation('SHOP_NOW')}
+          >
+            {getTranslation('SHOP_NOW')}
+          </button>
+        </Link>
       </div>
     </div>
   );

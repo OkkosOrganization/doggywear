@@ -133,6 +133,10 @@
             font-weight: bold;
             position: relative;
 
+            &:hover:after {
+              display: none;
+            }
+
             svg {
               stroke: var(--fg);
               fill: none;
@@ -261,6 +265,9 @@
     border-radius: 0;
     min-width: 0;
     border: 0;
+    &:hover:after {
+      display: none;
+    }
     &:hover i {
       background: var(--secondaryAccent);
     }
