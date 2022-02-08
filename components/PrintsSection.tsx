@@ -24,7 +24,7 @@ export const PrintsSection = (props: PrintsSectionProps): JSX.Element => {
           return (
             <div
               className={styles.scrollerItem}
-              key={'RelatedProduct_' + i.uid}
+              key={'RelatedProduct_' + i?.uid}
             >
               <div className={styles.scrollerItemInner}>
                 <ProductCard

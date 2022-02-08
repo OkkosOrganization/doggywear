@@ -3,13 +3,7 @@ import { RichText } from 'prismic-reactjs';
 import { apiEndPoint, Prismic } from '../config/prismic';
 import Masonry from 'react-masonry-css';
 import styles from '../styles/FrontPage.module.scss';
-import {
-  BASE_URL,
-  DESCRIPTION,
-  TITLE,
-  TWITTER_HANDLE,
-  OG_IMG,
-} from '../config/env';
+import { BASE_URL, TITLE, TWITTER_HANDLE } from '../config/env';
 import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { ProductCard } from '../components/ProductCard';
@@ -24,10 +18,16 @@ export const getStaticProps = async ({ req, locale }) => {
   try {
     const prismicApi = await Prismic.getApi(apiEndPoint, { req: req });
     products = await prismicApi.query(
-      Prismic.Predicates.at('document.type', 'product')
+      Prismic.Predicates.at('document.type', 'product'),
+      {
+        pageSize: 999,
+      }
     );
     illustrations = await prismicApi.query(
-      Prismic.Predicates.at('document.type', 'illustration')
+      Prismic.Predicates.at('document.type', 'illustration'),
+      {
+        pageSize: 999,
+      }
     );
     frontpage = await prismicApi.getSingle('front-page');
   } catch (e) {

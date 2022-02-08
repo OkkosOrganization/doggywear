@@ -15,10 +15,13 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
   const primaryImage = props.data?.data?.primary_image;
   const secondaryImage = props.data?.data?.secondary_image;
   const hasImages =
-    props.showMultipleImages && primaryImage.url && secondaryImage.url;
+    props.showMultipleImages && primaryImage?.url && secondaryImage?.url;
   const isPoster = props.data?.tags.includes('poster');
+  const id = props?.data?.id;
+  const uid = props?.data?.uid;
+  const productUrl = `/product/${uid}`;
 
-  const [image, setImage] = useState(primaryImage.url);
+  const [image, setImage] = useState(primaryImage?.url);
 
   const flipImage = () => {
     if (primaryImage.url && secondaryImage.url) {
@@ -26,6 +29,11 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
       else setImage(secondaryImage.url);
     }
   };
+
+  if (!id) {
+    console.log(props.data);
+    return null;
+  }
 
   return (
     <div className={`${styles.product} gridItem`} id={props.data.id}>
@@ -85,7 +93,7 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
         ></span>
       </div>
       <div>
-        <Link href={`/product/${props.data.uid}`}>
+        <Link href={productUrl}>
           <a>
             <h2 className={styles.productTitle}>{title}</h2>
           </a>
@@ -110,7 +118,7 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
           {Number(price).toFixed(0) + CURRENCY}
         </h4>
 
-        <Link href={`/product/${props.data.uid}`} passHref>
+        <Link href={productUrl} passHref>
           <button
             className={styles.shopNowBtn}
             role={'button'}
