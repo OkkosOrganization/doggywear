@@ -1,9 +1,8 @@
 import styles from '../styles/RelatedProducts.module.scss';
 import { ProductCard } from './ProductCard';
-import { blurOthers, unBlur } from '../config/utils';
 
 type RelatedProductsProps = {
-  products: any;
+  products: any[];
   exclude?: string;
   filterByTag?: string;
   isMobile: boolean;
@@ -11,20 +10,8 @@ type RelatedProductsProps = {
 export const RelatedProducts = ({
   products,
   exclude,
-  isMobile,
   filterByTag,
 }: RelatedProductsProps): JSX.Element => {
-  const mouseEnterHandler = (id: string) => {
-    if (!isMobile) {
-      const selector = `.gridItem:not(#${id})`;
-      blurOthers(selector);
-    }
-  };
-
-  const mouseLeaveHandler = () => {
-    unBlur('.gridItem');
-  };
-
   if (!products) return null;
 
   return (
