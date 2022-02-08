@@ -3,10 +3,16 @@
 /***********/
 #SRLLightbox {
   .SRLCloseButton,
+  .SRLNextButton {
+    justify-content: flex-end;
+  }
+  .SRLPrevButton {
+    justify-content: flex-start;
+  }
+  .SRLCloseButton,
   .SRLNextButton,
   .SRLPrevButton {
     background: transparent;
-    justify-content: flex-end;
     svg * {
       fill: $blue;
     }
