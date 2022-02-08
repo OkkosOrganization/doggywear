@@ -2,7 +2,40 @@
 /* LIGHTBOX */
 /***********/
 #SRLLightbox {
+  .SRLCloseButton,
+  .SRLNextButton {
+    justify-content: flex-end;
+  }
+  .SRLPrevButton {
+    justify-content: flex-start;
+  }
+  .SRLCloseButton,
+  .SRLNextButton,
+  .SRLPrevButton {
+    background: transparent;
+    svg * {
+      fill: $blue;
+    }
+  }
   .SRLCloseButton svg * {
-    fill: $lime;
+    fill: $blue;
+  }
+  .SRLCaptionContainer {
+    display: none;
+  }
+
+  .SRLElementWrapper {
+    padding: 0 1rem;
+  }
+}
+
+.dark #SRLLightbox {
+  .SRLContainer {
+    background: $darker_grey;
+  }
+  .SRLCloseButton svg *,
+  .SRLNextButton svg *,
+  .SRLPrevButton svg * {
+    fill: $light_blue;
   }
 }

@@ -32,6 +32,7 @@ const InstaFeed = memo((props: InstaProps): JSX.Element => {
                     rel={'nofollow noreferrer'}
                     className={styles.instaPost}
                     key={`${'post_'}${pindex}`}
+                    title={`instaPost_${pindex}`}
                     style={{
                       backgroundImage: `url(${p?.media_url})`,
                     }}

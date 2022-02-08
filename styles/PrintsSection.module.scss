@@ -6,7 +6,7 @@
 
 .title {
   font-size: var(--mainTitleSize);
-  font-weight: 300;
+  font-weight: 600;
   margin: 0 0 0.25rem 0;
   color: var(--fg);
 }
@@ -21,8 +21,7 @@
   overflow-x: scroll;
   overflow-y: hidden;
 
-  scroll-snap-type: block;
-  scroll-snap-align: start;
+  scroll-snap-type: x mandatory;
 
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -36,7 +35,7 @@
   scroll-snap-align: center;
 }
 .scrollerItemInner {
-  margin: 0 0.25rem;
+  margin: 0 0.5rem;
 }
 /******************/
 /* MEDIA QUERIES */

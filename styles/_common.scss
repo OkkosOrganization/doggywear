@@ -7,13 +7,20 @@
   -webkit-font-smoothing: antialiased;
 }
 
+/* DARK MODE OVERRIDES */
+.poster {
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba($black, 0.25);
+}
+.imageBg .poster {
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba($black, 0.25);
+}
 .dark .imageBg {
-  background: rgba($black, 0.3) !important;
+  background: rgba($black, 0.3);
 }
 
 html,
 body {
-  font-family: $openSans;
+  font-family: $font;
   font-size: 16px;
   font-weight: 300;
   margin: 0;
@@ -106,7 +113,6 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: $roboto;
   font-size: 1em;
   line-height: 1.25em;
   font-weight: 500;
@@ -119,22 +125,22 @@ h5 {
 button {
   box-sizing: border-box;
   display: inline-block;
+  position: relative;
   margin: 0;
   outline: 0;
   line-height: 1rem;
   font-size: 0.875rem;
   font-weight: 300;
-  font-family: $roboto;
   cursor: pointer;
   cursor: hand;
-  letter-spacing: 0.05rem;
+  letter-spacing: 0.025rem;
   text-transform: uppercase;
   border: 1px solid var(--fg);
   border-radius: 0px;
 
   background: transparent;
   color: var(--fg);
-  min-width: 154px;
+  min-width: 140px;
   font-size: var(--buttonTextSize);
   padding: 0.75rem 2rem;
 
@@ -144,7 +150,19 @@ button {
     opacity: 0.5;
   }
 
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    box-shadow: inset 0px 0px var(--linkBlue), inset -0px -0px var(--linkBlue);
+    transition: all 0.05s ease-in-out;
+  }
+
   &:hover {
+    transition: all 0.05s ease-in-out;
     border-color: var(--secondaryAccent);
     color: var(--secondaryAccent);
   }
@@ -153,13 +171,12 @@ button {
 select {
   display: block;
   width: auto;
-  min-width: 3.5rem;
+  min-width: 4rem;
   border: 1px solid var(--fg);
   height: 38px;
   margin: 0;
   padding: 0;
   text-indent: 0.75rem;
-  font-family: $roboto;
   text-transform: uppercase;
   font-size: 0.875rem;
   appearance: none;
@@ -210,6 +227,13 @@ select {
   }
   .dark #__next:after {
     background: rgba($black, 0.75);
+  }
+
+  button:hover {
+    border-color: var(--secondaryAccent);
+    &:after {
+      box-shadow: inset 4px 4px var(--linkBlue), inset -4px -4px var(--linkBlue);
+    }
   }
 }
 

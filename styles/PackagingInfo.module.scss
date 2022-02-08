@@ -1,14 +1,14 @@
 .packageInfo {
   color: var(--fg);
   width: 100%;
-  text-align: left;
+  text-align: center;
   padding: 0rem;
   margin-bottom: 4rem;
 }
 
 .title {
-  font-size: 1.875rem;
-  font-weight: 300;
+  font-size: var(--mainTitleSize);
+  font-weight: 600;
   margin: 0 0 0.5rem 0;
   color: var(--fg);
 }

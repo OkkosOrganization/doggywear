@@ -24,6 +24,10 @@
 
   &:hover {
     background: transparent;
+
+    &::after {
+      display: none;
+    }
   }
 
   svg {
@@ -102,7 +106,7 @@
   z-index: 10;
   background: var(--bg);
   color: var(--fg);
-  border-bottom: 1px solid rgba($dark_grey, 1);
+  //border-bottom: 1px solid rgba($dark_grey, 1);
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -147,6 +151,13 @@
       bottom: 0;
       z-index: 1;
       fill: var(--fg);
+      stroke: var(--fg);
+      stroke-width: 4;
+      stroke-linecap: square;
+    }
+
+    &:hover:after {
+      display: none;
     }
 
     &:hover svg {
@@ -166,8 +177,7 @@
       line-height: 20px;
       text-align: center;
       z-index: 2;
-      font-size: var(--subTextSize);
-      font-family: $roboto;
+      font-size: var(--miniTextSize);
       color: var(--fg);
     }
   }
@@ -187,6 +197,9 @@
     display: block;
     min-width: 0px;
     background: transparent;
+    &:hover:after {
+      display: none;
+    }
 
     .hamburgerIcon {
       position: absolute;
@@ -202,6 +215,9 @@
 
       &:hover {
         stroke: var(--secondaryAccent);
+      }
+      &:hover:after {
+        display: none;
       }
     }
 
@@ -219,6 +235,9 @@
       &:hover {
         stroke: var(--secondaryAccent);
       }
+      &:hover:after {
+        display: none;
+      }
     }
 
     &.active {
@@ -231,6 +250,9 @@
 
         &:hover {
           stroke: var(--secondaryAccent);
+        }
+        &:hover:after {
+          display: none;
         }
       }
     }
@@ -274,7 +296,6 @@
     padding: 0;
     list-style: none;
 
-    font-family: $roboto;
     font-size: var(--mainTextSize);
     text-align: center;
     max-width: 200px;

@@ -6,20 +6,26 @@ import { SubtractLineItem } from './icons/SubtractLineItem';
 import { CURRENCY } from '../config/env';
 import { CartContext } from './CartContext';
 import { LoadingIndicator } from './LoadingIndicator';
+import { getTranslation } from '../config/translations';
 
 const CartLineItem = (props) => {
   return (
     <div className={'lineItem'}>
       <div className={'image'}>
-        <img src={props.lineItem.variant.image.src} />
+        <img src={props.lineItem.variant.image.src} alt={'Product image'} />
       </div>
 
       <div className={'info'}>
         <div className={'top'}>
           {props.lineItem.title}
-          {props.lineItem.variant.title.includes('Default')
-            ? null
-            : ' - ' + props.lineItem.variant.title}
+          {props.lineItem.variant.title.includes('Default') ? null : (
+            <>
+              &nbsp;-&nbsp;
+              <span className={'selectedOptionValue'}>
+                {props.lineItem.variant.title}
+              </span>
+            </>
+          )}
         </div>
 
         <div className={'bottom'}>
@@ -180,7 +186,7 @@ const Cart = ({ ww }: CartProps) => {
               <div className={'shipping'}>
                 <span className={'subtotal_label'}>{'SHIPPING'}</span>
                 <span className={'subtotal_value'}>
-                  {'SHIPPING_WILL_BE_CALCULATED_IN_THE_NEXT_STEP'}
+                  {getTranslation('CALCULATED_AT_THE_NEXT_STEP')}
                 </span>
               </div>
 
@@ -209,7 +215,7 @@ const Cart = ({ ww }: CartProps) => {
             </div>
           </>
         ) : (
-          <p className={'cartEmpty'}>{'CART EMPTY'}</p>
+          !updating && <p className={'cartEmpty'}>{'CART EMPTY'}</p>
         )}
         <button className={'closeCart'} onClick={hide} aria-label="Close cart">
           <i></i>

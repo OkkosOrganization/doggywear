@@ -52,7 +52,11 @@ const Header = (props) => {
         </div>
         <CartIcon />
       </nav>
-      <Logo highlight={scrolled || naviOpen} />
+      <Logo
+        highlight={scrolled || naviOpen}
+        toggleNavi={toggleNavi}
+        naviOpen={naviOpen}
+      />
     </>
   );
 };

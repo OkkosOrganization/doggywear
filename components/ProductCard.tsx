@@ -3,18 +3,20 @@ import { CURRENCY } from '../config/env';
 import styles from '../styles/ProductCard.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getTranslation } from '../config/translations';
 
 type ProductCardProps = {
   data: any;
-  mouseEnterHandler: (e) => void;
-  mouseLeaveHandler: (e) => void;
+  showMultipleImages: boolean;
 };
 export const ProductCard = (props: ProductCardProps): JSX.Element => {
   const price = props.data?.data?.shopify?.variants[0]?.price;
   const title = props.data?.data?.title[0]?.text;
   const primaryImage = props.data?.data?.primary_image;
   const secondaryImage = props.data?.data?.secondary_image;
-  const hasImages = primaryImage.url && secondaryImage.url;
+  const hasImages =
+    props.showMultipleImages && primaryImage.url && secondaryImage.url;
+  const isPoster = props.data?.tags.includes('poster');
 
   const [image, setImage] = useState(primaryImage.url);
 
@@ -29,19 +31,23 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
     <div className={`${styles.product} gridItem`} id={props.data.id}>
       <div
         className={`
-          ${styles.productImage}        
-          ${hasImages ? styles.hasImages : ''}
+          ${styles.productImage}     
+          ${isPoster ? styles.showShadow : ''}   
+          ${hasImages ? styles.hasImages : styles.hideSecondaryImage}
         `}
-        onClick={flipImage}
         onMouseEnter={() => {
-          props.mouseEnterHandler(props.data.id);
+          if (props.showMultipleImages) flipImage();
         }}
         onMouseLeave={() => {
-          props.mouseLeaveHandler(props.data.id);
+          if (props.showMultipleImages) flipImage();
         }}
       >
         {primaryImage.url && (
-          <div className={image === primaryImage.url ? '' : styles.hiddenImage}>
+          <div
+            className={`${
+              image === primaryImage.url ? '' : styles.hiddenImage
+            } `}
+          >
             <Image
               src={primaryImage.url}
               width={primaryImage.dimensions?.width}
@@ -79,10 +85,14 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
         ></span>
       </div>
       <div>
-        <h2 className={styles.productTitle}>{title}</h2>
+        <Link href={`/product/${props.data.uid}`}>
+          <a>
+            <h2 className={styles.productTitle}>{title}</h2>
+          </a>
+        </Link>
         {props.data.data.shopify &&
           props.data.data.shopify.options[0].values.length > 1 && (
-            <h4 className={styles.sizeOptions}>
+            <h3 className={styles.sizeOptions}>
               {props.data.data.shopify.options[0].values.map((o, oIndex) => {
                 return (
                   <span
@@ -93,13 +103,21 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
                   </span>
                 );
               })}
-            </h4>
+            </h3>
           )}
-        <h3 className={styles.productPrice}>
+
+        <h4 className={styles.productPrice}>
           {Number(price).toFixed(0) + CURRENCY}
-        </h3>
+        </h4>
+
         <Link href={`/product/${props.data.uid}`} passHref>
-          <button data-cy={'productBtn'}>{`Shop now`}</button>
+          <button
+            className={styles.shopNowBtn}
+            role={'button'}
+            aria-label={getTranslation('SHOP_NOW')}
+          >
+            {getTranslation('SHOP_NOW')}
+          </button>
         </Link>
       </div>
     </div>

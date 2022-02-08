@@ -8,11 +8,12 @@
 }
 .description {
   text-align: center;
-  max-width: 75%;
+  max-width: 640px;
   margin: 4rem auto;
   padding: 0 1rem;
   color: var(--fg);
   font-size: var(--bigTextSize);
+  font-weight: 600;
 
   p {
     margin: 0;
@@ -24,7 +25,6 @@
   left: 0.5rem;
   font-size: 0.75rem;
   font-weight: 400;
-  font-family: $roboto;
   text-transform: uppercase;
   letter-spacing: 0.06875rem;
   background: transparent;
@@ -60,5 +60,11 @@
   }
   &:nth-child(4) {
     padding-top: 1rem;
+  }
+}
+
+@media all and (min-width: 768px) {
+  .description {
+    max-width: 75%;
   }
 }

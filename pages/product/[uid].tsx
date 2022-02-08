@@ -14,6 +14,8 @@ import Image from 'next/image';
 import { RelatedProducts } from '../../components/RelatedProducts';
 import { getProductVariants } from '../../config/shopify';
 import { LoadingIndicator } from '../../components/LoadingIndicator';
+import { getTranslation } from '../../config/translations';
+import { Locale } from '../../types';
 
 type ProductResults = {
   lang: string;
@@ -61,6 +63,7 @@ export async function getStaticPaths({ req, locales }) {
 export const getStaticProps = async (context) => {
   let product: unknown = null;
   let relatedProducts: unknown = null;
+  const currLocale = getCurrentLocale(context.lang);
 
   try {
     const uid = context.params.uid;
@@ -83,6 +86,7 @@ export const getStaticProps = async (context) => {
     props: {
       product: product,
       relatedProducts: relatedProducts,
+      currLocale: currLocale,
     },
     revalidate: 1,
   };
@@ -93,6 +97,7 @@ type ProductPageProps = {
   isTouchDevice: boolean;
   product: any;
   relatedProducts: any;
+  currLocale: Locale;
 };
 
 const ProductPage = (props: ProductPageProps): JSX.Element => {
@@ -109,9 +114,11 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
     settings: {
       overlayColor: '#fff',
       autoplaySpeed: 0,
-      disableKeyboardControls: true,
       transitionSpeed: 200,
       lightboxTransitionSpeed: 0.2,
+      disableKeyboardControls: true,
+      disablePanzoom: true,
+      disableWheelControls: true,
     },
     buttons: {
       backgroundColor: '#fff',
@@ -122,8 +129,14 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
     },
     caption: {
       captionColor: '#fff',
-      captionFontFamily: 'Roboto, sans-serif',
+      captionFontFamily: 'Arial, Helvetica, sans-serif',
       captionFontWeight: '300',
+    },
+    progressBar: {
+      showProgressBar: false,
+    },
+    thumbnails: {
+      showThumbnails: false,
     },
   };
 
@@ -191,22 +204,20 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
         <div className={`${styles.productImages}`}>
           <SRLWrapper options={options}>
             <div className={`${styles.imageBg} imageBg`}>
-              <div
-                className={`styles.imageBgInner ${
-                  isPoster ? styles.poster : ''
-                }`}
-              >
+              <div className={`${isPoster ? 'poster' : ''}`}>
                 <Image
                   src={props.product.data.primary_image.url}
                   width={props.product.data.primary_image.dimensions.width}
                   height={props.product.data.primary_image.dimensions.height}
                   layout="responsive"
                   alt={'Primary product image'}
+                  // @ts-expect-error: no allowed prop, but this makes the lightbox work
+                  srl_gallery_image="true"
                 />
               </div>
             </div>
-            {props.product.data.secondary_image.url ? (
-              <div className={styles.productGallery}>
+            <div className={styles.productGallery}>
+              {props.product.data.secondary_image.url ? (
                 <div className={'imageBg'}>
                   <Image
                     src={props.product.data.secondary_image.url}
@@ -216,10 +227,28 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
                     }
                     layout="responsive"
                     alt={'Secondary product image'}
+                    // @ts-expect-error: no allowed prop, but this makes the lightbox work
+                    srl_gallery_image="true"
                   />
                 </div>
-              </div>
-            ) : null}
+              ) : null}
+
+              {props.product.data.gallery.map((i, index) => {
+                return (
+                  <div className={'imageBg'} key={`galleryImage_${index}`}>
+                    <Image
+                      src={i.image.url}
+                      width={i.image.dimensions.width}
+                      height={i.image.dimensions.height}
+                      layout="responsive"
+                      alt={'Product gallery image'}
+                      // @ts-expect-error: no allowed prop, but this makes the lightbox work
+                      srl_gallery_image="true"
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </SRLWrapper>
         </div>
 
@@ -272,8 +301,8 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
                     disabled={!chosenVariant.node.availableForSale}
                   >
                     {chosenVariant.node.availableForSale
-                      ? 'Add to cart'
-                      : 'Out of stock'}
+                      ? getTranslation('ADD_TO_CART', props.currLocale.locale)
+                      : getTranslation('OUT_OF_STOCK', props.currLocale.locale)}
                   </button>
                 </div>
               </div>

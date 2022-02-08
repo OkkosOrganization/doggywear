@@ -26,13 +26,18 @@
 }
 
 .productTitle {
-  font-size: 3rem;
+  font-size: var(--mainTitleSize);
+  font-weight: 600;
   margin: 20px 0 10px 0;
 }
 
 .price {
-  font-weight: 500;
-  margin: 0 0 20px 0;
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+  font-size: var(--mainTextSize);
+  text-transform: uppercase;
+  letter-spacing: 0.0075rem;
+  color: var(--fg);
 }
 
 .productImages {
@@ -51,16 +56,10 @@
 .productGallery {
   text-align: center;
   margin-top: 1rem;
-}
 
-.imageBgInner {
-  background: $medium_grey;
-  width: 100%;
-  padding: 1rem;
-}
-
-.poster {
-  box-shadow: 0.25rem 0.25rem 0.5rem rgba($black, 0.25);
+  div {
+    max-width: 25%;
+  }
 }
 
 .productDescription {
@@ -92,6 +91,13 @@
     margin: 0 0 1rem 0;
     font-size: 2.5rem;
     font-weight: 300;
+  }
+
+  ul {
+    margin: 0 auto 1rem auto;
+    text-align: center;
+    list-style: none;
+    padding: 0;
   }
 }
 
@@ -154,13 +160,29 @@
     z-index: 2;
   }
 
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    box-shadow: inset 0px 0px var(--linkBlue), inset -0px -0px var(--linkBlue);
+    transition: all 0.05s ease-in-out;
+  }
+
   &:hover select {
+    transition: all 0.05s ease-in-out;
     border-color: var(--secondaryAccent);
     color: var(--secondaryAccent);
   }
 
   &:hover svg {
     fill: var(--secondaryAccent);
+  }
+
+  &:hover:after {
+    box-shadow: inset 4px 4px var(--linkBlue), inset -4px -4px var(--linkBlue);
   }
 }
 
@@ -176,6 +198,12 @@
   .productDescription {
     text-align: left;
     width: 50%;
+
+    ul {
+      text-align: left;
+      list-style: disc;
+      list-style-position: inside;
+    }
   }
 
   .variants {
@@ -207,18 +235,6 @@
 
       .product {
         width: 50%;
-      }
-    }
-  }
-}
-
-@media all and (min-width: 960px) {
-  .productPage {
-    .relatedProducts {
-      .products {
-        .product {
-          width: 25%;
-        }
       }
     }
   }
