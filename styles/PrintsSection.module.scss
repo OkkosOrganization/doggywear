@@ -31,15 +31,12 @@
 }
 
 .scrollerItem {
-  flex: 1 0 90%;
-  scroll-snap-align: center;
+  flex: 1 0 80%;
 }
 .scrollerItemInner {
   margin: 0 0.5rem;
 }
-/******************/
-/* MEDIA QUERIES */
-/****************/
+
 @media all and (min-width: 768px) {
   .scroller {
     margin: 0 -0.5rem;
@@ -49,6 +46,5 @@
   }
   .scrollerItemInner {
     margin: 0 0.5rem;
-    scroll-snap-align: left;
   }
 }
