@@ -76,6 +76,7 @@ export const getStaticProps = async (context) => {
     relatedProducts = (await prismicApi.query(
       Prismic.Predicates.at('document.type', 'product'),
       {
+        pageSize: 999,
         lang: '*',
       }
     )) as ProductsResponse;
