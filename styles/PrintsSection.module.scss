@@ -1,3 +1,5 @@
+@import '_scroller.scss';
+
 .container {
   padding: 4rem 1rem;
   color: var(--fg);
@@ -15,19 +17,9 @@
   margin: 0 0 2rem 0;
 }
 
+/* SCROLLER MODE */
 .scroller {
-  display: flex;
-  flex-direction: row;
-  overflow-x: scroll;
-  overflow-y: hidden;
-
-  scroll-snap-type: x mandatory;
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  @extend .scroller;
 }
 
 .scrollerItem {
@@ -37,14 +29,38 @@
   margin: 0 0.5rem;
 }
 
+/* GRID MODE */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+  padding: 0;
+}
+.gridItem {
+  width: 100%;
+  padding: 0;
+  height: auto;
+  position: relative;
+}
+
 @media all and (min-width: 768px) {
   .scroller {
     margin: 0 -0.5rem;
   }
   .scrollerItem {
-    flex: 1 0 25%;
+    flex: 1 0 30%;
   }
   .scrollerItemInner {
     margin: 0 0.5rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media all and (min-width: 1280px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
