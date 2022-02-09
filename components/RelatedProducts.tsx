@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styles from '../styles/RelatedProducts.module.scss';
 import { ProductCard } from './ProductCard';
 
@@ -6,19 +7,28 @@ type RelatedProductsProps = {
   exclude?: string;
   filterByTag?: string;
   isMobile: boolean;
+  randomOrder?: boolean;
 };
 export const RelatedProducts = ({
   products,
   exclude,
   filterByTag,
+  randomOrder,
 }: RelatedProductsProps): JSX.Element => {
+  const [randomized, setRandomized] = useState<any[]>(products);
+
+  useEffect(() => {
+    if (randomOrder)
+      setRandomized(products.sort((a, b) => 0.5 - Math.random()));
+  }, [randomOrder, products]);
+
   if (!products) return null;
 
   return (
     <div className={styles.relatedProducts}>
       <h3 className={styles.title}>You might also like</h3>
       <div className={styles.scroller}>
-        {products
+        {randomized
           .filter((p) => {
             return p.uid !== exclude;
           })

@@ -21,6 +21,14 @@ const translations = {
     en: 'Shop now',
     fi: 'Osta',
   },
+  SHOW_ALL: {
+    en: 'Show all',
+    fi: 'Näytä kaikki',
+  },
+  SHOW_LESS: {
+    en: 'Show less',
+    fi: 'Näytä vähemmän',
+  },
 };
 
 export const getTranslation = (
