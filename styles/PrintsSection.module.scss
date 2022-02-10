@@ -1,7 +1,9 @@
 @import '_scroller.scss';
 
 .container {
-  padding: 4rem 1rem;
+  padding: 4rem 0;
+  width: 100%;
+  width: 100vw;
   color: var(--fg);
   text-align: center;
 }
@@ -9,24 +11,12 @@
 .title {
   font-size: var(--mainTitleSize);
   font-weight: 600;
-  margin: 0 0 0.25rem 0;
+  margin: 0 1rem 0.25rem 1rem;
   color: var(--fg);
 }
 
 .description {
-  margin: 0 0 2rem 0;
-}
-
-/* SCROLLER MODE */
-.scroller {
-  @extend .scroller;
-}
-
-.scrollerItem {
-  flex: 1 0 80%;
-}
-.scrollerItemInner {
-  margin: 0 0.5rem;
+  margin: 0 1rem 2rem 1rem;
 }
 
 /* GRID MODE */
@@ -44,16 +34,6 @@
 }
 
 @media all and (min-width: 768px) {
-  .scroller {
-    margin: 0 -0.5rem;
-  }
-  .scrollerItem {
-    flex: 1 0 30%;
-  }
-  .scrollerItemInner {
-    margin: 0 0.5rem;
-  }
-
   .grid {
     grid-template-columns: repeat(3, 1fr);
   }

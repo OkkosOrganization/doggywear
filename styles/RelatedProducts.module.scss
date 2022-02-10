@@ -3,6 +3,7 @@
 .relatedProducts {
   padding: 2rem 0;
   width: 100%;
+  width: 100vw;
 }
 
 .title {
@@ -11,28 +12,4 @@
   margin: 0 0 1rem 0;
   color: var(--fg);
   text-align: center;
-}
-
-.scroller {
-  @extend .scroller;
-}
-
-.scrollerItem {
-  flex: 1 0 80%;
-}
-
-.scrollerItemInner {
-  margin: 0 0.5rem;
-}
-
-@media all and (min-width: 768px) {
-  .scroller {
-    margin: 0 -0.5rem;
-  }
-  .scrollerItem {
-    flex: 1 0 25%;
-  }
-  .scrollerItemInner {
-    margin: 0 0.5rem;
-  }
 }
