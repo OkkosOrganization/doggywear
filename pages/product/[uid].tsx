@@ -109,7 +109,7 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
   const isPoster = tags.includes('poster');
 
   const { addToCart, client } = React.useContext(CartContext);
-  const [variants, setVariants] = useState([]);
+  const [variants, setVariants] = useState<any[]>([]);
   const [chosenVariant, setChosenVariant] = useState(null);
 
   const options = {
@@ -119,8 +119,8 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
       transitionSpeed: 200,
       lightboxTransitionSpeed: 0.2,
       disableKeyboardControls: true,
-      disablePanzoom: true,
-      disableWheelControls: true,
+      disablePanzoom: false,
+      disableWheelControls: false,
     },
     buttons: {
       backgroundColor: '#fff',
@@ -154,6 +154,8 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
         setChosenVariant(json.data.node.variants.edges[0]);
       } catch (e) {
         console.log(e);
+        setVariants(props?.product?.data?.shopify?.variants);
+        setChosenVariant(props?.product?.data?.shopify?.variants[0]);
       }
     };
 
@@ -220,7 +222,7 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
             </div>
             <div className={styles.productGallery}>
               {props.product.data.secondary_image.url ? (
-                <div className={'imageBg'}>
+                <div className={styles.galleryImageBg}>
                   <Image
                     src={props.product.data.secondary_image.url}
                     width={props.product.data.secondary_image.dimensions.width}
@@ -237,7 +239,10 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
 
               {props.product.data.gallery.map((i, index) => {
                 return (
-                  <div className={'imageBg'} key={`galleryImage_${index}`}>
+                  <div
+                    className={styles.galleryImageBg}
+                    key={`galleryImage_${index}`}
+                  >
                     <Image
                       src={i.image.url}
                       width={i.image.dimensions.width}
