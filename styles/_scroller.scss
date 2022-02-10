@@ -1,7 +1,7 @@
 .scroller {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   overflow-x: scroll;
   overflow-y: hidden;
 
@@ -11,5 +11,37 @@
   scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  scroll-snap-type: x mandatory;
+  margin: 0 -0.5rem;
+  padding: 0 1rem;
+  scroll-padding: 0 0.5rem;
+}
+
+.scrollerItem {
+  flex: 1 0 80%;
+}
+
+.scrollerItemInner {
+  padding: 0 0.5rem;
+  scroll-snap-align: center;
+}
+
+@media all and (min-width: 768px) {
+  .scroller {
+    margin: 0;
+  }
+  .scrollerItem {
+    flex: 1 0 32%;
+  }
+  .scrollerItemInner {
+    scroll-snap-align: start;
+  }
+}
+
+@media all and (min-width: 1280px) {
+  .scrollerItem {
+    flex: 1 0 24%;
   }
 }

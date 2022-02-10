@@ -203,8 +203,7 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
   return (
     <section className={styles.container}>
       {renderHead()}
-
-      <div className={styles.wrapper}>
+      <div className={styles.productContainer}>
         <div className={`${styles.productImages}`}>
           <SRLWrapper options={options}>
             <div className={`${styles.imageBg} imageBg`}>
@@ -316,17 +315,17 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
             )}
           </div>
         </div>
-
-        {!isPoster && <ProductPackagingInfo />}
-
-        <RelatedProducts
-          products={props?.relatedProducts?.results}
-          exclude={props?.product?.uid}
-          isMobile={props.isTouchDevice}
-          filterByTag={props.product.tags[0]}
-          randomOrder
-        />
       </div>
+
+      {!isPoster && <ProductPackagingInfo />}
+
+      <RelatedProducts
+        products={props?.relatedProducts?.results}
+        exclude={props?.product?.uid}
+        isMobile={props.isTouchDevice}
+        filterByTag={props.product.tags[0]}
+        randomOrder
+      />
     </section>
   );
 };
