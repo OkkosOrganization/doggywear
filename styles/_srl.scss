@@ -3,7 +3,8 @@
 /***********/
 #SRLLightbox {
   .SRLCloseButton,
-  .SRLNextButton {
+  .SRLNextButton,
+  .SRLZoomOutButton {
     justify-content: flex-end;
   }
   .SRLPrevButton {
@@ -11,11 +12,17 @@
   }
   .SRLCloseButton,
   .SRLNextButton,
-  .SRLPrevButton {
+  .SRLPrevButton,
+  .SRLZoomOutButton {
     background: transparent;
     svg * {
       fill: $blue;
     }
+  }
+  button.SRLZoomOutButton {
+    top: 40px;
+    right: -145px;
+    align-self: flex-end;
   }
   .SRLCloseButton svg * {
     fill: $blue;

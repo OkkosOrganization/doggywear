@@ -50,16 +50,25 @@
     height: auto;
     margin: 0 auto;
     display: block;
+    cursor: pointer;
   }
 }
 
 .productGallery {
-  text-align: center;
   margin-top: 1rem;
+  display: flex;
 
-  div {
-    max-width: 25%;
-  }
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 1rem -0.5rem;
+}
+
+.galleryImageBg {
+  flex: 1 0 25%;
+  max-width: 25%;
+  margin: 0 0.5rem;
+  cursor: pointer;
 }
 
 .productDescription {
