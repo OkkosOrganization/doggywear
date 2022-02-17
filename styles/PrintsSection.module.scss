@@ -24,7 +24,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
-  padding: 0;
+  padding: 0 1rem;
 }
 .gridItem {
   width: 100%;
