@@ -66,6 +66,7 @@ const authHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     token: token,
     longToken: longToken,
     longTokenExpires: longTokenExpires,
+    userid: userId,
   });
 };
 
