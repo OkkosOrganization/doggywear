@@ -38,7 +38,12 @@ export const PrintsSection = ({
   };
 
   return (
-    <div className={styles.container} ref={prints}>
+    <div
+      className={`${styles.container} ${
+        mode == 'scroller' ? '' : styles.gridContainer
+      }`}
+      ref={prints}
+    >
       <h2 className={styles.title}>{title}</h2>
       <div className={styles.description}>
         <RichText render={description} />
