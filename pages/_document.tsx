@@ -1,6 +1,7 @@
 import Document, {
   DocumentContext,
   Html,
+  Head,
   Main,
   NextScript,
 } from 'next/document';
@@ -14,6 +15,7 @@ class DoggyDocument extends Document {
   render() {
     return (
       <Html>
+        <Head />
         <body>
           <Main />
           <NextScript />
