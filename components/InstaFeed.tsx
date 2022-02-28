@@ -23,7 +23,7 @@ const InstaFeed = memo((props: InstaProps): JSX.Element => {
       <div className={styles.instaGrid}>
         {props?.feed?.data.length
           ? props?.feed?.data
-              .filter((p) => p.media_type === 'IMAGE')
+              //.filter((p) => p.media_type === 'IMAGE')
               .map((p, pindex) => {
                 return (
                   <a
@@ -32,7 +32,7 @@ const InstaFeed = memo((props: InstaProps): JSX.Element => {
                     rel={'nofollow noreferrer'}
                     className={styles.instaPost}
                     key={`${'post_'}${pindex}`}
-                    title={`instaPost_${pindex}`}
+                    title={p?.caption ? p.caption : 'instaPost_' + pindex}
                     style={{
                       backgroundImage: `url(${p?.media_url})`,
                     }}

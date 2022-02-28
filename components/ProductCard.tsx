@@ -37,49 +37,51 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
 
   return (
     <div className={`${styles.product} gridItem`} id={props.data.id}>
-      <div
-        className={`
-          ${styles.productImage}     
-          ${isPoster ? styles.showShadow : ''}   
-          ${hasImages ? styles.hasImages : styles.hideSecondaryImage}
-        `}
-        onMouseEnter={() => {
-          if (props.showMultipleImages) flipImage();
-        }}
-        onMouseLeave={() => {
-          if (props.showMultipleImages) flipImage();
-        }}
-      >
-        {primaryImage.url && (
-          <div
-            className={`${
-              image === primaryImage.url ? '' : styles.hiddenImage
-            } `}
-          >
-            <Image
-              src={primaryImage.url}
-              width={primaryImage.dimensions?.width}
-              height={primaryImage.dimensions?.height}
-              layout="responsive"
-              alt="Primary product image"
-            />
-          </div>
-        )}
+      <Link href={productUrl}>
+        <a
+          className={`
+            ${styles.productImage}     
+            ${isPoster ? styles.showShadow : ''}   
+            ${hasImages ? styles.hasImages : styles.hideSecondaryImage}
+          `}
+          onMouseEnter={() => {
+            if (props.showMultipleImages) flipImage();
+          }}
+          onMouseLeave={() => {
+            if (props.showMultipleImages) flipImage();
+          }}
+        >
+          {primaryImage.url && (
+            <div
+              className={`${
+                image === primaryImage.url ? '' : styles.hiddenImage
+              } `}
+            >
+              <Image
+                src={primaryImage.url}
+                width={primaryImage.dimensions?.width}
+                height={primaryImage.dimensions?.height}
+                layout="responsive"
+                alt="Primary product image"
+              />
+            </div>
+          )}
 
-        {secondaryImage.url && (
-          <div
-            className={image === secondaryImage.url ? '' : styles.hiddenImage}
-          >
-            <Image
-              src={secondaryImage.url}
-              width={secondaryImage.dimensions?.width}
-              height={secondaryImage.dimensions?.height}
-              layout="responsive"
-              alt="Secondary product image"
-            />
-          </div>
-        )}
-      </div>
+          {secondaryImage.url && (
+            <div
+              className={image === secondaryImage.url ? '' : styles.hiddenImage}
+            >
+              <Image
+                src={secondaryImage.url}
+                width={secondaryImage.dimensions?.width}
+                height={secondaryImage.dimensions?.height}
+                layout="responsive"
+                alt="Secondary product image"
+              />
+            </div>
+          )}
+        </a>
+      </Link>
       <div className={`${styles.pager} ${!hasImages ? styles.hide : ''} pager`}>
         <span
           className={`${styles.pagerItem} ${

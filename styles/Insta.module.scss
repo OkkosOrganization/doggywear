@@ -39,6 +39,19 @@
   position: relative;
   background-size: cover;
   background-position: center center;
+
+  &:hover {
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      border: 0.5rem solid var(--linkBlue);
+      transition: all 0.05s ease-in-out;
+    }
+  }
 }
 
 @media all and (min-width: 768px) {
