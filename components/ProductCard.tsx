@@ -31,10 +31,6 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
     }
   };
 
-  const imageLoaded = (e) => {
-    console.log(e);
-  };
-
   if (!id) {
     console.log(props.data);
     return null;
@@ -69,7 +65,6 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
                 layout="responsive"
                 alt="Primary product image"
                 priority={props.loadImagesEager}
-                onLoadingComplete={imageLoaded}
               />
             </div>
           )}
@@ -85,7 +80,6 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
                 layout="responsive"
                 alt="Secondary product image"
                 priority={props.loadImagesEager}
-                onLoadingComplete={imageLoaded}
               />
             </div>
           )}
