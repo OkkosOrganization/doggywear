@@ -8,6 +8,7 @@ import { getTranslation } from '../config/translations';
 type ProductCardProps = {
   data: any;
   showMultipleImages: boolean;
+  loadImagesEager?: boolean;
 };
 export const ProductCard = (props: ProductCardProps): JSX.Element => {
   const price = props.data?.data?.shopify?.variants[0]?.price;
@@ -28,6 +29,10 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
       if (image === secondaryImage.url) setImage(primaryImage.url);
       else setImage(secondaryImage.url);
     }
+  };
+
+  const imageLoaded = (e) => {
+    console.log(e);
   };
 
   if (!id) {
@@ -63,6 +68,8 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
                 height={primaryImage.dimensions?.height}
                 layout="responsive"
                 alt="Primary product image"
+                priority={props.loadImagesEager}
+                onLoadingComplete={imageLoaded}
               />
             </div>
           )}
@@ -77,6 +84,8 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
                 height={secondaryImage.dimensions?.height}
                 layout="responsive"
                 alt="Secondary product image"
+                priority={props.loadImagesEager}
+                onLoadingComplete={imageLoaded}
               />
             </div>
           )}
