@@ -3,6 +3,7 @@ import styles from '../styles/IllustrationCard.module.scss';
 
 type IllustrationCardProps = {
   data: any;
+  loadImagesEager: boolean;
 };
 export const IllustrationCard = (props: IllustrationCardProps): JSX.Element => {
   return (
@@ -13,6 +14,7 @@ export const IllustrationCard = (props: IllustrationCardProps): JSX.Element => {
         width={props.data?.data?.image?.dimensions?.width}
         height={props.data?.data?.image?.dimensions?.height}
         alt={'Illustration image'}
+        priority={props.loadImagesEager}
       />
     </div>
   );

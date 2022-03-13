@@ -49,10 +49,11 @@ type InstaJson = {
   data?: any[];
 };
 
-const Frontpage = ({ products, illustrations, frontpage }) => {
+const Frontpage = ({ products, illustrations, frontpage, ww }) => {
   const [feed, setFeed] = useState<InstaJson | null>(null);
   const [revealed, setRevealed] = useState<boolean>(false);
   const grid = useRef(null);
+  const isMobile = ww <= 768;
 
   const InstaFeed = dynamic(() => import('../components/InstaFeed'), {
     suspense: false,
@@ -142,6 +143,7 @@ const Frontpage = ({ products, illustrations, frontpage }) => {
             const item = i.item;
             const id = item.id;
             const type = item.type;
+            const loadImagesEager = index < (isMobile ? 1 : 4);
 
             if (type === 'product') {
               const data = products.results.filter((p) => p.id === id)[0];
@@ -150,12 +152,17 @@ const Frontpage = ({ products, illustrations, frontpage }) => {
                   key={'product_' + index}
                   data={data}
                   showMultipleImages
+                  loadImagesEager={loadImagesEager}
                 />
               );
             } else if (type === 'illustration') {
               const data = illustrations.results.filter((p) => p.id === id)[0];
               return (
-                <IllustrationCard key={'illustration_' + index} data={data} />
+                <IllustrationCard
+                  key={'illustration_' + index}
+                  data={data}
+                  loadImagesEager={loadImagesEager}
+                />
               );
             } else return null;
           })}
