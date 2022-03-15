@@ -7,3 +7,10 @@
 .illustration {
   margin-bottom: 1rem;
 }
+.loading {
+  opacity: 0;
+}
+.loaded {
+  transition: opacity 0.15s linear;
+  opacity: 1;
+}

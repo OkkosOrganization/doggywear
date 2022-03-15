@@ -12,6 +12,14 @@
   overflow: hidden;
 }
 
+.loading {
+  opacity: 0;
+}
+.loaded {
+  transition: opacity 0.15s linear;
+  opacity: 1;
+}
+
 .showShadow {
   overflow: visible;
   box-shadow: 0.25rem 0.25rem 0.5rem rgba($black, 0.25);

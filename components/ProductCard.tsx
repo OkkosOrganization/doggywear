@@ -23,6 +23,9 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
   const productUrl = `/product/${uid}`;
 
   const [image, setImage] = useState(primaryImage?.url);
+  const [primaryImageLoaded, setPrimaryImageLoaded] = useState<boolean>(false);
+  const [secondaryImageLoaded, setSecondaryImageLoaded] =
+    useState<boolean>(false);
 
   const flipImage = () => {
     if (primaryImage.url && secondaryImage.url) {
@@ -65,6 +68,9 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
                 layout="responsive"
                 alt="Primary product image"
                 priority={props.loadImagesEager}
+                className={primaryImageLoaded ? styles.loaded : styles.loading}
+                onLoadingComplete={() => setPrimaryImageLoaded(true)}
+                lazyBoundary={'300px'}
               />
             </div>
           )}
@@ -80,6 +86,11 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
                 layout="responsive"
                 alt="Secondary product image"
                 priority={props.loadImagesEager}
+                className={
+                  secondaryImageLoaded ? styles.loaded : styles.loading
+                }
+                onLoadingComplete={() => setSecondaryImageLoaded(true)}
+                lazyBoundary={'300px'}
               />
             </div>
           )}
