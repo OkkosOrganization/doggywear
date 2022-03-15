@@ -33,10 +33,14 @@ const InstaFeed = memo((props: InstaProps): JSX.Element => {
                     className={styles.instaPost}
                     key={`${'post_'}${pindex}`}
                     title={p?.caption ? p.caption : 'instaPost_' + pindex}
-                    style={{
-                      backgroundImage: `url(${p?.media_url})`,
-                    }}
-                  ></a>
+                  >
+                    <img
+                      src={p?.media_url}
+                      alt={p?.caption ? p.caption : 'instaPost_' + pindex}
+                      loading="lazy"
+                      className={styles.instaPostImage}
+                    />
+                  </a>
                 );
               })
           : null}

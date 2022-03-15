@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import styles from '../styles/IllustrationCard.module.scss';
 
 type IllustrationCardProps = {
@@ -6,6 +7,8 @@ type IllustrationCardProps = {
   loadImagesEager: boolean;
 };
 export const IllustrationCard = (props: IllustrationCardProps): JSX.Element => {
+  const [primaryImageLoaded, setPrimaryImageLoaded] = useState<boolean>(false);
+
   return (
     <div className={`${styles.illustration} gridItem`} id={props.data.id}>
       <Image
@@ -15,6 +18,9 @@ export const IllustrationCard = (props: IllustrationCardProps): JSX.Element => {
         height={props.data?.data?.image?.dimensions?.height}
         alt={'Illustration image'}
         priority={props.loadImagesEager}
+        className={primaryImageLoaded ? styles.loaded : styles.loading}
+        onLoadingComplete={() => setPrimaryImageLoaded(true)}
+        lazyBoundary={'300px'}
       />
     </div>
   );
