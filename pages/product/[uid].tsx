@@ -191,11 +191,16 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
         <meta property="og:image:height" content={ogImg.dimensions.height} />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={twitterHandle} />
-        <meta name="twitter:creator" content={twitterHandle} />
+
+        {twitterHandle && (
+          <>
+            <meta name="twitter:site" content={twitterHandle} />
+            <meta name="twitter:creator" content={twitterHandle} />
+          </>
+        )}
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={ogImg} />
+        <meta name="twitter:image" content={ogImg.url} />
       </Head>
     );
   };
