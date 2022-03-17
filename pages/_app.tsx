@@ -64,11 +64,25 @@ export default function DoggyApp({ Component, pageProps }) {
   return (
     <>
       {GOOGLE_ANALYTICS && (
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS}`}
-          id="analytics"
-          strategy="afterInteractive"
-        />
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS}`}
+            id="analytics"
+            strategy="afterInteractive"
+          />
+          <Script
+            strategy="afterInteractive"
+            id="analyticsInit"
+            dangerouslySetInnerHTML={{
+              __html: `          
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GOOGLE_ANALYTICS}');
+            `,
+            }}
+          />
+        </>
       )}
       <Layout ww={ww}>
         <Component {...pageProps} ww={ww} isTouchDevice={isTouchDevice} />
