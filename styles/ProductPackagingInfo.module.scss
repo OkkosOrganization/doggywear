@@ -36,7 +36,8 @@
   }
   .packageImages {
     flex-direction: row;
-    margin: 0 -0.5rem;
+    margin: 0 0.5rem;
+    align-items: center;
   }
   .packageImage {
     width: 33.33%;
