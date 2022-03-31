@@ -27,6 +27,7 @@ export const getStaticProps = async ({ req, locale }) => {
       Prismic.Predicates.at('document.type', 'illustration'),
       {
         pageSize: 999,
+        fetchLinks: '[video]',
       }
     );
     frontpage = await prismicApi.getSingle('front-page');

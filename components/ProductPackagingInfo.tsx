@@ -1,4 +1,4 @@
-import styles from '../styles/PackagingInfo.module.scss';
+import styles from '../styles/ProductPackagingInfo.module.scss';
 import Image from 'next/image';
 
 export const ProductPackagingInfo = () => {
@@ -12,27 +12,27 @@ export const ProductPackagingInfo = () => {
       <div className={styles.packageImages}>
         <div className={styles.packageImage}>
           <Image
-            src={'/box4.jpg'}
+            src={'/box7.jpg'}
             width={600}
-            height={732}
+            height={800}
             layout="responsive"
             alt="Packaging image 1"
           />
         </div>
         <div className={styles.packageImage}>
           <Image
-            src={'/box2.jpg'}
+            src={'/box5.jpg'}
             width={600}
-            height={732}
+            height={800}
             layout="responsive"
             alt="Packaging image 2"
           />
         </div>
         <div className={styles.packageImage}>
           <Image
-            src={'/box1.jpg'}
+            src={'/box6.jpg'}
             width={600}
-            height={732}
+            height={800}
             layout="responsive"
             alt="Packaging image 3"
           />
