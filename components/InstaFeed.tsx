@@ -21,7 +21,7 @@ const InstaFeed = memo((props: InstaProps): JSX.Element => {
         </a>
       </h4>
       <div className={styles.instaGrid}>
-        {props?.feed?.data.length
+        {props?.feed?.data?.length
           ? props?.feed?.data
               //.filter((p) => p.media_type === 'IMAGE')
               .map((p, pindex) => {
