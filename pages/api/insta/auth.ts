@@ -15,6 +15,7 @@ type ApiResponse = {
 
 const authHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   let code = String(req.query?.code);
+  const currTimeInSeconds = new Date().getTime() * 1000;
 
   if (!code) return res.status(400).json({ error: 'noCode' });
 
@@ -25,7 +26,7 @@ const authHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   let token = '';
   let longToken = '';
-  let longTokenExpires = '';
+  let longTokenExpires = 0;
   let userId = '';
 
   try {
@@ -51,7 +52,7 @@ const authHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const longTokenRes = await fetch(longTokenEndPoint, { method: 'GET' });
     const longTokenJson = (await longTokenRes.json()) as ApiResponse;
     longToken = longTokenJson?.access_token;
-    longTokenExpires = longTokenJson?.expires_in;
+    longTokenExpires = currTimeInSeconds + Number(longTokenJson?.expires_in);
 
     //STORE TOKEN
     await client.set('instaToken', longToken);
