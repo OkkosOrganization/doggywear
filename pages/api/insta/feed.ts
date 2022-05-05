@@ -25,18 +25,24 @@ const feedHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       console.log('Trying to refresh insta token...');
       const res = await fetch(refreshEndPoint);
-      console.log(res);
+      console.log('Response:', res);
       const resJson = (await res.json()) as {
-        'access-token': string;
-        'expires-in': number;
+        'access-token'?: string;
+        'expires-in'?: number;
       };
-      const newToken = resJson['access-token'];
-      await client.set('instaToken', newToken);
-      await client.set(
-        'instaTokenExpires',
-        currTime + Number(resJson['expires-in'])
-      );
-      console.log('Token refreshed and saved!');
+      if (resJson['access-token'] && resJson['expires-in']) {
+        const newToken = resJson['access-token'];
+        await client.set('instaToken', newToken);
+        await client.set(
+          'instaTokenExpires',
+          currTime + Number(resJson['expires-in'])
+        );
+        console.log('Token refreshed and saved!');
+      } else {
+        console.log(
+          'Refreshing token failed, no fields in response, maybe token is not yet 24 hours of age'
+        );
+      }
     } catch (e) {
       console.log('Refreshing token failed:', e);
     }
