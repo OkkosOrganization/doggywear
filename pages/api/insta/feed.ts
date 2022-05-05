@@ -5,6 +5,9 @@ import { ENV } from '../../../config/env';
 
 const isDev = ENV === 'development';
 const cacheAge = (isDev ? 60 : 60 * 60) * 1000;
+const currTime = new Date().getTime();
+const currTimeInSeconds = new Date().getTime() * 1000;
+const tenDaysInSeconds = 60 * 60 * 24 * 10; //864 000
 
 const feedHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   //CONNECT REDIS
@@ -13,7 +16,29 @@ const feedHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const instaToken = await client.get('instaToken');
   let instaFeed = String(await client.get('instaFeed'));
   const instaFeedSaveTime = Number(await client.get('instaFeedSaveTime'));
-  const currTime = new Date().getTime();
+  const instaTokenExpiresTime = Number(await client.get('instaTokenExpires'));
+
+  //if (instaTokenExpiresTime - currTimeInSeconds <= tenDaysInSeconds) {
+  if (instaTokenExpiresTime) {
+    //REFRESH TOKEN AND SAVE
+    const refreshEndPoint = `https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${instaToken}`;
+    try {
+      const res = await fetch(refreshEndPoint);
+      const resJson = (await res.json()) as {
+        'access-token': string;
+        'expires-in': number;
+      };
+      const newToken = resJson['access-token'];
+      await client.set('instaToken', newToken);
+      await client.set(
+        'instaTokenExpires',
+        currTime + Number(resJson['expires-in'])
+      );
+      console.log('Token refreshed and saved!');
+    } catch (e) {
+      console.log('Refreshing token failed:', e);
+    }
+  }
 
   if (currTime - instaFeedSaveTime > cacheAge) {
     const fields =
