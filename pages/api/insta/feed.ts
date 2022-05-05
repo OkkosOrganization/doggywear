@@ -17,7 +17,7 @@ interface InstaResponse {
 const isDev = ENV === 'development';
 const cacheAge = (isDev ? 60 : 60 * 60) * 1000;
 const currTime = new Date().getTime();
-const currTimeInSeconds = new Date().getUTCSeconds();
+const currTimeInSeconds = currTime * 1000;
 const tenDaysInSeconds = 60 * 60 * 24 * 10; //864 000
 
 const feedHandler = async (req: NextApiRequest, res: NextApiResponse) => {

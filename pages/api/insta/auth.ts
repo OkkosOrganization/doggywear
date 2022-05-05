@@ -15,7 +15,7 @@ type ApiResponse = {
 
 const authHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   let code = String(req.query?.code);
-  const currTimeInSeconds = new Date().getUTCSeconds();
+  const currTimeInSeconds = new Date().getTime() / 1000;
 
   if (!code) return res.status(400).json({ error: 'noCode' });
 
