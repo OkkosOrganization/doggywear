@@ -3,6 +3,17 @@ import { getClient } from '../../../config/redis';
 import fetch from 'node-fetch';
 import { ENV } from '../../../config/env';
 
+interface InstaPost {
+  id: string;
+  caption: string;
+  media_type: string;
+  permalink: string;
+  timestamp: string;
+}
+interface InstaResponse {
+  data: InstaPost[];
+}
+
 const isDev = ENV === 'development';
 const cacheAge = (isDev ? 60 : 60 * 60) * 1000;
 const currTime = new Date().getTime();
@@ -14,12 +25,11 @@ const feedHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const client = await getClient();
 
   const instaToken = await client.get('instaToken');
-  let instaFeed = String(await client.get('instaFeed'));
+  let instaFeed = await client.get('instaFeed');
   const instaFeedSaveTime = Number(await client.get('instaFeedSaveTime'));
   const instaTokenExpiresTime = Number(await client.get('instaTokenExpires'));
 
-  //if (instaTokenExpiresTime - currTimeInSeconds <= tenDaysInSeconds) {
-  if (instaTokenExpiresTime) {
+  if (instaTokenExpiresTime - currTimeInSeconds <= tenDaysInSeconds) {
     //REFRESH TOKEN AND SAVE
     const refreshEndPoint = `https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${instaToken}`;
     try {
@@ -55,10 +65,10 @@ const feedHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const data = await fetch(endPoint);
     const statusCode = data.status;
     if (statusCode == 200) {
-      const json: any = await data.json();
+      const json = (await data.json()) as InstaResponse;
       await client.set('instaFeed', JSON.stringify(json));
       await client.set('instaFeedSaveTime', currTime);
-      instaFeed = json;
+      instaFeed = String(json);
       console.log('Feed updated in Redis, expiry time:', currTime + cacheAge);
     } else {
       console.log('Could not save feed');
