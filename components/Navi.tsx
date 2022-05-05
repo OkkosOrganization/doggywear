@@ -7,7 +7,7 @@ import { getNaviItems } from '../config/navi';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export const Navi = (props) => {
-  const [darkMode, setDarkmode] = useLocalStorage('darkMode', false);
+  const [darkMode, setDarkmode] = useLocalStorage('darkMode', null);
   const [showDarkModeToggle, setShowDarkModeToggle] = useState<boolean>(false);
   const router = useRouter();
   const pages = useRef(null);
