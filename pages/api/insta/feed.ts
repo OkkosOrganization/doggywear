@@ -23,7 +23,9 @@ const feedHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     //REFRESH TOKEN AND SAVE
     const refreshEndPoint = `https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${instaToken}`;
     try {
+      console.log('Trying to refresh insta token...');
       const res = await fetch(refreshEndPoint);
+      console.log(res);
       const resJson = (await res.json()) as {
         'access-token': string;
         'expires-in': number;
