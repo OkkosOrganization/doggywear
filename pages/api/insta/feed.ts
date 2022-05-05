@@ -17,7 +17,7 @@ interface InstaResponse {
 const isDev = ENV === 'development';
 const cacheAge = (isDev ? 60 : 60 * 60) * 1000;
 const currTime = new Date().getTime();
-const currTimeInSeconds = new Date().getTime() * 1000;
+const currTimeInSeconds = new Date().getUTCSeconds();
 const tenDaysInSeconds = 60 * 60 * 24 * 10; //864 000
 
 const feedHandler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -29,13 +29,18 @@ const feedHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const instaFeedSaveTime = Number(await client.get('instaFeedSaveTime'));
   const instaTokenExpiresTime = Number(await client.get('instaTokenExpires'));
 
+  console.log(
+    instaTokenExpiresTime,
+    currTimeInSeconds,
+    instaTokenExpiresTime - currTimeInSeconds
+  );
   if (instaTokenExpiresTime - currTimeInSeconds <= tenDaysInSeconds) {
     //REFRESH TOKEN AND SAVE
     const refreshEndPoint = `https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${instaToken}`;
     try {
       console.log('Trying to refresh insta token...');
       const res = await fetch(refreshEndPoint);
-      console.log('Response:', res);
+      //console.log('Response:', res);
       const resJson = (await res.json()) as {
         'access-token'?: string;
         'expires-in'?: number;
