@@ -20,11 +20,17 @@ const feedHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       'id,caption,media_url,media_type,permalink,thumbnail_url,timestamp,username';
     const endPoint = `https://graph.instagram.com/v12.0/me/media?fields=${fields}&access_token=${instaToken}`;
     const data = await fetch(endPoint);
-    const json: any = await data.json();
-    await client.set('instaFeed', JSON.stringify(json));
-    await client.set('instaFeedSaveTime', currTime);
-    instaFeed = json;
-    console.log('Feed updated in Redis, expiry time:', currTime + cacheAge);
+    const statusCode = data.status;
+    if (statusCode == 200) {
+      const json: any = await data.json();
+      await client.set('instaFeed', JSON.stringify(json));
+      await client.set('instaFeedSaveTime', currTime);
+      instaFeed = json;
+      console.log('Feed updated in Redis, expiry time:', currTime + cacheAge);
+    } else {
+      console.log('Could not save feed');
+      console.log(data);
+    }
   }
 
   res.json(instaFeed);

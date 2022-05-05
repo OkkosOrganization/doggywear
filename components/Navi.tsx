@@ -31,11 +31,19 @@ export const Navi = (props) => {
   }, [props.naviOpen]);
 
   useEffect(() => {
+    //CHECK OS PREFERENCE FOR DARK MODE
+    const prefersDarkMode = window.matchMedia(
+      '(prefers-color-scheme:dark)'
+    ).matches;
+    if (prefersDarkMode) if (darkMode == false) setDarkmode(true);
+
+    console.log('OS prefers dark mode:', prefersDarkMode);
+
     if (darkMode) document.querySelector('body').classList.add('dark');
     else document.querySelector('body').classList.remove('dark');
 
     setShowDarkModeToggle(true);
-  }, [darkMode]);
+  }, [darkMode, setDarkmode]);
 
   const toggleDarkMode = () => {
     setDarkmode(!darkMode);
