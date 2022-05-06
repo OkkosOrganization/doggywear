@@ -15,10 +15,10 @@ interface InstaResponse {
 }
 
 const isDev = ENV === 'development';
-const cacheAge = (isDev ? 60 : 60 * 60) * 1000;
-const currTime = new Date().getTime();
-const currTimeInSeconds = currTime * 1000;
-const tenDaysInSeconds = 60 * 60 * 24 * 10; //864 000
+const cacheAge = (isDev ? 60 : 60 * 60) * 1000; // Millis
+const currTime = new Date().getTime(); //Millis
+const currTimeInSeconds = Math.round(currTime / 1000); // Seconds
+const tenDaysInSeconds = 60 * 60 * 24 * 10; //864 000 seconds
 
 const feedHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   //CONNECT REDIS
