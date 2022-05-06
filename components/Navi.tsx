@@ -31,16 +31,16 @@ export const Navi = (props) => {
   }, [props.naviOpen]);
 
   useEffect(() => {
-    //CHECK OS PREFERENCE FOR DARK MODE
-    const prefersDarkMode = window.matchMedia(
-      '(prefers-color-scheme:dark)'
-    ).matches;
-    if (prefersDarkMode) if (darkMode == false) setDarkmode(true);
-
-    console.log('OS prefers dark mode:', prefersDarkMode);
-
-    if (darkMode) document.querySelector('body').classList.add('dark');
-    else document.querySelector('body').classList.remove('dark');
+    if (darkMode === null) {
+      //CHECK OS PREFERENCE FOR DARK MODE
+      const prefersDarkMode = window.matchMedia(
+        '(prefers-color-scheme:dark)'
+      ).matches;
+      if (prefersDarkMode) setDarkmode(true);
+    } else {
+      if (darkMode) document.querySelector('body').classList.add('dark');
+      else document.querySelector('body').classList.remove('dark');
+    }
 
     setShowDarkModeToggle(true);
   }, [darkMode, setDarkmode]);
