@@ -1,7 +1,7 @@
-import styles from '../styles/ProductPackagingInfo.module.scss';
+import styles from '../styles/ClothingPackagingInfo.module.scss';
 import Image from 'next/image';
 
-export const ProductPackagingInfo = () => {
+export const ClothingPackagingInfo = () => {
   return (
     <div className={styles.packageInfo}>
       <h2 className={styles.title}>Packaging</h2>

@@ -8,7 +8,7 @@ import { SRLWrapper } from 'simple-react-lightbox';
 import Head from 'next/head';
 import { getCurrentLocale } from '../../config/locales';
 import { BASE_URL, TITLE, TWITTER_HANDLE } from '../../config/env';
-import { ProductPackagingInfo } from '../../components/ProductPackagingInfo';
+import { ClothingPackagingInfo } from '../../components/ClothingPackagingInfo';
 import { TickIcon } from '../../components/icons/TickIcon';
 import Image from 'next/image';
 import { RelatedProducts } from '../../components/RelatedProducts';
@@ -16,6 +16,7 @@ import { getProductVariants } from '../../config/shopify';
 import { LoadingIndicator } from '../../components/LoadingIndicator';
 import { getTranslation } from '../../config/translations';
 import { Locale } from '../../types';
+import { PrintPackagingInfo } from '../../components/PrintPackagingInfo';
 
 type ProductResults = {
   lang: string;
@@ -322,7 +323,7 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
         </div>
       </div>
 
-      {!isPoster && <ProductPackagingInfo />}
+      {!isPoster ? <ClothingPackagingInfo /> : <PrintPackagingInfo />}
 
       <RelatedProducts
         products={props?.relatedProducts?.results}
