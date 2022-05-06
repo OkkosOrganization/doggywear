@@ -6,8 +6,8 @@ export const ProductPackagingInfo = () => {
     <div className={styles.packageInfo}>
       <h2 className={styles.title}>Packaging</h2>
       <p>
-        All clothing items are wrapped in protective paper, carefully packed in
-        hand-printed cardboard boxes and then shipped out to our customers.
+        All clothing items are carefully packed in hand-printed cardboard boxes
+        and then shipped out to our customers.
       </p>
       <div className={styles.packageImages}>
         <div className={styles.packageImage}>
