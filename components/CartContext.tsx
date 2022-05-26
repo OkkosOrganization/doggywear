@@ -26,6 +26,7 @@ export const CartProvider = (props) => {
         const check = async () => {
           try {
             const newCheckout = await client.checkout.fetch(checkoutId);
+            console.log(newCheckout);
             if (newCheckout.completedAt !== null) {
               console.log('Checkout already complete, creating new');
               createCheckout();

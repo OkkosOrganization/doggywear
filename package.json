@@ -13,6 +13,7 @@
   "author": "Okko Ojala",
   "license": "ISC",
   "dependencies": {
+    "@egjs/react-infinitegrid": "^4.3.0",
     "@prismicio/client": "^5.1.0",
     "gsap": "^3.8.0",
     "next": "^12.0.7",
