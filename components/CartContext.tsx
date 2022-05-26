@@ -31,7 +31,7 @@ export const CartProvider = (props) => {
       const checkout = await client.checkout.create();
       setCheckout(checkout);
       setChecked(true);
-      console.log('New checkout created', checkout);
+      //console.log('New checkout created', checkout);
     } catch (e) {
       console.log(e);
     }
@@ -43,7 +43,7 @@ export const CartProvider = (props) => {
       setOpen(true);
 
       try {
-        console.log('Add to cart:', vid);
+        //console.log('Add to cart:', vid);
 
         const checkoutId = checkout.id;
         const product = [
@@ -69,7 +69,7 @@ export const CartProvider = (props) => {
 
   const removeLineItem = async (vid) => {
     if (client) {
-      console.log('REMOVE:', vid);
+      //console.log('REMOVE:', vid);
 
       setUpdating(true);
       const checkoutId = checkout.id;
@@ -120,19 +120,18 @@ export const CartProvider = (props) => {
 
   useEffect(() => {
     const check = async () => {
-      console.log('Double checking', checkout);
+      //console.log('Double checking', checkout);
       try {
         const newCheckout = await client.checkout.fetch(checkout.id);
-        console.log(newCheckout);
         if (newCheckout.completedAt !== null) {
-          console.log('Checkout already complete, creating new');
+          //console.log('Checkout already complete, creating new');
           createCheckout();
         } else {
-          console.log('Using existing checkout');
+          //console.log('Using existing checkout');
           setChecked(true);
         }
       } catch (e) {
-        console.log('Could not find existing checkout, create new', e);
+        //console.log('Could not find existing checkout, create new', e);
         createCheckout();
       }
     };
