@@ -7,44 +7,11 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 export const CartContext = React.createContext(null);
 
 export const CartProvider = (props) => {
-  const [checkout, setCheckout] = useLocalStorage('checkoutId', null);
+  const [checkout, setCheckout] = useLocalStorage('checkout', null);
   const [client, setClient] = useState<any>(null);
+  const [checked, setChecked] = useState<boolean>(false);
   const [updating, setUpdating] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    console.log('Init cart');
-    if (!client) initClient();
-    else if (!checkout) createCheckout();
-    else console.log('');
-  }, []);
-
-  useEffect(() => {
-    if (client && !checkout) {
-      const checkoutId = localStorage.getItem('checkoutId');
-      if (checkoutId) {
-        const check = async () => {
-          try {
-            const newCheckout = await client.checkout.fetch(checkoutId);
-            console.log(newCheckout);
-            if (newCheckout.completedAt !== null) {
-              console.log('Checkout already complete, creating new');
-              createCheckout();
-            } else {
-              console.log('Using existing checkout');
-              setCheckout(newCheckout);
-            }
-          } catch (e) {
-            console.log('Could not find existing checkout, create new');
-            createCheckout();
-          }
-        };
-        check();
-      } else {
-        createCheckout();
-      }
-    }
-  }, [client]);
 
   const initClient = async () => {
     try {
@@ -53,6 +20,7 @@ export const CartProvider = (props) => {
         storefrontAccessToken: SHOPIFY_API_STOREFRONT_TOKEN,
       });
       setClient(client);
+      console.log('Shopify client init');
     } catch (e) {
       console.log(e);
     }
@@ -61,8 +29,8 @@ export const CartProvider = (props) => {
   const createCheckout = async () => {
     try {
       const checkout = await client.checkout.create();
-      localStorage.setItem('checkoutId', checkout.id);
       setCheckout(checkout);
+      setChecked(true);
       console.log('New checkout created', checkout);
     } catch (e) {
       console.log(e);
@@ -149,6 +117,34 @@ export const CartProvider = (props) => {
   const hideCart = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    const check = async () => {
+      console.log('Double checking', checkout);
+      try {
+        const newCheckout = await client.checkout.fetch(checkout.id);
+        console.log(newCheckout);
+        if (newCheckout.completedAt !== null) {
+          console.log('Checkout already complete, creating new');
+          createCheckout();
+        } else {
+          console.log('Using existing checkout');
+          setChecked(true);
+        }
+      } catch (e) {
+        console.log('Could not find existing checkout, create new', e);
+        createCheckout();
+      }
+    };
+
+    if (!client) initClient();
+    else {
+      if (!checkout) createCheckout();
+      else {
+        if (!checked) check();
+      }
+    }
+  }, [client, checkout, checked]);
 
   return (
     <CartContext.Provider
