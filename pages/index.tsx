@@ -168,6 +168,7 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
             } else return null;
           })}
         </Masonry>
+        ;
       </div>
 
       <PrintsSection
