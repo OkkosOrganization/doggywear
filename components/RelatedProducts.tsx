@@ -42,7 +42,12 @@ export const RelatedProducts = ({
                 key={'RelatedProduct_' + p.uid}
               >
                 <div className={styles.scrollerItemInner}>
-                  <ProductCard data={p} showMultipleImages={false} />
+                  <ProductCard
+                    data={p}
+                    showMultipleImages={false}
+                    loadImagesEager={false}
+                    sizes={'(max-width: 768px) 100vw, 25vw'}
+                  />
                 </div>
               </div>
             );

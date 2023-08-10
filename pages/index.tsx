@@ -154,6 +154,9 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
                   data={data}
                   showMultipleImages
                   loadImagesEager={loadImagesEager}
+                  sizes={
+                    '(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 25vw'
+                  }
                 />
               );
             } else if (type === 'illustration') {
@@ -163,6 +166,9 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
                   key={'illustration_' + index}
                   data={data}
                   loadImagesEager={loadImagesEager}
+                  sizes={
+                    '(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 25vw'
+                  }
                 />
               );
             } else return null;

@@ -222,6 +222,8 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
                   alt={'Primary product image'}
                   // @ts-expect-error: no allowed prop, but this makes the lightbox work
                   srl_gallery_image="true"
+                  priority={true}
+                  sizes={'(max-width: 640px) 100vw, 50vw'}
                 />
               </div>
             </div>
@@ -238,6 +240,8 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
                     alt={'Secondary product image'}
                     // @ts-expect-error: no allowed prop, but this makes the lightbox work
                     srl_gallery_image="true"
+                    sizes={'(max-width: 640px) 100vw, 50vw'}
+                    priority={false}
                   />
                 </div>
               ) : null}
@@ -256,6 +260,8 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
                       alt={'Product gallery image'}
                       // @ts-expect-error: no allowed prop, but this makes the lightbox work
                       srl_gallery_image="true"
+                      sizes={'(max-width: 640px) 100vw, 50vw'}
+                      priority={false}
                     />
                   </div>
                 );
