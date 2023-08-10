@@ -5,6 +5,7 @@ import styles from '../styles/IllustrationCard.module.scss';
 type IllustrationCardProps = {
   data: any;
   loadImagesEager: boolean;
+  sizes: string;
 };
 export const IllustrationCard = (props: IllustrationCardProps): JSX.Element => {
   const [primaryImageLoaded, setPrimaryImageLoaded] = useState<boolean>(false);
@@ -34,6 +35,7 @@ export const IllustrationCard = (props: IllustrationCardProps): JSX.Element => {
           className={primaryImageLoaded ? styles.loaded : styles.loading}
           onLoadingComplete={() => setPrimaryImageLoaded(true)}
           lazyBoundary={'300px'}
+          sizes={props.sizes}
         />
       )}
 

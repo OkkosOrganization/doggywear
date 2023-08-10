@@ -9,6 +9,7 @@ type ProductCardProps = {
   data: any;
   showMultipleImages: boolean;
   loadImagesEager?: boolean;
+  sizes: string;
 };
 export const ProductCard = (props: ProductCardProps): JSX.Element => {
   const price = props.data?.data?.shopify?.variants[0]?.price;
@@ -67,10 +68,11 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
                 height={primaryImage.dimensions?.height}
                 layout="responsive"
                 alt="Primary product image"
-                priority={props.loadImagesEager}
+                priority={false}
                 className={primaryImageLoaded ? styles.loaded : styles.loading}
                 onLoadingComplete={() => setPrimaryImageLoaded(true)}
-                lazyBoundary={'300px'}
+                sizes={props.sizes}
+                quality={90}
               />
             </div>
           )}
@@ -91,6 +93,7 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
                 }
                 onLoadingComplete={() => setSecondaryImageLoaded(true)}
                 lazyBoundary={'300px'}
+                sizes={props.sizes}
               />
             </div>
           )}
