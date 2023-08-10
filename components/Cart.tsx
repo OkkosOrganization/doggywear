@@ -46,7 +46,7 @@ const CartLineItem = (props) => {
           </div>
 
           <div className={'totalPrice'}>
-            {parseFloat(props.lineItem.variant.price) *
+            {parseFloat(props.lineItem.variant.price.amount) *
               parseInt(props.lineItem.quantity) +
               ' €'}
           </div>
