@@ -134,7 +134,7 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
           )}
 
         <h4 className={styles.productPrice}>
-          {Number(price).toFixed(0) + CURRENCY}
+          {price && Number(price).toFixed(0) + CURRENCY}
         </h4>
 
         <Link href={productUrl} passHref>
