@@ -151,6 +151,7 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
           'id',
           'availableForSale',
         ]);
+        //console.log(json.data);
         setVariants(json.data.node.variants.edges);
         setChosenVariant(json.data.node.variants.edges[0]);
       } catch (e) {
@@ -188,8 +189,8 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={ogUrl} />
         <meta property="og:image" content={ogImg.url} />
-        <meta property="og:image:width" content={ogImg.dimensions.width} />
-        <meta property="og:image:height" content={ogImg.dimensions.height} />
+        <meta property="og:image:width" content={ogImg?.dimensions?.width} />
+        <meta property="og:image:height" content={ogImg?.dimensions?.height} />
 
         <meta name="twitter:card" content="summary_large_image" />
 
@@ -228,41 +229,25 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
               </div>
             </div>
             <div className={styles.productGallery}>
-              {props.product.data.secondary_image.url ? (
-                <div className={styles.galleryImageBg}>
-                  <Image
-                    src={props.product.data.secondary_image.url}
-                    width={props.product.data.secondary_image.dimensions.width}
-                    height={
-                      props.product.data.secondary_image.dimensions.height
-                    }
-                    layout="responsive"
-                    alt={'Secondary product image'}
-                    // @ts-expect-error: no allowed prop, but this makes the lightbox work
-                    srl_gallery_image="true"
-                    sizes={'(max-width: 640px) 100vw, 50vw'}
-                    priority={false}
-                  />
-                </div>
-              ) : null}
-
               {props.product.data.gallery.map((i, index) => {
                 return (
                   <div
                     className={styles.galleryImageBg}
                     key={`galleryImage_${index}`}
                   >
-                    <Image
-                      src={i.image.url}
-                      width={i.image.dimensions.width}
-                      height={i.image.dimensions.height}
-                      layout="responsive"
-                      alt={'Product gallery image'}
-                      // @ts-expect-error: no allowed prop, but this makes the lightbox work
-                      srl_gallery_image="true"
-                      sizes={'(max-width: 640px) 100vw, 50vw'}
-                      priority={false}
-                    />
+                    {i.image.url && (
+                      <Image
+                        src={i.image.url}
+                        width={i.image.dimensions.width}
+                        height={i.image.dimensions.height}
+                        layout="responsive"
+                        alt={'Product gallery image'}
+                        // @ts-expect-error: no allowed prop, but this makes the lightbox work
+                        srl_gallery_image="true"
+                        sizes={'(max-width: 640px) 100vw, 50vw'}
+                        priority={false}
+                      />
+                    )}
                   </div>
                 );
               })}
@@ -275,7 +260,9 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
             {props.product.data.title[0].text}
           </h1>
           <div>{RichText.render(props.product.data.description)}</div>
-          <div className={styles.price}>{parseFloat(price).toFixed(0)}€</div>
+          <div className={styles.price}>
+            {price && parseFloat(price).toFixed(0) + '€'}
+          </div>
 
           <div className={styles.variantsContainer}>
             {!variants || !chosenVariant ? (
