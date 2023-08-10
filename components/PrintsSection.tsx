@@ -26,7 +26,7 @@ export const PrintsSection = ({
   items,
   scrollerLimit = 8,
 }: PrintsSectionProps): JSX.Element => {
-  const [mode, setMode] = useState<DisplayMode>('scroller');
+  const [mode, setMode] = useState<DisplayMode>('grid');
   const prints = useRef(null);
   const toggleMode = () => {
     //const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
@@ -76,9 +76,11 @@ export const PrintsSection = ({
             );
           })}
       </div>
-      <button onClick={toggleMode} role={'button'}>
-        {getTranslation(mode === 'scroller' ? 'SHOW_ALL' : 'SHOW_LESS')}
-      </button>
+      {false && (
+        <button onClick={toggleMode} role={'button'}>
+          {getTranslation(mode === 'scroller' ? 'SHOW_ALL' : 'SHOW_LESS')}
+        </button>
+      )}
     </div>
   );
 };
