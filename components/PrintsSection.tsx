@@ -70,6 +70,9 @@ export const PrintsSection = ({
                     key={`printProductItem_${index}`}
                     data={i}
                     showMultipleImages={false}
+                    sizes={
+                      '(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 25vw'
+                    }
                   />
                 </div>
               </div>
