@@ -23,36 +23,35 @@ export const RelatedProducts = ({
   }, [randomOrder, products]);
 
   if (!products) return null;
-
+  let items = randomized
+    .filter((p) => {
+      return p.uid !== exclude;
+    })
+    .filter((p) => {
+      return p.tags.includes(filterByTag);
+    })
+    .map((p, pindex) => {
+      return (
+        <div className={styles.scrollerItem} key={'RelatedProduct_' + p.uid}>
+          <div className={styles.scrollerItemInner}>
+            <ProductCard
+              data={p}
+              showMultipleImages={false}
+              loadImagesEager={false}
+              sizes={'(max-width: 768px) 100vw, 25vw'}
+            />
+          </div>
+        </div>
+      );
+    });
   return (
     <div className={styles.relatedProducts}>
-      <h3 className={styles.title}>You might also like</h3>
-      <div className={styles.scroller}>
-        {randomized
-          .filter((p) => {
-            return p.uid !== exclude;
-          })
-          .filter((p) => {
-            return p.tags.includes(filterByTag);
-          })
-          .map((p, pindex) => {
-            return (
-              <div
-                className={styles.scrollerItem}
-                key={'RelatedProduct_' + p.uid}
-              >
-                <div className={styles.scrollerItemInner}>
-                  <ProductCard
-                    data={p}
-                    showMultipleImages={false}
-                    loadImagesEager={false}
-                    sizes={'(max-width: 768px) 100vw, 25vw'}
-                  />
-                </div>
-              </div>
-            );
-          })}
-      </div>
+      {items.length ? (
+        <>
+          <h3 className={styles.title}>You might also like</h3>
+          <div className={styles.scroller}>{items}</div>
+        </>
+      ) : null}
     </div>
   );
 };

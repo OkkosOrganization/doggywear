@@ -36,6 +36,24 @@
   position: relative;
 }
 
+.masonryGrid {
+  display: flex;
+  width: auto;
+  margin: 0 -0.5rem;
+}
+.masonryGridColumn {
+  padding: 0 0.5rem; /* gutter size */
+  background-clip: padding-box;
+  position: relative;
+
+  &:nth-child(2) {
+    padding-top: 2rem;
+  }
+  &:nth-child(4) {
+    padding-top: 1rem;
+  }
+}
+
 @media all and (min-width: 768px) {
   .grid {
     grid-template-columns: repeat(3, 1fr);

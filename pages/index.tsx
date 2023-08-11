@@ -180,7 +180,6 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
       <PrintsSection
         title={frontpage.data.secondary_title[0]?.text}
         description={frontpage.data.secondary_description}
-        scrollerLimit={8}
         items={frontpage.data.secondary_items.map((i) => {
           const data = products.results.filter((p) => p.id === i.item.id)[0];
           return data;

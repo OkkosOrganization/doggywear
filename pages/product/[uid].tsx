@@ -322,7 +322,7 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
         products={props?.relatedProducts?.results}
         exclude={props?.product?.uid}
         isMobile={props.isTouchDevice}
-        filterByTag={props.product.tags[0]}
+        filterByTag={props.product.tags.length ? props.product.tags[0] : ''}
         randomOrder
       />
     </section>
