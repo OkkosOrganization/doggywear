@@ -23,7 +23,7 @@ export const RelatedProducts = ({
   }, [randomOrder, products]);
 
   if (!products) return null;
-  let items = randomized
+  const items = randomized
     .filter((p) => {
       return p.uid !== exclude;
     })
