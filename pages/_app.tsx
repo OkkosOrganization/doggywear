@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { debounce } from 'ts-debounce';
 import { LoadingIndicator } from '../components/LoadingIndicator';
 import { useRouter } from 'next/router';
+import { Analytics } from '@vercel/analytics/react';
 
 export default function DoggyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -63,27 +64,9 @@ export default function DoggyApp({ Component, pageProps }) {
 
   return (
     <>
-      {GOOGLE_ANALYTICS && (
-        <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS}`}
-            id="analytics"
-            strategy="afterInteractive"
-          />
-          <Script
-            strategy="afterInteractive"
-            id="analyticsInit"
-            dangerouslySetInnerHTML={{
-              __html: `          
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${GOOGLE_ANALYTICS}');
-            `,
-            }}
-          />
-        </>
-      )}
+      <>
+        <Analytics />
+      </>
       <Layout ww={ww}>
         <Component {...pageProps} ww={ww} isTouchDevice={isTouchDevice} />
         {loading && <LoadingIndicator showBg fixed />}
