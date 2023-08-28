@@ -4,10 +4,14 @@ import Image from 'next/image';
 export const ClothingPackagingInfo = () => {
   return (
     <div className={styles.packageInfo}>
-      <h2 className={styles.title}>Packaging</h2>
+      <h2 className={styles.title}>Packaging & shipping</h2>
       <p>
-        All clothing items are carefully packed in hand-printed cardboard boxes
-        and then shipped out to our customers.
+        All our clothing items are carefully packed in hand-printed cardboard
+        boxes and then shipped out to our customers.
+      </p>
+      <p>
+        Please allow up to two weeks processing time before shipping as we do
+        not have a big stock and sometimes we need to reprint items.
       </p>
       <div className={styles.packageImages}>
         <div className={styles.packageImage}>
