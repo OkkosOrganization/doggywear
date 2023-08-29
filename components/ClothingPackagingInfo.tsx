@@ -13,6 +13,11 @@ export const ClothingPackagingInfo = () => {
         Please allow up to two weeks processing time before shipping as we do
         not have a big stock and sometimes we need to reprint items.
       </p>
+      <p>We ship orders on Fridays.</p>
+      <p>
+        Orders can also be picked up from Kalasataman Seripaja, but pickup times
+        need to be confirmed by email, we prefer Fridays for pickups.
+      </p>
       <div className={styles.packageImages}>
         <div className={styles.packageImage}>
           <Image
