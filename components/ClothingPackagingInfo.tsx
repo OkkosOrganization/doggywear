@@ -15,8 +15,8 @@ export const ClothingPackagingInfo = () => {
       </p>
       <p>We ship orders on Fridays.</p>
       <p>
-        Orders can also be picked up from Kalasataman Seripaja, but pickup times
-        need to be confirmed by email, we prefer Fridays for pickups.
+        Orders can also be picked up from Kalasataman Seripaja, Vanha talvitie
+        9, 00580 Helsinki. Pickups on Fridays 10-17.
       </p>
       <div className={styles.packageImages}>
         <div className={styles.packageImage}>
