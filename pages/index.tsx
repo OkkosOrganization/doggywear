@@ -176,14 +176,16 @@ const Frontpage = ({ products, illustrations, frontpage, ww }) => {
         </Masonry>
       </div>
 
-      <PrintsSection
-        title={frontpage.data.secondary_title[0]?.text}
-        description={frontpage.data.secondary_description}
-        items={frontpage.data.secondary_items.map((i) => {
-          const data = products.results.filter((p) => p.id === i.item.id)[0];
-          return data;
-        })}
-      />
+      {false && (
+        <PrintsSection
+          title={frontpage.data.secondary_title[0]?.text}
+          description={frontpage.data.secondary_description}
+          items={frontpage.data.secondary_items.map((i) => {
+            const data = products.results.filter((p) => p.id === i.item.id)[0];
+            return data;
+          })}
+        />
+      )}
 
       <InstaFeed
         title={frontpage?.data?.instagram_title[0]?.text}
