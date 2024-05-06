@@ -1,7 +1,6 @@
 import Script from 'next/script';
 import Layout from '../components/Layout';
 import '../styles/style.scss';
-import { GOOGLE_ANALYTICS } from '../config/env';
 import { useEffect, useState } from 'react';
 import { debounce } from 'ts-debounce';
 import { LoadingIndicator } from '../components/LoadingIndicator';
@@ -65,7 +64,22 @@ export default function DoggyApp({ Component, pageProps }) {
   return (
     <>
       <>
-        <Analytics />
+        <Script strategy="afterInteractive" id="matomo">
+          {`          
+          var _paq = window._paq = window._paq || [];
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="https://doggywearshop.matomo.cloud/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '1']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.async=true; g.src='https://cdn.matomo.cloud/doggywearshop.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+          })();
+          `
+          }       
+        </Script>
+        {false && <Analytics />}        
       </>
       <Layout ww={ww}>
         <Component {...pageProps} ww={ww} isTouchDevice={isTouchDevice} />
