@@ -64,7 +64,7 @@ export default function DoggyApp({ Component, pageProps }) {
   return (
     <>
       <>
-        <Script strategy="afterInteractive">
+        <Script strategy="afterInteractive" id="matomo">
           {`          
           var _paq = window._paq = window._paq || [];
           _paq.push(['trackPageView']);
