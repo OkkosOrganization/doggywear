@@ -57,11 +57,12 @@
 .logo {
   position: fixed;
   display: block;
-  top: calc(var(--mainNavHeight) / 2);
+  top: 0;// calc(var(--mainNavHeight) / 2);
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: var(--logoWidth);
-  height: auto;
+  transform: translate(-50%, -10%);
+  // width: var(--logoWidth);
+  width:200px;
+  height: 168px;
   z-index: 20;
   margin: 0;
 
