@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import ScrollToPlugin from 'gsap/dist/ScrollToPlugin';
 import { useRef } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 gsap.registerPlugin(ScrollToPlugin);
 
 type LogoProps = {
@@ -28,6 +29,18 @@ export const Logo = (props: LogoProps) => {
       if (props.naviOpen) props.toggleNavi();
     }
   };
+  return (
+    <div className={`${styles.logo}`}>
+    <Image 
+      src={'/doggy2.gif'}
+      alt={'Logo'}
+      width={200}
+      height={168}
+      layout='fixed'
+      
+    />
+    </div>
+  );
   return (
     <svg
       onClick={clickHandler}
