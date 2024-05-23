@@ -32,10 +32,11 @@ export const Logo = (props: LogoProps) => {
   return (
     <div className={`${styles.logo}`}>
     <Image 
-      src={'/doggy2.gif'}
+      src={'/logoAnim.gif'}
       alt={'Logo'}
-      layout='fill'
-      
+      layout='fill'    
+      priority
+      unoptimized={true}
     />
     </div>
   );
