@@ -36,6 +36,7 @@ export const IllustrationCard = (props: IllustrationCardProps): JSX.Element => {
           onLoadingComplete={() => setPrimaryImageLoaded(true)}
           lazyBoundary={'300px'}
           sizes={props.sizes}
+          unoptimized={props.data?.data?.image?.url?.includes('.gif') ? true : false}
         />
       )}
 
