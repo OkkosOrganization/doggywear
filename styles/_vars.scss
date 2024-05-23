@@ -34,8 +34,9 @@ $font: Arial, Helvetica, sans-serif;
   --secondaryAccent: #{$blue};
   --linkBlue: #{$blue};
 
-  --mainNavHeight: 5.625rem;
+  --mainNavHeight: 6.25rem;
   --logoWidth: 9.375rem;
+  --logoHeight: 7.875rem;
 
   --mainTitleSize: 1.5rem;
   --subTitleSize: 1.5rem;
@@ -57,8 +58,9 @@ $font: Arial, Helvetica, sans-serif;
 /****************/
 @media all and (min-width: 768px) {
   #__next {
-    --mainNavHeight: 7rem;
-    --logoWidth: 11.6875rem;
+    --mainNavHeight:9rem;
+    --logoWidth: 12.5rem;
+    --logoHeight: 10.5rem;
 
     --mainTitleSize: 1.5rem;
     --subTitleSize: 1.3875rem;

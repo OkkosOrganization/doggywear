@@ -34,9 +34,7 @@ export const Logo = (props: LogoProps) => {
     <Image 
       src={'/doggy2.gif'}
       alt={'Logo'}
-      width={200}
-      height={168}
-      layout='fixed'
+      layout='fill'
       
     />
     </div>

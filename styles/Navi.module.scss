@@ -60,9 +60,8 @@
   top: 0;// calc(var(--mainNavHeight) / 2);
   left: 50%;
   transform: translate(-50%, -10%);
-  // width: var(--logoWidth);
-  width:200px;
-  height: 168px;
+  width: var(--logoWidth);
+  height:  var(--logoHeight);
   z-index: 20;
   margin: 0;
 
