@@ -310,6 +310,12 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
                       : getTranslation('OUT_OF_STOCK', props.currLocale.locale)}
                   </button>
                 </div>
+                <div className={styles.shippingDisclaimer}>
+                  <p>
+                  * Please allow up to 2-4 weeks processing time before shipping as we do
+                  not have a big stock and sometimes we need to reprint items.
+                  </p>                  
+                </div>
               </div>
             )}
           </div>

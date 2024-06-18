@@ -9,11 +9,8 @@ export const ClothingPackagingInfo = () => {
         All our clothing items are carefully packed in hand-printed cardboard
         boxes and then shipped out to our customers.
       </p>
-      <p>
-        Please allow up to two weeks processing time before shipping as we do
-        not have a big stock and sometimes we need to reprint items.
-      </p>
-      <p>We ship orders on Fridays.</p>
+      <p>We ship orders on Fridays.</p>                
+
       <p>
         Orders can also be picked up from{' '}
         <a
