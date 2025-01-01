@@ -40,8 +40,8 @@ const InstaFeed = memo((props: InstaProps): JSX.Element => {
                       loading="lazy"
                       className={styles.instaPostImage}
                       onError={(e) => {
-                        let img = e?.target as HTMLImageElement;
-                        let p = img.parentNode as HTMLAnchorElement;
+                        const img = e?.target as HTMLImageElement;
+                        const p = img.parentNode as HTMLAnchorElement;
                         p.style.display = "none";
                       }}
                     />
