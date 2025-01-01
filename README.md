@@ -17,7 +17,3 @@ Shopify
 ## Hosting
 
 Vercel
-
-## Hours
-
-https://docs.google.com/spreadsheets/d/1SHt_RVoXZ8DZZaCPXnlphffrEc6z4nMNMr8ExwNxsoE/edit#gid=0
