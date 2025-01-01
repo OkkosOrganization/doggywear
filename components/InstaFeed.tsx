@@ -39,6 +39,11 @@ const InstaFeed = memo((props: InstaProps): JSX.Element => {
                       alt={p?.caption ? p.caption : 'instaPost_' + pindex}
                       loading="lazy"
                       className={styles.instaPostImage}
+                      onError={(e) => {
+                        const img = e?.target as HTMLImageElement;
+                        const p = img.parentNode as HTMLAnchorElement;
+                        p.style.display = "none";
+                      }}
                     />
                   </a>
                 );
