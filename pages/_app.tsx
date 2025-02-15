@@ -64,8 +64,9 @@ export default function DoggyApp({ Component, pageProps }) {
   return (
     <>
       <>
-        <Script strategy="afterInteractive" id="matomo">
-          {`          
+        {false && (
+          <Script strategy="afterInteractive" id="matomo">
+            {`          
           var _paq = window._paq = window._paq || [];
           _paq.push(['trackPageView']);
           _paq.push(['enableLinkTracking']);
@@ -76,10 +77,10 @@ export default function DoggyApp({ Component, pageProps }) {
             var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
             g.async=true; g.src='https://cdn.matomo.cloud/doggywearshop.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
           })();
-          `
-          }       
-        </Script>
-        {false && <Analytics />}        
+          `}
+          </Script>
+        )}
+        <Analytics />
       </>
       <Layout ww={ww}>
         <Component {...pageProps} ww={ww} isTouchDevice={isTouchDevice} />
