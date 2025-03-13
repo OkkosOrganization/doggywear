@@ -29,7 +29,7 @@
     "redis": "^4.0.2",
     "sanitize.scss": "^1.0.0",
     "sass": "^1.45.0",
-    "shopify-buy": "^2.20.1",
+    "shopify-buy": "^3.0.0",
     "simple-react-lightbox": "^3.6.9-0",
     "ts-debounce": "^4.0.0"
   },
