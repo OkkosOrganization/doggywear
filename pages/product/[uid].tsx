@@ -316,7 +316,11 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
                     <p>
                       This size option is currently out of stock. You can send
                       an inquiry by{' '}
-                      <a href={`https://ig.me/m/${INSTAGRAM_USER_NAME}`}>
+                      <a
+                        href={`https://ig.me/m/${INSTAGRAM_USER_NAME}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         Instagram Direct Message
                       </a>{' '}
                       or by <a href="mailto:info@doggywear.com">email</a>.
