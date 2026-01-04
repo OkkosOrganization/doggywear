@@ -17,6 +17,7 @@ import { LoadingIndicator } from '../../components/LoadingIndicator';
 import { getTranslation } from '../../config/translations';
 import { Locale } from '../../types';
 import { PrintPackagingInfo } from '../../components/PrintPackagingInfo';
+import { INSTAGRAM_USER_NAME } from '../../config/env';
 
 type ProductResults = {
   lang: string;
@@ -310,11 +311,24 @@ const ProductPage = (props: ProductPageProps): JSX.Element => {
                       : getTranslation('OUT_OF_STOCK', props.currLocale.locale)}
                   </button>
                 </div>
+                {!chosenVariant.node.availableForSale && (
+                  <div className={styles.outOfStockInfo}>
+                    <p>
+                      This size option is currently out of stock. You can send
+                      an inquiry by{' '}
+                      <a href={`https://ig.me/m/${INSTAGRAM_USER_NAME}`}>
+                        Instagram Direct Message
+                      </a>{' '}
+                      or by <a href="mailto:info@doggywear.com">email</a>.
+                    </p>
+                  </div>
+                )}
                 <div className={styles.shippingDisclaimer}>
                   <p>
-                  * Please allow up to 2-4 weeks processing time before shipping as we do
-                  not have a big stock and sometimes we need to reprint items.
-                  </p>                  
+                    * Please allow up to 2-4 weeks processing time before
+                    shipping as we do not have a big stock and sometimes we need
+                    to reprint items.
+                  </p>
                 </div>
               </div>
             )}

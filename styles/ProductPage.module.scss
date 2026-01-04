@@ -149,11 +149,15 @@
 .bottom {
   width: 100%;
 }
-.shippingDisclaimer
-{
-  margin-top:1rem;
-  font-size: .75rem;
-  font-weight:bold;
+.shippingDisclaimer,
+.outOfStockInfo {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+.outOfStockInfo a {
+  color: var(--linkBlue);
+  text-decoration: underline;
 }
 .selectContainer {
   position: relative;
