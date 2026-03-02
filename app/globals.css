@@ -6,6 +6,9 @@
   --maxWidthSmall: 640px;
   --maxWidthMini: 320px;
   --headerHeight: 90px;
+  --spacing: 1rem;
+  --spacingLarge: 2rem;
+  --spacingSmall: 0.5rem;
 
   /* COLORS */
   --white: #fff;
@@ -52,22 +55,6 @@
   --fg: var(--lighter-grey);
   --secondaryAccent: var(--light-blue);
   --linkBlue: var(--light-blue);
-}
-
-@media all and (min-width: 768px) {
-  :root {
-    --mainNavHeight: 9rem;
-    --logoWidth: 12.5rem;
-    --logoHeight: 10.5rem;
-
-    --mainTitleSize: 2.5rem;
-    --subTitleSize: 1.3875rem;
-    --bigTextSize: 1.3875rem;
-    --mainTextSize: 1.25rem;
-    --subTextSize: 1.0625rem;
-    --miniTextSize: 0.8125rem;
-    --buttonTextSize: 0.9375rem;
-  }
 }
 
 /* COMMON STYLES */
@@ -270,7 +257,20 @@ select {
   overflow: hidden;
 }
 
-@media all and (min-width: 768px) {
+@media all and (min-width: var(--maxWidthSmall)) {
+  :root {
+    --mainNavHeight: 9rem;
+    --logoWidth: 12.5rem;
+    --logoHeight: 10.5rem;
+
+    --mainTitleSize: 2.5rem;
+    --subTitleSize: 1.3875rem;
+    --bigTextSize: 1.3875rem;
+    --mainTextSize: 1.25rem;
+    --subTextSize: 1.0625rem;
+    --miniTextSize: 0.8125rem;
+    --buttonTextSize: 0.9375rem;
+  }
   #app-container.cartOpen::after {
     display: block;
     z-index: 9999;
