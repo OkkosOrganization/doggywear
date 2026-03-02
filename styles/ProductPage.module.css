@@ -17,7 +17,7 @@
 .smallHeading {
   text-transform: uppercase;
   font-size: 0.6875em;
-  letter-spacing: 2px;
+  letter-spacing: 0.125rem;
   color: var(--fg);
   margin: 0 0 1rem 0;
 }
@@ -25,7 +25,7 @@
 .productTitle {
   font-size: var(--mainTitleSize);
   font-weight: 300;
-  margin: 20px 0 10px 0;
+  margin: 0 0 var(--spacingSmall) 0;
 }
 
 .price {
@@ -43,11 +43,8 @@
   padding: 0;
 }
 
-.productInfo {
-}
-
 .mainImage {
-  padding: 2rem;
+  padding: var(--spacingLarge);
   background: var(--medium-grey);
 }
 
@@ -237,7 +234,7 @@
 /******************/
 /* MEDIA QUERIES */
 /****************/
-@media all and (min-width: 640px) {
+@media all and (min-width: 40rem) {
   .wrapper {
     padding: 0 1rem;
     flex-direction: row;
@@ -263,11 +260,12 @@
   }
 
   .productImages {
-    flex: 1 0 50%;
+    flex: 1 0 60%;
     padding: 0 2rem 2rem 0;
   }
   .productInfo {
-    flex: 1 0 50%;
+    flex: 1 0 40%;
+    padding-top: var(--spacingLarge);
   }
 
   .productImages img {

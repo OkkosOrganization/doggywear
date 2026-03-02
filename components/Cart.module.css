@@ -23,7 +23,7 @@
 .scroller {
   position: relative;
   min-height: 100%;
-  padding: 1.5rem 1rem 2rem 1rem;
+  padding: 1.875rem 1rem 2rem 1rem;
   background: var(--light-grey);
 }
 
@@ -46,7 +46,6 @@
   display: flex;
   justify-content: flex-start;
   align-content: flex-start;
-  align-items: flex-start;
   flex-wrap: wrap;
   padding: 1rem;
   margin: 0 0 1rem 0;
@@ -55,22 +54,26 @@
 }
 
 .image {
-  display: block;
-  width: 15%;
+  flex: 0 0 80px;
+  position: relative;
 }
 .image img {
   width: 100%;
-  max-width: 60px;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
 .selectedOptionValue {
+  font-size: var(--subTextSize);
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 300;
 }
 
 .info {
-  width: 85%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0 0 0 1rem;
 }
 
 .top,
@@ -85,14 +88,46 @@
 }
 
 .top {
+  width: 100%;
   font-size: var(--mainTextSize);
   line-height: 1rem;
-  padding: 0.5rem 0 0.5rem 1rem;
-  display: block;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lineItemTitle {
+  font-size: var(--mainTextSize);
+  line-height: 1rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.removeLineItem {
+  min-width: auto;
+  border: 0;
+  margin: 0 0 0 0.9375rem;
+  padding: 0;
+  outline: 0;
+  background: transparent;
+}
+.removeLineItem svg {
+  width: 0.875rem;
+  height: 0.875rem;
+  fill: var(--fg);
+  stroke: none;
+}
+.removeLineItem:hover svg {
+  fill: var(--secondaryAccent);
+  stroke: none;
 }
 
 .bottom {
   justify-content: space-between;
+  margin: auto 0 0 0;
+  padding: 0;
 }
 
 .price,
@@ -104,14 +139,16 @@
 .quantity {
   padding: 0;
   text-align: center;
+  line-height: 1rem;
+  display: flex;
 }
 
 .quantity span {
-  width: 40px;
+  width: auto;
   text-align: center;
   border: 0;
   padding: 0;
-  margin: 0 5px;
+  margin: 0 0.5rem;
   font-size: var(--miniTextSize);
 }
 .quantity span:first-of-type {
@@ -124,6 +161,8 @@
   font-size: var(--subTextSize);
   font-weight: bold;
   position: relative;
+  min-width: auto;
+  border: 0;
 }
 .quantity button:hover::after {
   display: none;
@@ -152,26 +191,6 @@
 }
 .quantity button:first-child {
   margin-left: 0;
-}
-
-.removeLineItem {
-  border: 0;
-  margin: 0 0 0 15px;
-  padding: 0;
-  outline: 0;
-  background: transparent;
-}
-.removeLineItem svg {
-  width: 15px;
-  height: 15px;
-  fill: var(--fg);
-  position: relative;
-  top: -1px;
-  stroke: none;
-}
-.removeLineItem:hover svg {
-  fill: var(--secondaryAccent);
-  stroke: none;
 }
 
 .summary {
@@ -293,13 +312,13 @@
   font-size: var(--mainTextSize);
 }
 
-@media all and (min-width: 768px) {
+@media all and (min-width: 40rem) {
   .cart {
     width: 40%;
     right: -40%;
   }
   .scroller {
-    padding: 2.2785rem 1rem;
+    padding: 2.785rem 1rem;
   }
   .closeCart {
     top: 2.25rem;
@@ -307,7 +326,7 @@
   }
 }
 
-@media all and (min-width: 480px) and (orientation: landscape) {
+@media all and (min-width: 30rem) and (orientation: landscape) {
   .cart {
     height: auto;
   }

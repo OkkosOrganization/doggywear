@@ -322,7 +322,7 @@
   color: var(--secondaryAccent);
 }
 
-@media all and (min-width: 768px) {
+@media all and (min-width: 40rem) {
   .mobileNaviIcon {
     top: 3rem;
   }

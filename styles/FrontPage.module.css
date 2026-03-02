@@ -3,7 +3,7 @@
 }
 .description {
   text-align: center;
-  max-width: 640px;
+  max-width: var(--maxWidthSmall);
   margin: 4rem auto;
   padding: 0 1rem;
   color: var(--fg);
@@ -61,7 +61,7 @@
   padding-top: 1rem;
 }
 
-@media all and (min-width: 768px) {
+@media all and (min-width: 40rem) {
   .description {
     max-width: 75%;
   }

@@ -4,13 +4,13 @@
 }
 
 .content {
-  max-width: 640px;
+  max-width: var(--maxWidthSmall);
   margin: 0 auto;
   text-align: left;
 }
 
 .content img {
-  max-width: 640px;
+  max-width: var(--maxWidthSmall);
   width: 100%;
   height: auto;
   margin: 0;
