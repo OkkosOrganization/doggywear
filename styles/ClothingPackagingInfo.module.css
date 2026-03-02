@@ -17,14 +17,15 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin: 0 -1rem;
+  margin: 0;
+  gap: var(--spacing);
 }
 
 .packageImage {
   width: 100%;
   height: auto;
-  padding: 1rem;
-  margin: 0 0 1rem 0;
+  padding: var(--spacing);
+  margin: 0 0 var(--spacing) 0;
 }
 
 @media all and (min-width: 40rem) {
@@ -33,12 +34,12 @@
   }
   .packageImages {
     flex-direction: row;
-    margin: 0 0.5rem;
+    margin: 0;
     align-items: center;
   }
   .packageImage {
     width: 33.33%;
     margin: 0;
-    padding: 0 0.5rem;
+    padding: 0;
   }
 }

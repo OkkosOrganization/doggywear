@@ -6,7 +6,6 @@ import { CartContext } from '../../../components/CartContext';
 import styles from '../../../styles/ProductPage.module.css';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { ClothingPackagingInfo } from '../../../components/ClothingPackagingInfo';
-import { TickIcon } from '../../../components/icons/TickIcon';
 import Image from 'next/image';
 import { RelatedProducts } from '../../../components/RelatedProducts';
 import { getProductVariants } from '../../../config/shopify';
@@ -93,8 +92,8 @@ export default function ProductClient({ product, relatedProducts }) {
               <Image
                 src={images[selectedImage].image.url}
                 alt={images[selectedImage].image.alt || 'Product Image'}
-                width={1000}
-                height={1000}
+                width={1200}
+                height={1600}
                 style={{
                   width: '100%',
                   height: 'auto',
@@ -153,7 +152,7 @@ export default function ProductClient({ product, relatedProducts }) {
                     <option
                       key={v.id}
                       value={v.id}
-                      disabled={!v.availableForSale}
+                      disabled={v.availableForSale}
                     >
                       {v.title}
                     </option>
@@ -165,18 +164,10 @@ export default function ProductClient({ product, relatedProducts }) {
             <button
               className={`${styles.addToCartBtn} primary`}
               onClick={addToCart}
-              disabled={
-                false
-                //addingToCart || !selectedVariant
-                //||!selectedVariant.availableForSale
-              }
+              disabled={!selectedVariant || !selectedVariant.availableForSale}
             >
               {addingToCart ? (
                 <LoadingIndicator showBg={false} />
-              ) : addedtoCart ? (
-                <span className={styles.added}>
-                  <TickIcon /> {getTranslation('ADDED')}
-                </span>
               ) : selectedVariant && !selectedVariant.availableForSale ? (
                 getTranslation('OUT_OF_STOCK')
               ) : (
@@ -193,7 +184,7 @@ export default function ProductClient({ product, relatedProducts }) {
       {relatedProducts && relatedProducts.length > 0 && (
         <RelatedProducts
           products={relatedProducts}
-          isMobile={ww < 768}
+          isMobile={ww < 640}
           randomOrder
         />
       )}

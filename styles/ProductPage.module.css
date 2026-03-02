@@ -23,6 +23,7 @@
 }
 
 .productTitle {
+  color: var(--fg);
   font-size: var(--mainTitleSize);
   font-weight: 300;
   margin: 0 0 var(--spacingSmall) 0;
@@ -46,6 +47,9 @@
 .mainImage {
   padding: var(--spacingLarge);
   background: var(--medium-grey);
+}
+:global(.dark) .mainImage {
+  background: var(--dark-grey);
 }
 
 .productImages img {
@@ -161,50 +165,43 @@
   text-decoration: underline;
 }
 
-.selectContainer {
-  position: relative;
-  width: auto;
-}
-
-.selectContainer svg {
-  position: absolute;
-  right: 0.6875rem;
-  top: 0.875rem;
-  width: 1rem;
-  height: auto;
-  transform: rotate(180deg);
-  transform-origin: 50% 50%;
-  z-index: 1;
-}
-
-.selectContainer select {
+.variantSelect {
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--grey);
+  background-color: var(--bg);
+  color: var(--fg);
+  cursor: pointer;
   position: relative;
   z-index: 2;
-}
-
-.selectContainer:after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  box-shadow: inset 0px 0px var(--linkBlue), inset -0px -0px var(--linkBlue);
   transition: all 0.05s ease-in-out;
+  appearance: base-select;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  &::picker(select) {
+    appearance: base-select;
+  }
 }
-
-.selectContainer:hover select {
-  transition: all 0.05s ease-in-out;
+.variantSelect:hover {
   border-color: var(--secondaryAccent);
   color: var(--secondaryAccent);
 }
-
-.selectContainer:hover svg {
-  fill: var(--secondaryAccent);
+.variantSelect option {
+  padding: 0;
+  background-color: var(--bg);
 }
-
-.selectContainer:hover:after {
-  box-shadow: inset 4px 4px var(--linkBlue), inset -4px -4px var(--linkBlue);
+.variantSelect option:checked {
+  color: var(--secondaryAccent);
+}
+.variantSelect::picker-icon {
+  appearance: base-select;
+  margin-right: var(--spacingSmall);
+}
+/* OPTION BOX */
+.variantSelect::picker(select) {
+  border: 1px solid var(--grey);
+  background-color: var(--bg);
 }
 
 .mainImage {
