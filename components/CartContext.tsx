@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 import { SHOPIFY_DOMAIN, SHOPIFY_API_STOREFRONT_TOKEN } from '../config/env';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
-export const CartContext = React.createContext(null);
+export const CartContext = React.createContext<any>(null);
 
 export const CartProvider = (props) => {
-  const [checkout, setCheckout] = useLocalStorage('checkout', null);
+  const [checkout, setCheckout] = useLocalStorage<any>('checkout', null);
   const [client, setClient] = useState<any>(null);
   const [checked, setChecked] = useState<boolean>(false);
   const [updating, setUpdating] = useState<boolean>(false);
@@ -15,7 +15,7 @@ export const CartProvider = (props) => {
 
   const initClient = async () => {
     try {
-      const client = await Client.buildClient({
+      const client = Client.buildClient({
         domain: SHOPIFY_DOMAIN,
         storefrontAccessToken: SHOPIFY_API_STOREFRONT_TOKEN,
       });
@@ -45,6 +45,8 @@ export const CartProvider = (props) => {
       try {
         //console.log('Add to cart:', vid);
 
+        if (!checkout) return;
+
         const checkoutId = checkout.id;
         const product = [
           {
@@ -72,6 +74,9 @@ export const CartProvider = (props) => {
       //console.log('REMOVE:', vid);
 
       setUpdating(true);
+
+      if (!checkout) return;
+
       const checkoutId = checkout.id;
       const product = [vid];
 
@@ -91,6 +96,8 @@ export const CartProvider = (props) => {
 
   const updateLineItemQuantity = async (vid, quantity) => {
     setUpdating(true);
+
+    if (!checkout) return;
 
     const checkoutId = checkout.id;
     //let variantIdBase64 = btoa("gid://shopify/ProductVariant/" + vid);
@@ -119,29 +126,33 @@ export const CartProvider = (props) => {
   };
 
   useEffect(() => {
+    if (!client) {
+      initClient();
+    }
+  }, [client]);
+
+  useEffect(() => {
+    if (client && !checkout) {
+      createCheckout();
+    }
+  }, [client, checkout]);
+
+  useEffect(() => {
     const check = async () => {
-      //console.log('Double checking', checkout);
       try {
         const newCheckout = await client.checkout.fetch(checkout.id);
         if (newCheckout.completedAt !== null) {
-          //console.log('Checkout already complete, creating new');
           createCheckout();
         } else {
-          //console.log('Using existing checkout');
           setChecked(true);
         }
       } catch (e) {
-        //console.log('Could not find existing checkout, create new', e);
         createCheckout();
       }
     };
 
-    if (!client) initClient();
-    else {
-      if (!checkout) createCheckout();
-      else {
-        if (!checked) check();
-      }
+    if (client && checkout && !checked) {
+      check();
     }
   }, [client, checkout, checked]);
 

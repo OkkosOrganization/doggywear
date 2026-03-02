@@ -1,15 +1,15 @@
 import Image from 'next/image';
 import { useRef, useState } from 'react';
-import styles from '../styles/IllustrationCard.module.scss';
+import styles from '../styles/IllustrationCard.module.css';
 
 type IllustrationCardProps = {
   data: any;
   loadImagesEager: boolean;
   sizes: string;
 };
-export const IllustrationCard = (props: IllustrationCardProps): JSX.Element => {
+export const IllustrationCard = (props: IllustrationCardProps) => {
   const [primaryImageLoaded, setPrimaryImageLoaded] = useState<boolean>(false);
-  const video = useRef(null);
+  const video = useRef<HTMLVideoElement>(null);
 
   const playVideo = () => {
     if (video.current) {
@@ -27,16 +27,17 @@ export const IllustrationCard = (props: IllustrationCardProps): JSX.Element => {
       {props.data?.data?.image?.url && (
         <Image
           src={props.data?.data?.image?.url}
-          layout="responsive"
           width={props.data?.data?.image?.dimensions?.width}
           height={props.data?.data?.image?.dimensions?.height}
+          style={{ width: '100%', height: 'auto' }}
           alt={'Illustration image'}
           priority={props.loadImagesEager}
           className={primaryImageLoaded ? styles.loaded : styles.loading}
-          onLoadingComplete={() => setPrimaryImageLoaded(true)}
-          lazyBoundary={'300px'}
+          onLoad={() => setPrimaryImageLoaded(true)}
           sizes={props.sizes}
-          unoptimized={props.data?.data?.image?.url?.includes('.gif') ? true : false}
+          unoptimized={
+            props.data?.data?.image?.url?.includes('.gif') ? true : false
+          }
         />
       )}
 

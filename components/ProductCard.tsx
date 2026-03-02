@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CURRENCY } from '../config/env';
-import styles from '../styles/ProductCard.module.scss';
+import styles from '../styles/ProductCard.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getTranslation } from '../config/translations';
@@ -11,7 +11,7 @@ type ProductCardProps = {
   loadImagesEager?: boolean;
   sizes: string;
 };
-export const ProductCard = (props: ProductCardProps): JSX.Element => {
+export const ProductCard = (props: ProductCardProps) => {
   const price = props.data?.data?.shopify?.variants[0]?.price;
   const title = props.data?.data?.title[0]?.text;
   const primaryImage = props.data?.data?.primary_image;
@@ -42,62 +42,58 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
 
   return (
     <div className={`${styles.product} gridItem`} id={props.data.id}>
-      <Link href={productUrl}>
-        <a
-          className={`
+      <Link
+        href={productUrl}
+        className={`
             ${styles.productImage}     
             ${isPoster ? styles.showShadow : ''}   
             ${hasImages ? styles.hasImages : styles.hideSecondaryImage}
           `}
-          onMouseEnter={() => {
-            if (props.showMultipleImages) flipImage();
-          }}
-          onMouseLeave={() => {
-            if (props.showMultipleImages) flipImage();
-          }}
-        >
-          {primaryImage.url && (
-            <div
-              className={`${
-                image === primaryImage.url ? '' : styles.hiddenImage
-              } `}
-            >
-              <Image
-                src={primaryImage.url}
-                width={primaryImage.dimensions?.width}
-                height={primaryImage.dimensions?.height}
-                layout="responsive"
-                alt="Primary product image"
-                priority={false}
-                className={primaryImageLoaded ? styles.loaded : styles.loading}
-                onLoadingComplete={() => setPrimaryImageLoaded(true)}
-                sizes={props.sizes}
-                quality={90}
-              />
-            </div>
-          )}
+        onMouseEnter={() => {
+          if (props.showMultipleImages) flipImage();
+        }}
+        onMouseLeave={() => {
+          if (props.showMultipleImages) flipImage();
+        }}
+      >
+        {primaryImage.url && (
+          <div
+            className={`${
+              image === primaryImage.url ? '' : styles.hiddenImage
+            } `}
+          >
+            <Image
+              src={primaryImage.url}
+              width={primaryImage.dimensions?.width}
+              height={primaryImage.dimensions?.height}
+              style={{ width: '100%', height: 'auto' }}
+              alt="Primary product image"
+              priority={props.loadImagesEager}
+              className={primaryImageLoaded ? styles.loaded : styles.loading}
+              onLoad={() => setPrimaryImageLoaded(true)}
+              sizes={props.sizes}
+              quality={90}
+            />
+          </div>
+        )}
 
-          {secondaryImage.url && (
-            <div
-              className={image === secondaryImage.url ? '' : styles.hiddenImage}
-            >
-              <Image
-                src={secondaryImage.url}
-                width={secondaryImage.dimensions?.width}
-                height={secondaryImage.dimensions?.height}
-                layout="responsive"
-                alt="Secondary product image"
-                priority={props.loadImagesEager}
-                className={
-                  secondaryImageLoaded ? styles.loaded : styles.loading
-                }
-                onLoadingComplete={() => setSecondaryImageLoaded(true)}
-                lazyBoundary={'300px'}
-                sizes={props.sizes}
-              />
-            </div>
-          )}
-        </a>
+        {secondaryImage.url && (
+          <div
+            className={image === secondaryImage.url ? '' : styles.hiddenImage}
+          >
+            <Image
+              src={secondaryImage.url}
+              width={secondaryImage.dimensions?.width}
+              height={secondaryImage.dimensions?.height}
+              style={{ width: '100%', height: 'auto' }}
+              alt="Secondary product image"
+              priority={props.loadImagesEager}
+              className={secondaryImageLoaded ? styles.loaded : styles.loading}
+              onLoad={() => setSecondaryImageLoaded(true)}
+              sizes={props.sizes}
+            />
+          </div>
+        )}
       </Link>
       <div className={`${styles.pager} ${!hasImages ? styles.hide : ''} pager`}>
         <span
@@ -112,13 +108,13 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
         ></span>
       </div>
       <div>
-        <Link href={productUrl}>
-          <a>
-            <h2 className={styles.productTitle}>{title}</h2>
-          </a>
+        <Link href={productUrl} legacyBehavior={false}>
+          <h2 className={styles.productTitle} style={{ cursor: 'pointer' }}>
+            {title}
+          </h2>
         </Link>
         {props.data.data.shopify &&
-          props.data.data.shopify.options[0].values.length > 1 && (
+          props.data.data.shopify.options?.[0]?.values?.length > 1 && (
             <h3 className={styles.sizeOptions}>
               {props.data.data.shopify.options[0].values.map((o, oIndex) => {
                 return (
@@ -137,7 +133,7 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
           {price && Number(price).toFixed(0) + CURRENCY}
         </h4>
 
-        <Link href={productUrl} passHref>
+        <Link href={productUrl} legacyBehavior={false}>
           <button
             className={styles.shopNowBtn}
             role={'button'}

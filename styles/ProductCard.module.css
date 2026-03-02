@@ -108,8 +108,7 @@
 /******************/
 /* MEDIA QUERIES */
 /****************/
-
-@media all and (min-width: 768px) {
+@media all and (min-width: 40rem) {
   .productImage {
     display: block;
   }

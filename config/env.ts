@@ -6,16 +6,17 @@ export const PRISMIC_API_ENDPOINT =
   process.env.NEXT_PUBLIC_PRISMIC_API_ENDPOINT;
 export const PRISMIC_API_TOKEN = process.env.NEXT_PUBLIC_PRISMIC_API_TOKEN;
 export const SHOPIFY_API_STOREFRONT_TOKEN =
-  process.env.NEXT_PUBLIC_SHOPIFY_API_STOREFRONT_TOKEN;
-export const SHOPIFY_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN;
+  process.env.NEXT_PUBLIC_SHOPIFY_API_STOREFRONT_TOKEN || '';
+export const SHOPIFY_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN || '';
 export const TITLE = process.env.NEXT_PUBLIC_TITLE;
 export const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION;
 export const TWITTER_HANDLE = process.env.NEXT_PUBLIC_TWITTER_HANDLE;
 export const OG_IMG = process.env.NEXT_PUBLIC_OG_IMG;
-export const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL;
-export const INSTAGRAM_APP_ID = process.env.INSTAGRAM_APP_ID;
-export const INSTAGRAM_APP_SECRET = process.env.INSTAGRAM_APP_SECRET;
-export const INSTAGRAM_REDIRECT_URL = process.env.INSTAGRAM_REDIRECT_URL;
-export const INSTAGRAM_USER_NAME = process.env.NEXT_PUBLIC_INSTAGRAM_USER_NAME;
-export const CURRENCY = process.env.NEXT_PUBLIC_CURRENCY;
+export const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL || '';
+export const INSTAGRAM_APP_ID = process.env.INSTAGRAM_APP_ID || '';
+export const INSTAGRAM_APP_SECRET = process.env.INSTAGRAM_APP_SECRET || '';
+export const INSTAGRAM_REDIRECT_URL = process.env.INSTAGRAM_REDIRECT_URL || '';
+export const INSTAGRAM_USER_NAME =
+  process.env.NEXT_PUBLIC_INSTAGRAM_USER_NAME || '';
+export const CURRENCY = process.env.NEXT_PUBLIC_CURRENCY || '';
 export const REDIS_URL = process.env.REDIS_URL;

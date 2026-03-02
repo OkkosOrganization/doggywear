@@ -1,10 +1,13 @@
-import styles from '../styles/Navi.module.scss';
+import styles from '../styles/Navi.module.css';
 import gsap from 'gsap';
-import ScrollToPlugin from 'gsap/dist/ScrollToPlugin';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { useRef } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
-gsap.registerPlugin(ScrollToPlugin);
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollToPlugin);
+}
 
 type LogoProps = {
   highlight: boolean;
@@ -13,10 +16,11 @@ type LogoProps = {
 };
 export const Logo = (props: LogoProps) => {
   const router = useRouter();
+  const pathname = usePathname();
   const logo = useRef(null);
 
   const clickHandler = () => {
-    if (router.pathname === '/')
+    if (pathname === '/')
       gsap.to(window, {
         scrollTo: 0,
         duration: 0.3,
@@ -31,13 +35,13 @@ export const Logo = (props: LogoProps) => {
   };
   return (
     <div className={`${styles.logo}`}>
-    <Image 
-      src={'/logoAnim.gif'}
-      alt={'Logo'}
-      layout='fill'    
-      priority
-      unoptimized={true}
-    />
+      <Image
+        src={'/logoAnim.gif'}
+        alt={'Logo'}
+        fill
+        priority
+        unoptimized={true}
+      />
     </div>
   );
   return (

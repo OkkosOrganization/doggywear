@@ -1,28 +1,27 @@
 import Header from './Header';
 import dynamic from 'next/dynamic';
 import { CartProvider } from './CartContext';
-import SimpleReactLightbox from 'simple-react-lightbox'
+
+const Cart = dynamic(() => import('./Cart'));
+const Footer = dynamic(() => import('./Footer'));
 
 type LayoutProps = {
   ww: number;
   children?: React.ReactNode;
 };
 const Layout = ({ ww, children }: LayoutProps) => {
-  const Cart = dynamic(() => import('./Cart'), { suspense: false });
-  const Footer = dynamic(() => import('./Footer'), { suspense: false });
-
   return (
-    <SimpleReactLightbox>
+    <>
       <CartProvider>
-        <Header />
-        <main id={"main"}>
-          {children}
-        </main>
-        <Footer />
-        <Cart ww={ww} />
+        <div id="app-container">
+          <Header />
+          <main id={'main'}>{children}</main>
+          <Footer />
+          <Cart ww={ww} />
+        </div>
       </CartProvider>
-    </SimpleReactLightbox>
+    </>
   );
 };
 
-export default Layout
+export default Layout;

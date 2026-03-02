@@ -1,4 +1,4 @@
-import styles from '../styles/ClothingPackagingInfo.module.scss';
+import styles from '../styles/ClothingPackagingInfo.module.css';
 import Image from 'next/image';
 
 export const ClothingPackagingInfo = () => {
@@ -9,7 +9,7 @@ export const ClothingPackagingInfo = () => {
         All our clothing items are carefully packed in hand-printed cardboard
         boxes and then shipped out to our customers.
       </p>
-      <p>We ship orders on Fridays.</p>                
+      <p>We ship orders on Fridays.</p>
 
       <p>
         Orders can also be picked up from{' '}
@@ -28,7 +28,7 @@ export const ClothingPackagingInfo = () => {
             src={'/box7.jpg'}
             width={600}
             height={800}
-            layout="responsive"
+            style={{ width: '100%', height: 'auto' }}
             alt="Packaging image 1"
           />
         </div>
@@ -37,7 +37,7 @@ export const ClothingPackagingInfo = () => {
             src={'/box5.jpg'}
             width={600}
             height={800}
-            layout="responsive"
+            style={{ width: '100%', height: 'auto' }}
             alt="Packaging image 2"
           />
         </div>
@@ -46,7 +46,7 @@ export const ClothingPackagingInfo = () => {
             src={'/box6.jpg'}
             width={600}
             height={800}
-            layout="responsive"
+            style={{ width: '100%', height: 'auto' }}
             alt="Packaging image 3"
           />
         </div>

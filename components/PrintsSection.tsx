@@ -1,12 +1,16 @@
-import { RichText, RichTextBlock } from 'prismic-reactjs';
+import { PrismicRichText } from '@prismicio/react';
 import { useRef, useState } from 'react';
 import { getTranslation } from '../config/translations';
-import styles from '../styles/PrintsSection.module.scss';
+import styles from '../styles/PrintsSection.module.css';
+import scrollerStyles from './SharedScroller.module.css';
 import { ProductCard } from './ProductCard';
 import gsap from 'gsap';
-import ScrollToPlugin from 'gsap/dist/ScrollToPlugin';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import Masonry from 'react-masonry-css';
-gsap.registerPlugin(ScrollToPlugin);
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollToPlugin);
+}
 
 type PrintsProduct = {
   uid: string;
@@ -14,7 +18,7 @@ type PrintsProduct = {
 
 type PrintsSectionProps = {
   title: string;
-  description: RichTextBlock[];
+  description: any;
   items: PrintsProduct[];
   scrollerLimit?: number;
 };
@@ -26,7 +30,7 @@ export const PrintsSection = ({
   description,
   items,
   scrollerLimit = 8,
-}: PrintsSectionProps): JSX.Element => {
+}: PrintsSectionProps) => {
   const [mode, setMode] = useState<DisplayMode>('masonry');
   const prints = useRef(null);
 
@@ -45,7 +49,7 @@ export const PrintsSection = ({
     >
       <h2 className={styles.title}>{title}</h2>
       <div className={styles.description}>
-        <RichText render={description} />
+        <PrismicRichText field={description} />
       </div>
 
       {mode === 'masonry' ? (
@@ -68,21 +72,27 @@ export const PrintsSection = ({
           })}
         </Masonry>
       ) : (
-        <div className={mode === 'scroller' ? styles.scroller : styles.grid}>
+        <div
+          className={
+            mode === 'scroller' ? scrollerStyles.scroller : styles.grid
+          }
+        >
           {items
             .slice(0, mode === 'scroller' ? scrollerLimit : items.length)
             .map((i, index) => {
               return (
                 <div
                   className={
-                    mode === 'scroller' ? styles.scrollerItem : styles.gridItem
+                    mode === 'scroller'
+                      ? scrollerStyles.scrollerItem
+                      : styles.gridItem
                   }
                   key={'PrintProductContainer_' + i?.uid}
                 >
                   <div
                     className={
                       mode === 'scroller'
-                        ? styles.scrollerItemInner
+                        ? scrollerStyles.scrollerItemInner
                         : styles.gridItemInner
                     }
                   >
