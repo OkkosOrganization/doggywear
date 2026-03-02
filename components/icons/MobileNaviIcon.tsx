@@ -1,4 +1,4 @@
-import styles from '../../styles/Navi.module.scss';
+import styles from '../../styles/Navi.module.css';
 import CloseIcon from './CloseIcon';
 import { HamburgerIcon } from './HamburgerIcon';
 

@@ -1,4 +1,4 @@
-import styles from "../../styles/Navi.module.scss";
+import styles from '../../styles/Navi.module.css';
 export const HamburgerIcon = () => {
   return (
     <svg viewBox="0 0 33 25" className={styles.hamburgerIcon}>

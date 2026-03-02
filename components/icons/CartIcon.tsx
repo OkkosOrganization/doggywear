@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import styles from '../../styles/Navi.module.scss';
+import styles from '../../styles/Navi.module.css';
 import { CartContext } from '../CartContext';
 
 const CartIcon = () => {
