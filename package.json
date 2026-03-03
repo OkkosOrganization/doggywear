@@ -27,14 +27,14 @@
     "react-masonry-css": "^1.0.16",
     "redis": "^4.0.2",
     "shopify-buy": "^3.0.7",
-    "simple-react-lightbox": "^3.6.9-0",
     "ts-debounce": "^4.0.0"
   },
   "devDependencies": {
     "@slicemachine/adapter-next": "^0.3.93",
     "@types/node": "^22.13.0",
     "@types/react": "^19.0.8",
-    "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "@typescript-eslint/eslint-plugin": "^8.52.0",
+    "@typescript-eslint/parser": "^8.52.0",
     "cypress": "^9.2.1",
     "eslint": "^9.19.0",
     "eslint-config-next": "^16.1.1",
