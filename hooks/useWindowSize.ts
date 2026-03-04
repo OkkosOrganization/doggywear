@@ -34,7 +34,7 @@ export function useWindowSize() {
       };
 
       if (!isTouchDevice) {
-        if (width < 768 && detectTouch()) setIsTouchDevice(true);
+        if (width < 640 && detectTouch()) setIsTouchDevice(true);
       }
     }
 
