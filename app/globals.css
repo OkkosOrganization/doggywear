@@ -8,7 +8,10 @@
   --headerHeight: 90px;
   --spacing: 1rem;
   --spacingLarge: 2rem;
+  --spacingXtraLarge: 4rem;
   --spacingSmall: 0.5rem;
+  --spacingXtraSmall: 0.25rem;
+  --btnMinWidth: 8rem;
 
   /* COLORS */
   --white: #fff;
@@ -28,7 +31,8 @@
   --lime: #5fd835;
 
   /* FONTS */
-  --font: Arial, Helvetica, sans-serif;
+  --font: 'GeistSans', Arial, Helvetica, sans-serif;
+  --fontMono: 'GeistMono', monospace;
 
   /* THEME VARS */
   --bg: var(--lighter-grey);
@@ -42,7 +46,7 @@
   --logoHeight: 7.875rem;
 
   --mainTitleSize: 1.5rem;
-  --subTitleSize: 1.5rem;
+  --subTitleSize: 1.3875rem;
   --bigTextSize: 1.25rem;
   --mainTextSize: 1rem;
   --subTextSize: 0.875rem;
@@ -202,8 +206,9 @@ button {
 
   background: transparent;
   color: var(--fg);
-  min-width: 140px;
+  min-width: var(--btnMinWidth);
   font-size: var(--buttonTextSize);
+  font-family: var(--fontMono);
   padding: 0.75rem 2rem;
 
   transition: all 0.1s linear;
@@ -224,7 +229,7 @@ button::after {
   transition: all 0.05s ease-in-out;
 }
 
-button:hover {
+button:not([disabled]):hover {
   transition: all 0.05s ease-in-out;
   border-color: var(--secondaryAccent);
   color: var(--secondaryAccent);
@@ -257,14 +262,14 @@ select {
   overflow: hidden;
 }
 
-@media all and (min-width: var(--maxWidthSmall)) {
+@media all and (min-width: 40rem) {
   :root {
     --mainNavHeight: 9rem;
     --logoWidth: 12.5rem;
     --logoHeight: 10.5rem;
 
-    --mainTitleSize: 2.5rem;
-    --subTitleSize: 1.3875rem;
+    --mainTitleSize: 2.25rem;
+    --subTitleSize: 1.6875rem;
     --bigTextSize: 1.3875rem;
     --mainTextSize: 1.25rem;
     --subTextSize: 1.0625rem;
@@ -293,10 +298,10 @@ select {
     background: rgba(46, 46, 46, 0.75); /* --blackish/darker-grey */
   }
 
-  button:hover {
+  button:not([disabled]):hover {
     border-color: var(--secondaryAccent);
   }
-  button:hover::after {
+  button:not([disabled]):hover:after {
     box-shadow: inset 4px 4px var(--linkBlue), inset -4px -4px var(--linkBlue);
   }
 }
