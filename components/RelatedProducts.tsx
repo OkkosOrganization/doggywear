@@ -23,7 +23,6 @@ export const RelatedProducts = ({
 
   if (!products) return null;
   const items = randomized.map((p, pindex) => {
-    console.log(p);
     return (
       <div
         className={scrollerStyles.scrollerItem}
