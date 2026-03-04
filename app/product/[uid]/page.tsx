@@ -1,9 +1,9 @@
-import { filter } from '@prismicio/client';
+import { asText, filter } from '@prismicio/client';
 import { createClient } from '../../../prismicio';
 import ProductClient from './ProductClient';
 import { Metadata } from 'next';
-import { getCurrentLocale } from '../../../config/locales';
 import { notFound } from 'next/navigation';
+import { TITLE } from '../../../config/env';
 
 export async function generateMetadata({
   params,
@@ -20,10 +20,14 @@ export async function generateMetadata({
     };
   }
 
-  const title = product.data.title[0]?.text || 'Product';
-  const description = product.data.description?.[0]?.text;
-  const ogImg =
-    product.data.share_image?.url || product.data.images?.[0]?.image?.url;
+  const title = `${TITLE} -  Product - ${asText(product.data.title)}`;
+  const description = product.data.description
+    ? asText(product.data.description)
+    : undefined;
+  const hasShareImage = !!product.data.share_image?.url;
+  const ogImg = hasShareImage
+    ? product.data.share_image.url
+    : product.data?.primary_image?.url;
 
   return {
     title,
@@ -64,10 +68,6 @@ export default async function ProductPage({
   });
 
   const relatedProducts = relatedProductsResponse.results;
-
-  // Mocking locale for now as app directory handles i18n differently
-  // In a real app we'd get lang from params if using [lang] folder
-  const currLocale = getCurrentLocale('en');
 
   return <ProductClient product={product} relatedProducts={relatedProducts} />;
 }
