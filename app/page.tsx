@@ -1,7 +1,9 @@
 import { createClient } from '../prismicio';
+import { asText } from '@prismicio/client';
 import { Metadata } from 'next';
 import FrontpageClient from './FrontpageClient';
 import { BASE_URL, TITLE, TWITTER_HANDLE } from '../config/env';
+import { ViewTransition } from 'react';
 
 export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
@@ -14,7 +16,9 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   const title = `${TITLE} - Home`;
-  const description = frontpage.data?.description?.[0]?.text;
+  const description = frontpage.data?.description
+    ? asText(frontpage.data.description)
+    : undefined;
   const ogUrl = `${BASE_URL}`;
   const ogImg = `${frontpage.data.share_image.url}`;
   const twitterHandle = TWITTER_HANDLE;
@@ -58,13 +62,15 @@ export default async function Page() {
     fetchLinks: ['video'],
   });
 
-  const frontpage = await client.getSingle('front-page');
+  const frontpage = await client.getSingle('frontpage');
 
   return (
-    <FrontpageClient
-      products={products}
-      illustrations={illustrations}
-      frontpage={frontpage}
-    />
+    <ViewTransition>
+      <FrontpageClient
+        products={products}
+        illustrations={illustrations}
+        frontpage={frontpage}
+      />
+    </ViewTransition>
   );
 }
