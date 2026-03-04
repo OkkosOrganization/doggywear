@@ -2,6 +2,7 @@ import { createClient } from '../../prismicio';
 import InfoComponent from './InfoClient';
 import { Metadata } from 'next';
 import { BASE_URL, TITLE, TWITTER_HANDLE } from '../../config/env';
+import { asText } from '@prismicio/client';
 
 export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
@@ -14,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   const title = `${TITLE} - Info`;
-  const description = about.data?.description?.[0]?.text;
+  const description = asText(about.data?.content);
   //   const ogUrl = `${BASE_URL}/info`;
   //   const ogImg = about.data.share_image?.url || ''; // Adjust as needed
   const twitterHandle = TWITTER_HANDLE;
@@ -48,7 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function InfoPage() {
   const client = createClient();
-  const about = await client.getSingle('info-page').catch(() => null);
+  const about = await client.getSingle('infopage').catch(() => null);
 
   return <InfoComponent about={about} />;
 }
