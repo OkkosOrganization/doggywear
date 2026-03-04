@@ -6,9 +6,16 @@ import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { ProductCard } from '../components/ProductCard';
 import { IllustrationCard } from '../components/IllustrationCard';
-import gsap from 'gsap';
 import { PrismicRichText } from '@prismicio/react';
 import { useWindowSize } from '../hooks/useWindowSize';
+import {
+  FrontpageDocument,
+  IllustrationDocument,
+  IllustrationDocumentData,
+  ProductDocument,
+  ProductDocumentData,
+} from '../prismicio-types';
+import { Query } from '@prismicio/client';
 
 type InstaJson = {
   data?: any[];
@@ -18,12 +25,16 @@ export default function FrontpageClient({
   products,
   illustrations,
   frontpage,
+}: {
+  products: Query<ProductDocument>;
+  illustrations: Query<IllustrationDocument>;
+  frontpage: FrontpageDocument<string>;
 }) {
   const [feed, setFeed] = useState<InstaJson | null>(null);
   const [, setRevealed] = useState<boolean>(false);
   const grid = useRef(null);
   const { width } = useWindowSize();
-  const isMobile = width <= 768;
+  const isMobile = width <= 640;
 
   const InstaFeed = dynamic(() => import('../components/InstaFeed'), {});
 
@@ -39,15 +50,6 @@ export default function FrontpageClient({
       }
     };
     //getFeed();
-
-    //REVEAL GRID
-    gsap.to(grid.current, {
-      autoAlpha: 1,
-      duration: 0.2,
-      onComplete: () => {
-        setRevealed(true);
-      },
-    });
   }, []);
 
   const columns = {
@@ -59,7 +61,7 @@ export default function FrontpageClient({
 
   return (
     <div className={styles.container}>
-      <h1 className={'hidden'}>{frontpage.data?.title[0]?.text}</h1>
+      <h1 className={'hidden'}>{}</h1>
 
       <div className={styles.description}>
         <PrismicRichText field={frontpage.data?.description} />
@@ -72,9 +74,9 @@ export default function FrontpageClient({
           columnClassName={styles.masonryGridColumn}
         >
           {frontpage.data.items.map((i: any, index: number) => {
-            const item = i.item; // @prismicio/client v7 typings might handle this differently, but keeping logic
-            const id = item.id;
-            const type = item.type;
+            const data =
+              i.product.id !== undefined ? i.product : i.illustration;
+            const { id, type } = data;
             const loadImagesEager = index < (isMobile ? 1 : 4);
 
             if (type === 'product') {
@@ -111,12 +113,7 @@ export default function FrontpageClient({
         </Masonry>
       </div>
 
-      {false && (
-        <InstaFeed
-          title={frontpage?.data?.instagram_title[0]?.text}
-          feed={feed || undefined}
-        />
-      )}
+      {false && <InstaFeed title={''} feed={feed || undefined} />}
     </div>
   );
 }

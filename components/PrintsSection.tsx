@@ -4,13 +4,7 @@ import { getTranslation } from '../config/translations';
 import styles from '../styles/PrintsSection.module.css';
 import scrollerStyles from './SharedScroller.module.css';
 import { ProductCard } from './ProductCard';
-import gsap from 'gsap';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import Masonry from 'react-masonry-css';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollToPlugin);
-}
 
 type PrintsProduct = {
   uid: string;
