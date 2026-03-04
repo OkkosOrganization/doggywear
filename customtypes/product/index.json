@@ -1,5 +1,9 @@
 {
   "id": "product",
+  "label": "Product",
+  "repeatable": true,
+  "status": true,
+  "format": "custom",
   "json": {
     "Main": {
       "uid": {
@@ -62,10 +66,19 @@
           "label": "Gallery"
         }
       }
+    },
+    "SEO": {
+      "share_image": {
+        "type": "Image",
+        "config": {
+          "label": "Share image",
+          "constraint": {
+            "width": 1200,
+            "height": 630
+          },
+          "thumbnails": []
+        }
+      }
     }
-  },
-  "label": "Product",
-  "repeatable": true,
-  "status": true,
-  "format": "custom"
+  }
 }
