@@ -1,5 +1,5 @@
 .cart {
-  opacity: 0;
+  opacity: 1;
   position: absolute;
   top: 0;
   right: -100%;
@@ -310,6 +310,7 @@
   padding: 0;
   color: var(--fg);
   font-size: var(--mainTextSize);
+  font-family: var(--fontMono);
 }
 
 @media all and (min-width: 40rem) {
@@ -318,7 +319,7 @@
     right: -40%;
   }
   .scroller {
-    padding: 2.785rem 1rem;
+    padding: 2.25rem 1rem;
   }
   .closeCart {
     top: 2.25rem;

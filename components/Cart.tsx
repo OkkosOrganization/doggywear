@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
+import { useEffect, useRef, useState } from 'react';
 import { RemoveFromCart } from './icons/RemoveFromCart';
 import { AddLineItem } from './icons/AddLineItem';
 import { SubtractLineItem } from './icons/SubtractLineItem';
 import { CURRENCY } from '../config/env';
-import { CartContext } from './CartContext';
+import { useCartContext } from './CartContext';
 import { LoadingIndicator } from './LoadingIndicator';
 import { getTranslation } from '../config/translations';
 import styles from './Cart.module.css';
 import Image from 'next/image';
+import { useWindowSize } from '../hooks/useWindowSize';
 
 const CartLineItem = (props) => {
   return (
@@ -65,12 +65,10 @@ const CartLineItem = (props) => {
   );
 };
 
-type CartProps = {
-  ww: number;
-};
-const Cart = ({ ww }: CartProps) => {
-  const cartContext = useContext(CartContext) as any;
-  if (!cartContext) return null;
+type CartProps = {};
+const Cart = ({}: CartProps) => {
+  const cartContext = useCartContext();
+  const { width: ww } = useWindowSize();
   const {
     checkout,
     removeLineItem,
@@ -100,7 +98,7 @@ const Cart = ({ ww }: CartProps) => {
       let w_percent = '-100%';
 
       //DESKTOP
-      if (ww >= 768) w_percent = '-40%';
+      if (ww >= 640) w_percent = '-40%';
 
       const next = document.querySelector('#app-container') as HTMLDivElement;
       const body = document.querySelector('body');
@@ -109,8 +107,8 @@ const Cart = ({ ww }: CartProps) => {
 
       body.classList.add('noscroll');
       next.classList.add('cartOpen');
-      gsap.set(container.current, { autoAlpha: 1, display: 'block' });
-      gsap.to(next, { duration: animDuration, x: w_percent });
+      next.style.transition = `transform ${animDuration}s ease`;
+      next.style.transform = `translateX(${w_percent})`;
     };
 
     if (open) show();
@@ -122,16 +120,18 @@ const Cart = ({ ww }: CartProps) => {
 
     if (!next || !body) return;
 
-    gsap.to(next, {
-      duration: animDuration / 2,
-      x: '0%',
-      onComplete: () => {
-        body.classList.remove('noscroll');
-        next.classList.remove('cartOpen');
-        next.style.removeProperty('transform');
-        hideCart();
-      },
-    });
+    const onTransitionEnd = () => {
+      body.classList.remove('noscroll');
+      next.classList.remove('cartOpen');
+      next.style.removeProperty('transform');
+      next.style.removeProperty('transition');
+      hideCart();
+      next.removeEventListener('transitionend', onTransitionEnd);
+    };
+
+    next.addEventListener('transitionend', onTransitionEnd);
+    next.style.transition = `transform ${animDuration / 2}s ease`;
+    next.style.transform = 'translateX(0%)';
   };
 
   const addQuantity = (lineItem) => {
@@ -157,8 +157,8 @@ const Cart = ({ ww }: CartProps) => {
     setUserInCheckout(true);
   };
 
-  const hasItems = () => {
-    return checkout.lineItems.length;
+  const hasItems = (currentCheckout: NonNullable<typeof checkout>) => {
+    return currentCheckout.lineItems.length;
   };
 
   const windowBlurHandler = (e) => {
@@ -174,7 +174,7 @@ const Cart = ({ ww }: CartProps) => {
     <div className={styles.cart} ref={container}>
       <div className={styles.scroller} ref={scroller}>
         <h2 className={styles.cartTitle}>{'Cart'}</h2>
-        {checkout && hasItems() ? (
+        {checkout && hasItems(checkout) ? (
           <>
             <div className={styles.lineItems}>
               {checkout.lineItems.map((i, index) => {
@@ -194,7 +194,7 @@ const Cart = ({ ww }: CartProps) => {
               <div className={styles.sub}>
                 <span className={styles.subtotal_label}>{'SUBTOTAL'}</span>
                 <span className={styles.subtotal_value}>{`${Math.round(
-                  checkout.lineItemsSubtotalPrice.amount
+                  parseFloat(checkout.lineItemsSubtotalPrice.amount)
                 )} €`}</span>
               </div>
 
@@ -208,7 +208,7 @@ const Cart = ({ ww }: CartProps) => {
               <div className={styles.total}>
                 <span className={styles.total_label}>{'TOTAL'}</span>
                 <span className={styles.total_value}>{`${Math.round(
-                  checkout.lineItemsSubtotalPrice.amount
+                  parseFloat(checkout.lineItemsSubtotalPrice.amount)
                 )} ${CURRENCY}`}</span>
               </div>
             </div>
