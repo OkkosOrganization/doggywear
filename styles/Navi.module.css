@@ -97,14 +97,24 @@
   right: 0;
   top: 0;
   height: var(--mainNavHeight);
+  font-family: var(--fontMono);
   z-index: 10;
-  background: var(--bg);
+  background: transparent;
   color: var(--fg);
   overflow: hidden;
   display: flex;
   justify-content: center;
   padding: 0.875rem;
-  transition: all 0.2s ease-in;
+  transform: translateY(0);
+  transition: transform 0.2s ease-in, background-color 0.2s ease-in;
+}
+
+.mainNavi.showBg {
+  background: var(--bg);
+}
+
+.mainNavi.hidden {
+  transform: translateY(-100%);
 }
 
 .mainNavi button {
@@ -278,10 +288,6 @@
   position: absolute;
 }
 
-.mainNavi.showBg {
-  transform: translateY(-100%);
-}
-
 .pages {
   align-self: center;
   margin: 0 auto;
@@ -299,6 +305,32 @@
   display: block;
   text-align: inherit;
   position: relative;
+  opacity: 0;
+  transform: translateY(-10%);
+}
+
+.mainNavi.active .pages li {
+  animation: naviItemIn 0.2s ease forwards;
+}
+
+.mainNavi.active .pages li:nth-child(1) {
+  animation-delay: 0.22s;
+}
+
+.mainNavi.active .pages li:nth-child(2) {
+  animation-delay: 0.32s;
+}
+
+.mainNavi.active .pages li:nth-child(3) {
+  animation-delay: 0.42s;
+}
+
+.mainNavi.active .pages li:nth-child(4) {
+  animation-delay: 0.52s;
+}
+
+.mainNavi.active .pages li:nth-child(5) {
+  animation-delay: 0.62s;
 }
 
 .pages li a {
@@ -320,6 +352,17 @@
 
 .pages li:hover a {
   color: var(--secondaryAccent);
+}
+
+@keyframes naviItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media all and (min-width: 40rem) {

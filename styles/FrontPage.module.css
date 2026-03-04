@@ -4,11 +4,11 @@
 .description {
   text-align: center;
   max-width: var(--maxWidthSmall);
-  margin: 4rem auto;
+  margin: var(--spacingXtraLarge) auto;
   padding: 0 1rem;
   color: var(--fg);
   font-size: var(--bigTextSize);
-  font-weight: 600;
+  font-weight: 300;
 }
 
 .description p {
@@ -41,14 +41,24 @@
   margin-bottom: 3rem;
   padding: 0 1rem;
   opacity: 0;
+  animation: revealGrid 0.45s linear forwards;
+}
+
+@keyframes revealGrid {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 .masonryGrid {
   display: flex;
   width: auto;
-  margin: 0 -0.5rem;
+  margin: 0 calc(var(--spacingSmall) * -1);
 }
 .masonryGridColumn {
-  padding: 0 0.5rem; /* gutter size */
+  padding: 0 var(--spacingSmall); /* gutter size */
   background-clip: padding-box;
   position: relative;
 }
@@ -64,5 +74,13 @@
 @media all and (min-width: 40rem) {
   .description {
     max-width: 75%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grid {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

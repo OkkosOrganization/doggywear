@@ -9,9 +9,15 @@
 .productContainer {
   width: 100%;
   padding: 0 1rem;
+  margin-bottom: var(--spacingXtraLarge);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+.packagingInfo {
+  width: 100%;
+  padding: 0 1rem;
+  margin-bottom: var(--spacingXtraLarge);
 }
 
 .smallHeading {
@@ -31,7 +37,7 @@
 
 .price {
   margin: 0 0 1rem 0;
-  font-weight: 600;
+  font-weight: 900;
   font-size: var(--mainTextSize);
   text-transform: uppercase;
   letter-spacing: 0.0075rem;
@@ -40,8 +46,12 @@
 
 .productImages {
   flex: 1 0 100%;
-  margin: 0;
+  margin: 0 0 var(--spacingLarge) 0;
   padding: 0;
+}
+.productInfo {
+  flex: 1 0 100%;
+  margin: 0 0 var(--spacingLarge) 0;
 }
 
 .mainImage {
@@ -119,18 +129,29 @@
   padding: 2rem;
 }
 
+.addToCartArea {
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--spacingSmall);
+}
+
 .variants {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin: 0 0 1rem 0;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+  gap: var(--spacingSmall);
 }
 
 .variantsLabel {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.025rem;
-  margin: 0 1rem 0 0;
+  margin: 0;
   padding: 0;
   line-height: 1rem;
   align-self: center;
@@ -166,10 +187,12 @@
 }
 
 .variantSelect {
-  width: 100%;
+  min-width: 4rem;
   padding: 0;
   border: 1px solid var(--grey);
   background-color: var(--bg);
+  font-family: var(--fontMono);
+
   color: var(--fg);
   cursor: pointer;
   position: relative;
@@ -179,27 +202,34 @@
   border-radius: 0;
   display: flex;
   align-items: center;
+  text-indent: var(--spacingSmall);
   &::picker(select) {
     appearance: base-select;
   }
 }
-.variantSelect:hover {
+
+.variantSelect:not([disabled]):hover {
   border-color: var(--secondaryAccent);
   color: var(--secondaryAccent);
 }
 .variantSelect option {
   padding: 0;
   background-color: var(--bg);
+  text-indent: 0;
+  font-family: var(--fontMono);
 }
 .variantSelect option:checked {
   color: var(--secondaryAccent);
 }
 .variantSelect::picker-icon {
   appearance: base-select;
-  margin-right: var(--spacingSmall);
+  position: absolute;
+  right: var(--spacingSmall);
+  margin: 0;
 }
-/* OPTION BOX */
+/* SELECT OPTION BOX */
 .variantSelect::picker(select) {
+  padding: var(--spacingSmall);
   border: 1px solid var(--grey);
   background-color: var(--bg);
 }
@@ -208,16 +238,17 @@
   position: relative;
   width: 100%;
   min-height: 200px;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing);
 }
 .thumbs {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-direction: row;
+  gap: var(--spacing);
+  box-sizing: border-box;
 }
 .thumb {
-  width: 80px;
-  height: 80px;
+  flex: 0 0 calc((100% - (var(--spacing) * 4)) / 5);
   cursor: pointer;
   opacity: 0.6;
   transition: opacity 0.2s;
@@ -258,11 +289,13 @@
 
   .productImages {
     flex: 1 0 60%;
-    padding: 0 2rem 2rem 0;
+    padding: 0 var(--spacingLarge) 0 0;
+    margin-bottom: 0;
   }
   .productInfo {
     flex: 1 0 40%;
     padding-top: var(--spacingLarge);
+    margin-bottom: 0;
   }
 
   .productImages img {

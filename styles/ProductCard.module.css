@@ -57,14 +57,15 @@
 
 /* PRODUCT INFO */
 .productTitle {
-  font-size: var(--mainTitleSize);
-  font-weight: 600;
+  font-size: var(--subTitleSize);
+  font-weight: 300;
   margin: 0 0 0.5rem 0;
   color: var(--fg);
+  line-height: 1;
 }
 .productPrice {
   margin: 0 0 1rem 0;
-  font-weight: 600;
+  font-weight: 900;
   font-size: var(--mainTextSize);
   text-transform: uppercase;
   letter-spacing: 0.0075rem;
@@ -74,6 +75,8 @@
   font-weight: 300;
   text-transform: uppercase;
   font-size: var(--miniTextSize);
+  font-family: var(--fontMono);
+
   opacity: 0.75;
   margin: 0 0 0.5rem 0;
   color: var(--fg);
