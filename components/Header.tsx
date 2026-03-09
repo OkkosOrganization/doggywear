@@ -67,7 +67,7 @@ const Header = (props) => {
   } ${showNaviBg || naviOpen ? styles.showBg : ''}`;
 
   return (
-    <>
+    <header>
       <nav className={classes}>
         <MobileNaviIcon toggleNavi={toggleNavi} naviOpen={naviOpen} />
         <div className={styles.naviItems}>
@@ -85,7 +85,7 @@ const Header = (props) => {
         toggleNavi={toggleNavi}
         naviOpen={naviOpen}
       />
-    </>
+    </header>
   );
 };
 
