@@ -66,8 +66,18 @@ export default async function ProductPage({
     pageSize: 10,
     filters: [filter.not('my.product.uid', uid)],
   });
-
   const relatedProducts = relatedProductsResponse.results;
 
-  return <ProductClient product={product} relatedProducts={relatedProducts} />;
+  const shippingAndPackagingInfoResponse = await client
+    .getSingle('shipping_and_packaging_info')
+    .catch(() => null);
+  const shippingAndPackagingInfo = shippingAndPackagingInfoResponse?.data;
+
+  return (
+    <ProductClient
+      product={product}
+      relatedProducts={relatedProducts}
+      shippingAndPackagingInfo={shippingAndPackagingInfo}
+    />
+  );
 }

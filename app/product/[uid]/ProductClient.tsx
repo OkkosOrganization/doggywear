@@ -15,16 +15,24 @@ import {
 import { LoadingIndicator } from '../../../components/LoadingIndicator';
 import { getTranslation } from '../../../config/translations';
 import { PrintPackagingInfo } from '../../../components/PrintPackagingInfo';
-import { ProductDocument, Simplify } from '../../../prismicio-types';
+import {
+  ProductDocument,
+  ShippingAndPackagingInfoDocumentData,
+  Simplify,
+} from '../../../prismicio-types';
 import { asText, FilledImageFieldImage, isFilled } from '@prismicio/client';
 
 type ProductClientProps = {
   product: ProductDocument<string>;
   relatedProducts: ProductDocument<string>[];
+  shippingAndPackagingInfo:
+    | Simplify<ShippingAndPackagingInfoDocumentData>
+    | undefined;
 };
 export default function ProductClient({
   product,
   relatedProducts,
+  shippingAndPackagingInfo,
 }: ProductClientProps) {
   const { width: ww } = useWindowSize();
   const cartContext = useContext(CartContext);
@@ -125,16 +133,22 @@ export default function ProductClient({
           />
         </div>
         <div className={styles.packagingInfo}>
-          {isClothing && <ClothingPackagingInfo />}
+          {isClothing &&
+            product.data.show_shipping_and_packaging_info &&
+            shippingAndPackagingInfo && (
+              <ClothingPackagingInfo data={shippingAndPackagingInfo} />
+            )}
           {isPrint && <PrintPackagingInfo />}
         </div>
-        {relatedProducts && relatedProducts.length > 0 && (
-          <RelatedProducts
-            products={relatedProducts}
-            isMobile={ww < 640}
-            randomOrder
-          />
-        )}
+        {product.data.show_related_products &&
+          relatedProducts &&
+          relatedProducts.length > 0 && (
+            <RelatedProducts
+              products={relatedProducts}
+              isMobile={ww < 640}
+              randomOrder
+            />
+          )}
       </div>
     </ViewTransition>
   );
