@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import styles from '../styles/RelatedProducts.module.css';
-import scrollerStyles from './SharedScroller.module.css';
 import { ProductCard } from './ProductCard';
+import styles from '../styles/RelatedProducts.module.css';
+import scrollerStyles from '../styles/SharedScroller.module.css';
 
 type RelatedProductsProps = {
   products: any[];
