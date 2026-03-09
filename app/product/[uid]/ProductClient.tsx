@@ -32,7 +32,9 @@ export default function ProductClient({
   const [selectedVariant, setSelectedVariant] = useState<any>(null);
   const [selectedImage, setSelectedImage] = useState<number>(0);
   const [productVariants, setProductVariants] = useState<ProductVariantNode[]>(
-    []
+    isFilled.integration(product.data.shopify)
+      ? (product.data.shopify.variants as any)
+      : []
   );
 
   const addToCart = () => {
@@ -44,8 +46,20 @@ export default function ProductClient({
     }
   };
 
-  const handleVariantChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleVariantSelectChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const vars = productVariants.filter((v) => v.id === e.target.value);
+    if (vars.length > 0) {
+      setSelectedVariant(vars[0]);
+    }
+  };
+
+  const handleVariantButtonChange = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    console.log(productVariants, e.currentTarget.value);
+    const vars = productVariants.filter((v) => v.id === e.currentTarget.value);
     if (vars.length > 0) {
       setSelectedVariant(vars[0]);
     }
@@ -86,9 +100,6 @@ export default function ProductClient({
         if (res && res.data && res.data.node) {
           const vars = res.data.node.variants.edges.map((e) => e.node);
           setProductVariants(vars);
-          if (vars.length > 0) {
-            setSelectedVariant(vars[0]);
-          }
         }
       })();
   }, [product]);
@@ -106,7 +117,9 @@ export default function ProductClient({
             product={product}
             selectedVariant={selectedVariant}
             productVariants={productVariants}
-            handleVariantChange={handleVariantChange}
+            variantDisplayMode={'buttons'}
+            handleVariantButtonChange={handleVariantButtonChange}
+            handleVariantSelectChange={handleVariantSelectChange}
             addToCart={addToCart}
             addingToCart={addingToCart}
           />
@@ -131,17 +144,21 @@ type ProductIndfoProps = {
   product: ProductDocument<string>;
   selectedVariant: any;
   productVariants: any[];
-  handleVariantChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleVariantButtonChange: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleVariantSelectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   addToCart: () => void;
   addingToCart: boolean;
+  variantDisplayMode: 'select' | 'buttons';
 };
 export const ProductInfo = ({
   product,
   selectedVariant,
   productVariants,
-  handleVariantChange,
+  handleVariantButtonChange,
+  handleVariantSelectChange,
   addToCart,
   addingToCart,
+  variantDisplayMode,
 }: ProductIndfoProps) => {
   const productTitle = asText(product.data?.title);
   const productPrice = isFilled.integration(product.data.shopify)
@@ -163,22 +180,53 @@ export const ProductInfo = ({
 
       <div className={styles.addToCartArea}>
         <div className={styles.variants}>
-          <label htmlFor="variantSelect" className={styles.variantsLabel}>
-            CHOOSE SIZE:
-          </label>
-          <select
-            name="variantSelect"
-            id="variantSelect"
-            onChange={handleVariantChange}
-            className={styles.variantSelect}
-            disabled={!productVariants.length}
-          >
-            {productVariants.map((v) => (
-              <option key={v.id} value={v.id} disabled={v.availableForSale}>
-                {v.title}
-              </option>
-            ))}
-          </select>
+          {variantDisplayMode === 'buttons' && (
+            <>
+              <span className={styles.variantsLabel}>SIZE:</span>
+              <div className={styles.variantButtons}>
+                {productVariants.map((v) => (
+                  <button
+                    key={v.id}
+                    value={v.id}
+                    onClick={handleVariantButtonChange}
+                    className={`${styles.variantButton} ${
+                      selectedVariant && selectedVariant.id === v.id
+                        ? styles.selectedVariant
+                        : ''
+                    }`}
+                    disabled={v.availableForSale}
+                    title={
+                      v.availableForSale
+                        ? v.title
+                        : getTranslation('OUT_OF_STOCK')
+                    }
+                  >
+                    {v.title}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+          {variantDisplayMode === 'select' && (
+            <>
+              <label htmlFor="variantSelect" className={styles.variantsLabel}>
+                CHOOSE SIZE:
+              </label>
+              <select
+                name="variantSelect"
+                id="variantSelect"
+                onChange={handleVariantSelectChange}
+                className={styles.variantSelect}
+                disabled={!productVariants.length}
+              >
+                {productVariants.map((v) => (
+                  <option key={v.id} value={v.id} disabled={v.availableForSale}>
+                    {v.title}
+                  </option>
+                ))}
+              </select>
+            </>
+          )}
         </div>
 
         <button

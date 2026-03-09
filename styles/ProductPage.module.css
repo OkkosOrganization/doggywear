@@ -2,8 +2,6 @@
   max-width: var(--maxWidth);
   margin: 0 auto;
   padding: 2rem 0;
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .productContainer {
@@ -130,25 +128,19 @@
 }
 
 .addToCartArea {
-  width: max-content;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: var(--spacingSmall);
 }
 
 .variants {
   display: flex;
   width: 100%;
-  justify-content: space-between;
   flex-direction: row;
   align-items: center;
-  margin: 0;
+  margin: 0 0 var(--spacing);
   gap: var(--spacingSmall);
 }
 
 .variantsLabel {
-  font-size: 0.75rem;
+  font-size: var(--miniTextSize);
   text-transform: uppercase;
   letter-spacing: 0.025rem;
   margin: 0;
@@ -157,13 +149,6 @@
   align-self: center;
 }
 
-.variantsContainer {
-  display: inline-block;
-  min-width: 180px;
-  width: auto;
-  min-height: 100px;
-  position: relative;
-}
 .top {
   width: 100%;
   display: flex;
@@ -186,6 +171,31 @@
   text-decoration: underline;
 }
 
+.variantButtons {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacingSmall);
+}
+.variantButton {
+  min-width: auto;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--xtraMiniTextSize);
+}
+.variantButton[disabled] {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.variantButton.selectedVariant {
+  border-color: var(--secondaryAccent);
+}
+.selectedVariant::after {
+  box-shadow: inset 4px 4px var(--linkBlue), inset -4px -4px var(--linkBlue);
+}
 .variantSelect {
   min-width: 4rem;
   padding: 0;
@@ -277,6 +287,10 @@
     text-align: left;
     list-style: disc;
     list-style-position: inside;
+  }
+
+  .productContainer {
+    flex-wrap: nowrap;
   }
 
   .variants {
