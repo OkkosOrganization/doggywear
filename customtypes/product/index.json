@@ -65,6 +65,24 @@
           },
           "label": "Gallery"
         }
+      },
+      "show_shipping_and_packaging_info": {
+        "type": "Boolean",
+        "config": {
+          "label": "Show shipping and packaging info",
+          "placeholder_false": "false",
+          "placeholder_true": "true",
+          "default_value": true
+        }
+      },
+      "show_related_products": {
+        "type": "Boolean",
+        "config": {
+          "label": "Show related products",
+          "placeholder_false": "false",
+          "placeholder_true": "true",
+          "default_value": true
+        }
       }
     },
     "SEO": {

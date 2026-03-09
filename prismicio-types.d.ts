@@ -618,7 +618,31 @@ interface ProductDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
-  gallery: prismic.GroupField<Simplify<ProductDocumentDataGalleryItem>>; /**
+  gallery: prismic.GroupField<Simplify<ProductDocumentDataGalleryItem>>;
+
+  /**
+   * Show shipping and packaging info field in *Product*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: product.show_shipping_and_packaging_info
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  show_shipping_and_packaging_info: prismic.BooleanField;
+
+  /**
+   * Show related products field in *Product*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: product.show_related_products
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  show_related_products: prismic.BooleanField; /**
    * Share image field in *Product*
    *
    * - **Field Type**: Image
@@ -646,13 +670,85 @@ export type ProductDocument<Lang extends string = string> =
     Lang
   >;
 
+/**
+ * Item in *Shipping and Packaging info → Images*
+ */
+export interface ShippingAndPackagingInfoDocumentDataImagesItem {
+  /**
+   * Image field in *Shipping and Packaging info → Images*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: shipping_and_packaging_info.images[].image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Content for Shipping and Packaging info documents
+ */
+interface ShippingAndPackagingInfoDocumentData {
+  /**
+   * Title field in *Shipping and Packaging info*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Packaging & shipping
+   * - **API ID Path**: shipping_and_packaging_info.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Content field in *Shipping and Packaging info*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: shipping_and_packaging_info.content
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  content: prismic.RichTextField;
+
+  /**
+   * Images field in *Shipping and Packaging info*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: shipping_and_packaging_info.images[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  images: prismic.GroupField<
+    Simplify<ShippingAndPackagingInfoDocumentDataImagesItem>
+  >;
+}
+
+/**
+ * Shipping and Packaging info document from Prismic
+ *
+ * - **API ID**: `shipping_and_packaging_info`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ShippingAndPackagingInfoDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<ShippingAndPackagingInfoDocumentData>,
+    'shipping_and_packaging_info',
+    Lang
+  >;
+
 export type AllDocumentTypes =
   | FrontPageDocument
   | FrontpageDocument
   | IllustrationDocument
   | InfoPageDocument
   | InfopageDocument
-  | ProductDocument;
+  | ProductDocument
+  | ShippingAndPackagingInfoDocument;
 
 declare module '@prismicio/client' {
   interface CreateClient {
@@ -693,6 +789,9 @@ declare module '@prismicio/client' {
       ProductDocument,
       ProductDocumentData,
       ProductDocumentDataGalleryItem,
+      ShippingAndPackagingInfoDocument,
+      ShippingAndPackagingInfoDocumentData,
+      ShippingAndPackagingInfoDocumentDataImagesItem,
       AllDocumentTypes,
     };
   }
