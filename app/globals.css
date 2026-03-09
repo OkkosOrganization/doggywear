@@ -51,6 +51,7 @@
   --mainTextSize: 1rem;
   --subTextSize: 0.875rem;
   --miniTextSize: 0.6875rem;
+  --xtraMiniTextSize: 0.65rem;
   --buttonTextSize: 0.75rem;
 }
 
@@ -216,6 +217,7 @@ button {
 
 button[disabled] {
   opacity: 0.5;
+  cursor: not-allowed;
 }
 
 button::after {
