@@ -6,9 +6,9 @@ import { CURRENCY } from '../config/env';
 import { useCartContext } from './CartContext';
 import { LoadingIndicator } from './LoadingIndicator';
 import { getTranslation } from '../config/translations';
-import styles from './Cart.module.css';
 import Image from 'next/image';
 import { useWindowSize } from '../hooks/useWindowSize';
+import styles from '../styles/Cart.module.css';
 
 const CartLineItem = (props) => {
   return (
