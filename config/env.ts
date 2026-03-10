@@ -20,3 +20,4 @@ export const INSTAGRAM_USER_NAME =
   process.env.NEXT_PUBLIC_INSTAGRAM_USER_NAME || '';
 export const CURRENCY = process.env.NEXT_PUBLIC_CURRENCY || '';
 export const REDIS_URL = process.env.REDIS_URL;
+export const EMAIL_ADDRESS = process.env.NEXT_PUBLIC_EMAIL_ADDRESS || '';

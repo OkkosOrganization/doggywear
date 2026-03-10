@@ -21,6 +21,7 @@ import {
   Simplify,
 } from '../../../prismicio-types';
 import { asText, FilledImageFieldImage, isFilled } from '@prismicio/client';
+import { EMAIL_ADDRESS, INSTAGRAM_USER_NAME } from '../../../config/env';
 
 type ProductClientProps = {
   product: ProductDocument<string>;
@@ -69,7 +70,8 @@ export default function ProductClient({
     console.log(productVariants, e.currentTarget.value);
     const vars = productVariants.filter((v) => v.id === e.currentTarget.value);
     if (vars.length > 0) {
-      setSelectedVariant(vars[0]);
+      if (vars[0] === selectedVariant) setSelectedVariant(null);
+      else setSelectedVariant(vars[0]);
     }
   };
 
@@ -257,6 +259,25 @@ export const ProductInfo = ({
           )}
         </button>
       </div>
+
+      {selectedVariant && selectedVariant.availableForSale === false && (
+        <div className={styles.outOfStockInfo}>
+          * This size option is currently out of stock. You can send an inquiry
+          by{' '}
+          <a
+            href={`https://ig.me/m/${INSTAGRAM_USER_NAME}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Instagram Direct Message
+          </a>{' '}
+          or by{' '}
+          <a href={`mailto:${EMAIL_ADDRESS}`} target="_blank" rel="noreferrer">
+            email
+          </a>
+          .
+        </div>
+      )}
     </div>
   );
 };
