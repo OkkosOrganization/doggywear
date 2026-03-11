@@ -308,8 +308,8 @@ export const ProductImages = ({
               height: 'auto',
               objectFit: 'contain',
             }}
-            sizes={'(max-width: 40rem) 100vw, 50vw'}
-            quality={90}
+            sizes={'(max-width: 40rem) 90vw, 40vw'}
+            quality={80}
             priority
           />
         )}
