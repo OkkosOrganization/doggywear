@@ -19,8 +19,8 @@ const nextConfig = {
         hostname: 'cdn.shopify.com',
       },
     ],
-    deviceSizes: [480, 960, 1280, 1440],
     qualities: [70, 80, 90],
+    formats: ['image/avif', 'image/webp'],
   },
   experimental: {
     viewTransition: true,

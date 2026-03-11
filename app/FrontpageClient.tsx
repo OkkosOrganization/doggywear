@@ -89,7 +89,7 @@ export default function FrontpageClient({
                   showMultipleImages
                   loadImagesEager={loadImagesEager}
                   sizes={
-                    '(max-width: 40rem) 100vw, (max-width: 1280px) 33vw, 25vw'
+                    '(max-width: 40rem) 90vw, (max-width: 1280px) 30vw, 20vw'
                   }
                 />
               );
@@ -104,7 +104,7 @@ export default function FrontpageClient({
                   data={data}
                   loadImagesEager={loadImagesEager}
                   sizes={
-                    '(max-width: 40rem) 100vw, (max-width: 1280px) 33vw, 25vw'
+                    '(max-width: 40rem) 90vw, (max-width: 1280px) 30vw, 20vw'
                   }
                 />
               );
