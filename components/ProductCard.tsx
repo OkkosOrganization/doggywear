@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CURRENCY } from '../config/env';
 import styles from '../styles/ProductCard.module.css';
 import Image from 'next/image';
@@ -24,14 +24,49 @@ export const ProductCard = (props: ProductCardProps) => {
   const productUrl = `/product/${uid}`;
 
   const [image, setImage] = useState(primaryImage?.url);
-  const [primaryImageLoaded, setPrimaryImageLoaded] = useState<boolean>(false);
-  const [secondaryImageLoaded, setSecondaryImageLoaded] =
-    useState<boolean>(false);
+  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
+  const cardRef = useRef<HTMLDivElement>(null);
 
-  const flipImage = () => {
-    if (primaryImage.url && secondaryImage.url) {
-      if (image === secondaryImage.url) setImage(primaryImage.url);
-      else setImage(secondaryImage.url);
+  const markImageLoaded = (src?: string) => {
+    if (!src) return;
+    setLoadedImages((prev) => (prev[src] ? prev : { ...prev, [src]: true }));
+  };
+
+  useEffect(() => {
+    const root = cardRef.current;
+    if (!root) return;
+
+    const candidates = [primaryImage?.url, secondaryImage?.url].filter(
+      (url): url is string => Boolean(url)
+    );
+
+    const images = root.querySelectorAll<HTMLImageElement>('img');
+    images.forEach((img) => {
+      if (!img.complete) return;
+
+      const src = img.currentSrc || img.src || '';
+      candidates.forEach((origin) => {
+        const encodedOrigin = encodeURIComponent(origin);
+        if (src.includes(origin) || src.includes(encodedOrigin)) {
+          markImageLoaded(origin);
+        }
+      });
+    });
+  }, [image, primaryImage?.url, secondaryImage?.url]);
+
+  const showSecondaryImage = () => {
+    if (
+      primaryImage?.url &&
+      secondaryImage?.url &&
+      loadedImages[secondaryImage.url]
+    ) {
+      setImage(secondaryImage.url);
+    }
+  };
+
+  const showPrimaryImage = () => {
+    if (primaryImage?.url) {
+      setImage(primaryImage.url);
     }
   };
 
@@ -41,7 +76,13 @@ export const ProductCard = (props: ProductCardProps) => {
   }
 
   return (
-    <div className={`${styles.product} gridItem`} id={props.data.id}>
+    <div
+      className={`${styles.product} gridItem ${
+        loadedImages[primaryImage.url] ? styles.loaded : ''
+      }`}
+      id={props.data.id}
+      ref={cardRef}
+    >
       <Link
         href={productUrl}
         className={`
@@ -49,19 +90,10 @@ export const ProductCard = (props: ProductCardProps) => {
             ${isPoster ? styles.showShadow : ''}   
             ${hasImages ? styles.hasImages : styles.hideSecondaryImage}
           `}
-        onMouseEnter={() => {
-          if (props.showMultipleImages) flipImage();
-        }}
-        onMouseLeave={() => {
-          if (props.showMultipleImages) flipImage();
-        }}
+        title={title}
       >
-        {primaryImage.url && (
-          <div
-            className={`${
-              image === primaryImage.url ? '' : styles.hiddenImage
-            } `}
-          >
+        {primaryImage?.url && (
+          <div className={`${styles.imageLayer} ${styles.primaryLayer}`}>
             <Image
               src={primaryImage.url}
               width={primaryImage.dimensions?.width}
@@ -69,17 +101,25 @@ export const ProductCard = (props: ProductCardProps) => {
               style={{ width: '100%', height: 'auto' }}
               alt="Primary product image"
               priority={props.loadImagesEager}
-              className={primaryImageLoaded ? styles.loaded : styles.loading}
-              onLoad={() => setPrimaryImageLoaded(true)}
+              className={
+                loadedImages[primaryImage.url] ? styles.loaded : styles.loading
+              }
+              data-origin={primaryImage.url}
+              onLoad={() => markImageLoaded(primaryImage.url)}
+              onError={() => markImageLoaded(primaryImage.url)}
               sizes={props.sizes}
-              quality={90}
+              quality={70}
             />
           </div>
         )}
 
-        {secondaryImage.url && (
+        {secondaryImage?.url && (
           <div
-            className={image === secondaryImage.url ? '' : styles.hiddenImage}
+            className={`${styles.imageLayer} ${
+              image === secondaryImage.url
+                ? styles.visibleImage
+                : styles.hiddenImage
+            }`}
           >
             <Image
               src={secondaryImage.url}
@@ -88,9 +128,16 @@ export const ProductCard = (props: ProductCardProps) => {
               style={{ width: '100%', height: 'auto' }}
               alt="Secondary product image"
               priority={props.loadImagesEager}
-              className={secondaryImageLoaded ? styles.loaded : styles.loading}
-              onLoad={() => setSecondaryImageLoaded(true)}
+              className={
+                loadedImages[secondaryImage.url]
+                  ? styles.loaded
+                  : styles.loading
+              }
+              data-origin={secondaryImage.url}
+              onLoad={() => markImageLoaded(secondaryImage.url)}
+              onError={() => markImageLoaded(secondaryImage.url)}
               sizes={props.sizes}
+              quality={70}
             />
           </div>
         )}
@@ -108,7 +155,7 @@ export const ProductCard = (props: ProductCardProps) => {
         ></span>
       </div>
       <div>
-        <Link href={productUrl} legacyBehavior={false}>
+        <Link href={productUrl} title={title}>
           <h2 className={styles.productTitle} style={{ cursor: 'pointer' }}>
             {title}
           </h2>
@@ -133,7 +180,7 @@ export const ProductCard = (props: ProductCardProps) => {
           {price && Number(price).toFixed(0) + CURRENCY}
         </h4>
 
-        <Link href={productUrl} legacyBehavior={false}>
+        <Link href={productUrl} title={title}>
           <button
             className={styles.shopNowBtn}
             role={'button'}

@@ -1,6 +1,7 @@
 .product {
   margin-bottom: 2rem;
   text-align: center;
+  opacity: 0;
 }
 
 /* IMAGES */
@@ -14,7 +15,15 @@
   opacity: 0;
 }
 .loaded {
-  transition: opacity 0.15s linear;
+  opacity: 1;
+  transition: opacity 0.2s ease-out;
+}
+
+.visibleImage {
+  opacity: 1;
+}
+
+.hiddenImage {
   opacity: 1;
 }
 
@@ -116,10 +125,34 @@
     display: block;
   }
 
+  .hasImages {
+    position: relative;
+  }
+
   .hasImages div {
     display: block;
     width: 100%;
     margin: 0;
+  }
+
+  .hasImages .imageLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    transition: opacity 0s linear;
+  }
+
+  .hasImages .primaryLayer {
+    position: relative;
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .hasImages .imageLayer:not(.primaryLayer) {
+    z-index: 2;
   }
 
   .hasImages div:first-child {
@@ -130,23 +163,27 @@
   }
 
   .hiddenImage {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
   }
-
-  .product:hover .productImage:after {
+  .hasImages:hover .hiddenImage {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .product .productImage:after {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
+    border: inset 0rem solid var(--linkBlue);
+    transition: all 0.1s ease-in-out;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .product:hover .productImage:after {
     border: 0.5rem solid var(--linkBlue);
-    transition: all 0.05s ease-in-out;
   }
 
   .product:hover h2 {
