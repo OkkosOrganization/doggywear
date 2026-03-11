@@ -53,7 +53,7 @@
 }
 
 .mainImage {
-  padding: var(--spacingLarge);
+  padding: var(--spacing);
   background: var(--medium-grey);
 }
 :global(.dark) .mainImage {
@@ -300,7 +300,9 @@
   .top {
     justify-content: flex-start;
   }
-
+  .mainImage {
+    padding: var(--spacingLarge);
+  }
   .productImages {
     flex: 1 0 60%;
     padding: 0 var(--spacingLarge) 0 0;
