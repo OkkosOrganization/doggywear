@@ -6,7 +6,7 @@ import { asText } from '@prismicio/client';
 
 export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
-  const about = await client.getSingle('info-page').catch(() => null);
+  const about = await client.getSingle('infopage').catch(() => null);
 
   if (!about) {
     return {
