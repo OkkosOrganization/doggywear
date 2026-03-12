@@ -20,24 +20,26 @@ export async function generateMetadata(): Promise<Metadata> {
     ? asText(frontpage.data.description)
     : undefined;
   const ogUrl = `${BASE_URL}`;
-  const ogImg = `${frontpage.data.meta_image.url}`;
+  const ogImg = frontpage.data?.meta_image?.url || undefined;
   const twitterHandle = TWITTER_HANDLE;
 
   return {
-    title: title,
-    description: description,
+    title,
+    description,
     openGraph: {
       title,
       description,
       type: 'website',
       url: ogUrl,
-      images: [
-        {
-          url: ogImg,
-          width: 1200,
-          height: 630,
-        },
-      ],
+      images: ogImg
+        ? [
+            {
+              url: ogImg,
+              width: frontpage.data?.meta_image?.dimensions?.width || 1200,
+              height: frontpage.data?.meta_image?.dimensions?.height || 630,
+            },
+          ]
+        : undefined,
     },
     twitter: {
       card: 'summary_large_image',
@@ -45,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
       creator: twitterHandle,
       title,
       description,
-      images: [ogImg],
+      images: ogImg ? [ogImg] : undefined,
     },
   };
 }

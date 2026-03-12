@@ -16,8 +16,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const title = `${TITLE} - Info`;
   const description = asText(about.data?.content);
-  //   const ogUrl = `${BASE_URL}/info`;
-  //   const ogImg = about.data.share_image?.url || ''; // Adjust as needed
+  const ogUrl = `${BASE_URL}/info`;
+  const ogImg = about.data?.meta_image?.url || undefined;
   const twitterHandle = TWITTER_HANDLE;
 
   return {
@@ -27,14 +27,16 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       type: 'website',
-      //   url: ogUrl,
-      //   images: [
-      //     {
-      //       url: ogImg,
-      //       width: 1200,
-      //       height: 630,
-      //     },
-      //   ],
+      url: ogUrl,
+      images: ogImg
+        ? [
+            {
+              url: ogImg,
+              width: about.data.meta_image?.dimensions?.width || 1200,
+              height: about.data.meta_image?.dimensions?.height || 630,
+            },
+          ]
+        : undefined,
     },
     twitter: {
       card: 'summary_large_image',
@@ -42,7 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
       creator: twitterHandle,
       title,
       description,
-      //   images: [ogImg],
+      images: ogImg ? [ogImg] : undefined,
     },
   };
 }
