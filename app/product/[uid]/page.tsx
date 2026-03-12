@@ -3,7 +3,7 @@ import { createClient } from '../../../prismicio';
 import ProductClient from './ProductClient';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { TITLE } from '../../../config/env';
+import { BASE_URL, TITLE, TWITTER_HANDLE } from '../../../config/env';
 
 export async function generateMetadata({
   params,
@@ -20,7 +20,7 @@ export async function generateMetadata({
     };
   }
 
-  const title = `${TITLE} -  Product - ${asText(product.data.title)}`;
+  const title = `${TITLE} - Product - ${asText(product.data.title)}`;
   const description = product.data.description
     ? asText(product.data.description)
     : undefined;
@@ -28,6 +28,8 @@ export async function generateMetadata({
   const ogImg = hasShareImage
     ? product.data.share_image.url
     : product.data?.primary_image?.url;
+  const ogUrl = `${BASE_URL}/product/${uid}`;
+  const twitterHandle = TWITTER_HANDLE;
 
   return {
     title,
@@ -35,7 +37,25 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      images: ogImg ? [{ url: ogImg }] : [],
+      type: 'website',
+      url: ogUrl,
+      images: ogImg
+        ? [
+            {
+              url: ogImg,
+              width: product.data.share_image?.dimensions?.width || 1200,
+              height: product.data.share_image?.dimensions?.height || 630,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: twitterHandle,
+      creator: twitterHandle,
+      title,
+      description,
+      images: ogImg ? [ogImg] : undefined,
     },
   };
 }
