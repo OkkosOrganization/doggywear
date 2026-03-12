@@ -70,149 +70,6 @@ type ContentRelationshipFieldWithData<
 }[Exclude<TCustomType[number], string>['id']];
 
 /**
- * Item in *Front-page → Items*
- */
-export interface FrontPageDocumentDataItemsItem {
-  /**
-   * item field in *Front-page → Items*
-   *
-   * - **Field Type**: Content Relationship
-   * - **Placeholder**: Illustration or Product
-   * - **API ID Path**: front-page.items[].item
-   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
-   */
-  item:
-    | prismic.ContentRelationshipField<'product'>
-    | prismic.ContentRelationshipField<'illustration'>;
-}
-
-/**
- * Item in *Front-page → Secondary items*
- */
-export interface FrontPageDocumentDataSecondaryItemsItem {
-  /**
-   * item field in *Front-page → Secondary items*
-   *
-   * - **Field Type**: Content Relationship
-   * - **Placeholder**: *None*
-   * - **API ID Path**: front-page.secondary_items[].item
-   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
-   */
-  item: prismic.ContentRelationshipField<'product'>;
-}
-
-/**
- * Content for Front-page documents
- */
-interface FrontPageDocumentData {
-  /**
-   * Share image field in *Front-page*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: front-page.share_image
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  share_image: prismic.ImageField<never>;
-
-  /**
-   * Title field in *Front-page*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: front-page.title
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  title: prismic.RichTextField;
-
-  /**
-   * Description field in *Front-page*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: front-page.description
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  description: prismic.RichTextField;
-
-  /**
-   * Items field in *Front-page*
-   *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: front-page.items[]
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
-   */
-  items: prismic.GroupField<Simplify<FrontPageDocumentDataItemsItem>>;
-
-  /**
-   * Secondary title field in *Front-page*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: front-page.secondary_title
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  secondary_title: prismic.RichTextField;
-
-  /**
-   * Secondary description field in *Front-page*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: front-page.secondary_description
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  secondary_description: prismic.RichTextField;
-
-  /**
-   * Secondary items field in *Front-page*
-   *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: front-page.secondary_items[]
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
-   */
-  secondary_items: prismic.GroupField<
-    Simplify<FrontPageDocumentDataSecondaryItemsItem>
-  >;
-
-  /**
-   * Instagram title field in *Front-page*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: front-page.instagram_title
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  instagram_title: prismic.RichTextField;
-}
-
-/**
- * Front-page document from Prismic
- *
- * - **API ID**: `front-page`
- * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/content-modeling
- *
- * @typeParam Lang - Language API ID of the document.
- */
-export type FrontPageDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithoutUID<
-    Simplify<FrontPageDocumentData>,
-    'front-page',
-    Lang
-  >;
-
-/**
  * Item in *Frontpage → Items*
  */
 export interface FrontpageDocumentDataItemsItem {
@@ -391,60 +248,6 @@ export type IllustrationDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<
     Simplify<IllustrationDocumentData>,
     'illustration',
-    Lang
-  >;
-
-/**
- * Content for Info-page documents
- */
-interface InfoPageDocumentData {
-  /**
-   * share_image field in *Info-page*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: info-page.share_image
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  share_image: prismic.ImageField<never>;
-
-  /**
-   * title field in *Info-page*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: info-page.title
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  title: prismic.RichTextField;
-
-  /**
-   * Content field in *Info-page*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: info-page.content
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  content: prismic.RichTextField;
-}
-
-/**
- * Info-page document from Prismic
- *
- * - **API ID**: `info-page`
- * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/content-modeling
- *
- * @typeParam Lang - Language API ID of the document.
- */
-export type InfoPageDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithoutUID<
-    Simplify<InfoPageDocumentData>,
-    'info-page',
     Lang
   >;
 
@@ -742,10 +545,8 @@ export type ShippingAndPackagingInfoDocument<Lang extends string = string> =
   >;
 
 export type AllDocumentTypes =
-  | FrontPageDocument
   | FrontpageDocument
   | IllustrationDocument
-  | InfoPageDocument
   | InfopageDocument
   | ProductDocument
   | ShippingAndPackagingInfoDocument;
@@ -771,18 +572,12 @@ declare module '@prismicio/client' {
 
   namespace Content {
     export type {
-      FrontPageDocument,
-      FrontPageDocumentData,
-      FrontPageDocumentDataItemsItem,
-      FrontPageDocumentDataSecondaryItemsItem,
       FrontpageDocument,
       FrontpageDocumentData,
       FrontpageDocumentDataItemsItem,
       FrontpageDocumentDataSlicesSlice,
       IllustrationDocument,
       IllustrationDocumentData,
-      InfoPageDocument,
-      InfoPageDocumentData,
       InfopageDocument,
       InfopageDocumentData,
       InfopageDocumentDataSlicesSlice,
