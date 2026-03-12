@@ -11,9 +11,7 @@ import { useWindowSize } from '../hooks/useWindowSize';
 import {
   FrontpageDocument,
   IllustrationDocument,
-  IllustrationDocumentData,
   ProductDocument,
-  ProductDocumentData,
 } from '../prismicio-types';
 import { Query } from '@prismicio/client';
 
