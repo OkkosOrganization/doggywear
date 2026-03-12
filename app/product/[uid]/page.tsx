@@ -10,6 +10,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ uid: string }>;
 }): Promise<Metadata> {
+  //console.log('Generating metadata for product page...');
   const { uid } = await params;
   const client = createClient();
   const product = await client.getByUID('product', uid).catch(() => null);
