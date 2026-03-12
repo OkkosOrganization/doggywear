@@ -7,7 +7,7 @@ import { ViewTransition } from 'react';
 
 export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
-  const frontpage = await client.getSingle('front-page').catch(() => null);
+  const frontpage = await client.getSingle('frontpage').catch(() => null);
 
   if (!frontpage) {
     return {
@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
     ? asText(frontpage.data.description)
     : undefined;
   const ogUrl = `${BASE_URL}`;
-  const ogImg = `${frontpage.data.share_image.url}`;
+  const ogImg = `${frontpage.data.meta_image.url}`;
   const twitterHandle = TWITTER_HANDLE;
 
   return {
