@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { INSTAGRAM_URL, INSTAGRAM_USER_NAME } from '../config/env';
-import styles from '../styles/Insta.module.scss';
+import styles from '../styles/Insta.module.css';
 
 type InstaProps = {
   title: string;
@@ -11,7 +11,7 @@ type InstaProps = {
 const compareProps = (prevProps, nextProps) => {
   return prevProps.feed.data.length === nextProps.feed.data.length;
 };
-const InstaFeed = memo((props: InstaProps): JSX.Element => {
+const InstaFeed = memo((props: InstaProps) => {
   return (
     <div className={styles.instaContainer}>
       <h3 className={styles.title}>{props.title}</h3>
@@ -42,7 +42,7 @@ const InstaFeed = memo((props: InstaProps): JSX.Element => {
                       onError={(e) => {
                         const img = e?.target as HTMLImageElement;
                         const p = img.parentNode as HTMLAnchorElement;
-                        p.style.display = "none";
+                        p.style.display = 'none';
                       }}
                     />
                   </a>

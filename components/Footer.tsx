@@ -1,12 +1,11 @@
-import React from 'react';
 import { default as NextLink } from 'next/link';
-import { useRouter } from 'next/router';
-import styles from '../styles/Footer.module.scss';
+import { usePathname } from 'next/navigation';
+import styles from '../styles/Footer.module.css';
 import { getNaviItems } from '../config/navi';
 import { TITLE } from '../config/env';
 
 const Footer = () => {
-  const router = useRouter();
+  const pathname = usePathname();
   const navi = getNaviItems();
 
   return (
@@ -17,7 +16,7 @@ const Footer = () => {
             {navi.map((i, index) => {
               const label = i.label;
               const resolvedLink = i.href;
-              const isActive = resolvedLink === router.asPath;
+              const isActive = resolvedLink === pathname;
               const external = i.external;
 
               return (
@@ -35,8 +34,8 @@ const Footer = () => {
                       {label}
                     </a>
                   ) : (
-                    <NextLink href={i.href} as={i.href}>
-                      <a aria-label={label}>{label}</a>
+                    <NextLink href={i.href} aria-label={label}>
+                      {label}
                     </NextLink>
                   )}
                 </li>

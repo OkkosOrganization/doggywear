@@ -1,45 +1,73 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import MobileNaviIcon from './icons/MobileNaviIcon';
 import { Logo } from './Logo';
-import styles from '../styles/Navi.module.scss';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import styles from '../styles/Navi.module.css';
 import { Navi } from './Navi';
-gsap.registerPlugin(ScrollTrigger);
 
-const CartIcon = dynamic(() => import('./icons/CartIcon'), { suspense: false });
+const CartIcon = dynamic(() => import('./icons/CartIcon'));
 
 const Header = (props) => {
   const [naviOpen, setNaviOpen] = useState<boolean>(false);
-  const [scrolled, setScrolled] = useState<boolean>(false);
+  const [hideNavi, setHideNavi] = useState<boolean>(false);
+  const [showNaviBg, setShowNaviBg] = useState<boolean>(false);
+  const lastScrollY = useRef<number>(0);
+  const hideNaviRef = useRef<boolean>(false);
 
   useEffect(() => {
-    ScrollTrigger.create({
-      trigger: 'body',
-      start: '0px',
-      end: '99999px',
-      markers: false,
-      once: false,
-      onUpdate: ({ progress, direction }) => {
-        setScrolled(direction === 1 ? true : false);
-      },
-    });
-  }, []);
+    const onScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (naviOpen) {
+        setHideNavi(false);
+        hideNaviRef.current = false;
+        setShowNaviBg(true);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      if (currentScrollY <= 8) {
+        setHideNavi(false);
+        hideNaviRef.current = false;
+        setShowNaviBg(false);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      let nextHideNavi = hideNaviRef.current;
+      if (currentScrollY > lastScrollY.current) {
+        nextHideNavi = true;
+      } else if (currentScrollY < lastScrollY.current) {
+        nextHideNavi = false;
+      }
+
+      hideNaviRef.current = nextHideNavi;
+      setHideNavi(nextHideNavi);
+      setShowNaviBg(currentScrollY > 8 && !nextHideNavi);
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, [naviOpen]);
 
   const toggleNavi = () => {
     setNaviOpen(!naviOpen);
-
-    if (!naviOpen) document.querySelector('#__next').classList.add('naviOpen');
-    else document.querySelector('#__next').classList.remove('naviOpen');
+    const appContainer = document.querySelector('#app-container');
+    if (appContainer) {
+      if (!naviOpen) appContainer.classList.add('naviOpen');
+      else appContainer.classList.remove('naviOpen');
+    }
   };
 
   const classes = `${styles.mainNavi} ${naviOpen ? styles.active : ''} ${
-    scrolled && !naviOpen ? styles.showBg : ''
-  } `;
+    hideNavi && !naviOpen ? styles.hidden : ''
+  } ${showNaviBg || naviOpen ? styles.showBg : ''}`;
 
   return (
-    <>
+    <header>
       <nav className={classes}>
         <MobileNaviIcon toggleNavi={toggleNavi} naviOpen={naviOpen} />
         <div className={styles.naviItems}>
@@ -53,11 +81,11 @@ const Header = (props) => {
         <CartIcon />
       </nav>
       <Logo
-        highlight={scrolled || naviOpen}
+        highlight={showNaviBg || naviOpen}
         toggleNavi={toggleNavi}
         naviOpen={naviOpen}
       />
-    </>
+    </header>
   );
 };
 

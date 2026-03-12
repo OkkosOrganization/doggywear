@@ -1,0 +1,44 @@
+.packageInfo {
+  color: var(--fg);
+  width: 100%;
+  text-align: center;
+  padding: 0rem;
+  margin-bottom: 4rem;
+}
+
+.title {
+  font-size: var(--mainTitleSize);
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--fg);
+}
+
+.packageImages {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0 -1rem;
+}
+
+.packageImage {
+  width: 100%;
+  height: auto;
+  padding: 1rem;
+  margin: 0 0 1rem 0;
+}
+
+@media all and (min-width: var(--maxWidthSmall)) {
+  .packageInfo {
+    padding-top: 4rem;
+  }
+  .packageImages {
+    flex-direction: row;
+    margin: 0 0.5rem;
+    align-items: center;
+  }
+  .packageImage {
+    width: 33.33%;
+    margin: 0;
+    padding: 0 0.5rem;
+  }
+}

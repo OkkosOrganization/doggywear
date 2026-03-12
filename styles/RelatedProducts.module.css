@@ -1,0 +1,13 @@
+.relatedProducts {
+  padding: 0 0 2rem 0;
+  width: 100%;
+  width: 100vw;
+}
+
+.title {
+  font-size: var(--mainTitleSize);
+  font-weight: 300;
+  margin: 0 0 1rem 0;
+  color: var(--fg);
+  text-align: center;
+}

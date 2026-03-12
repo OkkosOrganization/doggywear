@@ -1,0 +1,102 @@
+{
+  "id": "product",
+  "label": "Product",
+  "repeatable": true,
+  "status": true,
+  "format": "custom",
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID"
+        }
+      },
+      "title": {
+        "type": "StructuredText",
+        "config": {
+          "single": "heading1",
+          "label": "Title"
+        }
+      },
+      "description": {
+        "type": "StructuredText",
+        "config": {
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl",
+          "allowTargetBlank": true,
+          "label": "Description"
+        }
+      },
+      "shopify": {
+        "type": "IntegrationFields",
+        "config": {
+          "catalog": "doggywear--doggy_wear",
+          "label": "shopify"
+        }
+      },
+      "primary_image": {
+        "type": "Image",
+        "config": {
+          "constraint": {},
+          "thumbnails": [],
+          "label": "Primary image"
+        }
+      },
+      "secondary_image": {
+        "type": "Image",
+        "config": {
+          "constraint": {},
+          "thumbnails": [],
+          "label": "Secondary image"
+        }
+      },
+      "gallery": {
+        "type": "Group",
+        "config": {
+          "fields": {
+            "image": {
+              "type": "Image",
+              "config": {
+                "constraint": {},
+                "thumbnails": [],
+                "label": "Image"
+              }
+            }
+          },
+          "label": "Gallery"
+        }
+      },
+      "show_shipping_and_packaging_info": {
+        "type": "Boolean",
+        "config": {
+          "label": "Show shipping and packaging info",
+          "placeholder_false": "false",
+          "placeholder_true": "true",
+          "default_value": true
+        }
+      },
+      "show_related_products": {
+        "type": "Boolean",
+        "config": {
+          "label": "Show related products",
+          "placeholder_false": "false",
+          "placeholder_true": "true",
+          "default_value": true
+        }
+      }
+    },
+    "SEO": {
+      "share_image": {
+        "type": "Image",
+        "config": {
+          "label": "Share image",
+          "constraint": {
+            "width": 1200,
+            "height": 630
+          },
+          "thumbnails": []
+        }
+      }
+    }
+  }
+}

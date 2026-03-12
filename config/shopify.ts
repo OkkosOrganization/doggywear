@@ -6,7 +6,34 @@ export const client = Client.buildClient({
   domain: SHOPIFY_DOMAIN,
 });
 
-export const getProductVariants = async (pid: string, fields: string[]) => {
+export type ProductVariantNode = {
+  id: string;
+  title: string;
+  price: {
+    amount: string;
+  };
+  availableForSale: boolean;
+  [key: string]: unknown;
+};
+
+export type ProductVariantsResponse = {
+  data: {
+    node: {
+      id: string;
+      title: string;
+      variants: {
+        edges: {
+          node: ProductVariantNode;
+        }[];
+      };
+    } | null;
+  };
+};
+
+export const getProductVariants = async (
+  pid: string,
+  fields: string[]
+): Promise<ProductVariantsResponse> => {
   const query = `{
         node(id: "gid://shopify/Product/${pid}") {
           id
@@ -27,6 +54,6 @@ export const getProductVariants = async (pid: string, fields: string[]) => {
       body: query,
     }
   );
-  const json = await res.json();
+  const json: ProductVariantsResponse = await res.json();
   return json;
 };

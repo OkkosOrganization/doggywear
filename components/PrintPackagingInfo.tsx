@@ -1,4 +1,4 @@
-import styles from '../styles/PrintPackagingInfo.module.scss';
+import styles from '../styles/PrintPackagingInfo.module.css';
 
 export const PrintPackagingInfo = () => {
   return (

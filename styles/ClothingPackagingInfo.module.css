@@ -1,0 +1,40 @@
+.packageInfo {
+  color: var(--fg);
+  width: 100%;
+  text-align: center;
+  padding: 0rem;
+}
+
+.title {
+  font-size: var(--mainTitleSize);
+  font-weight: 300;
+  margin: 0 0 0.5rem 0;
+  color: var(--fg);
+}
+
+.packageImages {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0;
+  gap: var(--spacing);
+}
+
+.packageImage {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+
+@media all and (min-width: 40rem) {
+  .packageImages {
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0;
+    align-items: center;
+  }
+  .packageImage {
+    flex: 1 1 33.33%;
+  }
+}

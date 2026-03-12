@@ -1,18 +1,30 @@
-module.exports = {
-    cssLoaderOptions:{
-        url:false
-    },
-    sassLoaderOptions:{
-        outputStyle:"compressed"
-    },
-    i18n: {
-		locales: ['en'],
-		defaultLocale: 'en',
-		localeDetection: false
-	},
-	images: {
-		domains:['images.prismic.io', 'doggywear.cdn.prismic.io'],
-		quality:90,
-		deviceSizes: [480, 768, 1280, 1440, 1920, 2560],
-	},
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.prismic.io',
+      },
+      {
+        protocol: 'https',
+        hostname: 'doggywear.cdn.prismic.io',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.prismic.io',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.shopify.com',
+      },
+    ],
+    qualities: [70, 80, 90],
+    formats: ['image/avif', 'image/webp'],
+  },
+  experimental: {
+    viewTransition: true,
+  },
 };
+
+module.exports = nextConfig;

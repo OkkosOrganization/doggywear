@@ -1,4 +1,4 @@
-import styles from '../styles/LoadingIndicator.module.scss';
+import styles from '../styles/LoadingIndicator.module.css';
 type LoadingIndicatorProps = {
   showBg: boolean;
   fixed?: boolean;

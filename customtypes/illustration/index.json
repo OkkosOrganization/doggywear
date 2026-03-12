@@ -1,0 +1,26 @@
+{
+  "id": "illustration",
+  "json": {
+    "Main": {
+      "image": {
+        "type": "Image",
+        "config": {
+          "constraint": {},
+          "thumbnails": [],
+          "label": "Image"
+        }
+      },
+      "video": {
+        "type": "Link",
+        "config": {
+          "select": "media",
+          "label": "Video"
+        }
+      }
+    }
+  },
+  "label": "Illustration",
+  "repeatable": true,
+  "status": true,
+  "format": "custom"
+}

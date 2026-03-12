@@ -1,56 +1,46 @@
-import styles from '../styles/ClothingPackagingInfo.module.scss';
+import { isFilled } from '@prismicio/client';
+import {
+  ShippingAndPackagingInfoDocumentData,
+  Simplify,
+} from '../prismicio-types';
+import styles from '../styles/ClothingPackagingInfo.module.css';
 import Image from 'next/image';
+import { PrismicRichText } from '@prismicio/react';
 
-export const ClothingPackagingInfo = () => {
+type ClothingPackagingInfoProps = {
+  data: Simplify<ShippingAndPackagingInfoDocumentData>;
+};
+export const ClothingPackagingInfo = ({ data }: ClothingPackagingInfoProps) => {
   return (
     <div className={styles.packageInfo}>
-      <h2 className={styles.title}>Packaging & shipping</h2>
-      <p>
-        All our clothing items are carefully packed in hand-printed cardboard
-        boxes and then shipped out to our customers.
-      </p>
-      <p>We ship orders on Fridays.</p>                
+      {isFilled.keyText(data.title) && (
+        <h2 className={styles.title}>{data.title}</h2>
+      )}
 
-      <p>
-        Orders can also be picked up from{' '}
-        <a
-          href={'http://www.kalasatamanseripaja.com/fi/info/'}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Kalasataman Seripaja
-        </a>
-        , Vanha talvitie 9, 00580 Helsinki. Pickups on Fridays 10-17.
-      </p>
-      <div className={styles.packageImages}>
-        <div className={styles.packageImage}>
-          <Image
-            src={'/box7.jpg'}
-            width={600}
-            height={800}
-            layout="responsive"
-            alt="Packaging image 1"
-          />
+      {isFilled.richText(data.content) && (
+        <div>
+          <PrismicRichText field={data.content} />
         </div>
-        <div className={styles.packageImage}>
-          <Image
-            src={'/box5.jpg'}
-            width={600}
-            height={800}
-            layout="responsive"
-            alt="Packaging image 2"
-          />
+      )}
+
+      {isFilled.group(data.images) && (
+        <div className={styles.packageImages}>
+          {data.images.map(
+            (image, index) =>
+              isFilled.image(image.image) && (
+                <div key={index} className={styles.packageImage}>
+                  <Image
+                    src={image.image.url}
+                    width={600}
+                    height={800}
+                    style={{ width: '100%', height: 'auto' }}
+                    alt={image.image.alt || `Packaging image ${index + 1}`}
+                  />
+                </div>
+              )
+          )}
         </div>
-        <div className={styles.packageImage}>
-          <Image
-            src={'/box6.jpg'}
-            width={600}
-            height={800}
-            layout="responsive"
-            alt="Packaging image 3"
-          />
-        </div>
-      </div>
+      )}
     </div>
   );
 };

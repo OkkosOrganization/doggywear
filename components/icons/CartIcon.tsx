@@ -1,21 +1,21 @@
-import { useContext, useEffect, useState } from 'react';
-import styles from '../../styles/Navi.module.scss';
-import { CartContext } from '../CartContext';
+import { useEffect, useState } from 'react';
+import styles from '../../styles/Navi.module.css';
+import { useCartContext } from '../CartContext';
 
 const CartIcon = () => {
-  const { checkout, showCart } = useContext(CartContext);
+  const { checkout, showCart } = useCartContext();
   const [amount, setAmount] = useState<number | null>(null);
 
   useEffect(() => {
-    const itemsAmount = () => {
+    const itemsAmount = (): number | null => {
       if (checkout) {
         let initial = 0;
         const sum = checkout.lineItems.reduce((prev, curr) => {
           return (initial += Number(curr.quantity));
         }, initial);
-        return sum ? sum : '';
+        return sum ? sum : null;
       }
-      return '';
+      return null;
     };
 
     if (checkout) {

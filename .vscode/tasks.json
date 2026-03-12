@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "append_css_styles",
+			"type": "shell",
+			"command": "echo '.mainImage { position: relative; width: 100%; min-height: 200px; margin-bottom: 1rem; } .thumbs { display: flex; flex-wrap: wrap; gap: 0.5rem; } .thumb { width: 80px; height: 80px; cursor: pointer; opacity: 0.6; transition: opacity 0.2s; position: relative; } .thumb:hover, .activeThumb { opacity: 1; }' >> styles/ProductPage.module.css",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}

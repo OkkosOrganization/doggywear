@@ -1,0 +1,327 @@
+:root {
+  /* DIMENSIONS */
+  --maxWidth: 1920px;
+  --maxWidthBig: 1280px;
+  --maxWidthMedium: 960px;
+  --maxWidthSmall: 640px;
+  --maxWidthMini: 320px;
+  --headerHeight: 90px;
+  --spacing: 1rem;
+  --spacingLarge: 2rem;
+  --spacingXtraLarge: 4rem;
+  --spacingSmall: 0.5rem;
+  --spacingXtraSmall: 0.25rem;
+  --btnMinWidth: 8rem;
+
+  /* COLORS */
+  --white: #fff;
+  --black: #0c0c0c;
+  --grey: #9c9c9c;
+  --blue: #0059e9;
+  --light-blue: #5194ff;
+  --medium-grey: #efefef;
+  --light-grey: #f6f6f6;
+  --lighter-grey: #fafafa;
+  --dark-grey: #4a4a4a;
+  --darker-grey: #2e2e2e;
+  --gray: #d9d9d9;
+  --cartSelectGrey: #e6e6e6;
+  --yellow: #fffb52;
+  --pink: #ff51b0;
+  --lime: #5fd835;
+
+  /* FONTS */
+  --font: 'GeistSans', Arial, Helvetica, sans-serif;
+  --fontMono: 'GeistMono', monospace;
+
+  /* THEME VARS */
+  --bg: var(--lighter-grey);
+  --fg: var(--darker-grey);
+  --primaryAccent: var(--yellow);
+  --secondaryAccent: var(--blue);
+  --linkBlue: var(--blue);
+
+  --mainNavHeight: 6.25rem;
+  --logoWidth: 9.375rem;
+  --logoHeight: 7.875rem;
+
+  --mainTitleSize: 1.5rem;
+  --subTitleSize: 1.3875rem;
+  --bigTextSize: 1.25rem;
+  --mainTextSize: 1rem;
+  --subTextSize: 0.875rem;
+  --miniTextSize: 0.6875rem;
+  --xtraMiniTextSize: 0.65rem;
+  --buttonTextSize: 0.75rem;
+}
+
+.dark {
+  --bg: var(--darker-grey);
+  --fg: var(--lighter-grey);
+  --secondaryAccent: var(--light-blue);
+  --linkBlue: var(--light-blue);
+}
+
+/* COMMON STYLES */
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+.poster {
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+}
+.imageBg .poster {
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+}
+.dark .imageBg {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+html,
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--white);
+}
+
+html.noscroll,
+body.noscroll {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  transform: none;
+}
+
+body .wrap::after {
+  content: '';
+  background: rgba(255, 255, 255, 0);
+  display: block;
+  transition: background-color 0.4s linear;
+  z-index: 0;
+  left: -9999px;
+}
+
+body.noscroll .wrap::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.3);
+  z-index: 15;
+}
+
+#app-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  background: var(--bg);
+}
+
+#app-container.mobileNaviOpen {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+#app-container.cartOpen {
+  overflow: visible !important;
+  height: 100%;
+}
+
+#main {
+  position: relative;
+  padding: var(--mainNavHeight) 0 0 0;
+  flex: 1 1 auto;
+  max-width: var(--maxWidth);
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+section {
+  margin: 0 auto;
+}
+
+.wrapper {
+  margin: 0 auto;
+  padding: 0 10px;
+  max-width: var(--maxWidth);
+  position: relative;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-size: 1em;
+  line-height: 1.25em;
+  font-weight: 500;
+}
+
+h1 {
+  width: 100%;
+  margin: 0 0 1rem;
+  font-weight: 300;
+}
+
+b,
+strong {
+  font-weight: 600;
+}
+
+.hidden {
+  display: none !important;
+}
+
+button {
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  outline: 0;
+  line-height: 1rem;
+  font-size: 0.875rem;
+  font-weight: 300;
+  cursor: pointer;
+  cursor: hand;
+  letter-spacing: 0.025rem;
+  text-transform: uppercase;
+  border: 1px solid var(--fg);
+  border-radius: 0px;
+
+  background: transparent;
+  color: var(--fg);
+  min-width: var(--btnMinWidth);
+  font-size: var(--buttonTextSize);
+  font-family: var(--fontMono);
+  padding: 0.75rem 2rem;
+
+  transition: all 0.1s linear;
+}
+
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  box-shadow: inset 0px 0px var(--linkBlue), inset -0px -0px var(--linkBlue);
+  transition: all 0.05s ease-in-out;
+}
+
+button:not([disabled]):hover {
+  transition: all 0.05s ease-in-out;
+  border-color: var(--secondaryAccent);
+  color: var(--secondaryAccent);
+}
+
+select {
+  display: block;
+  width: auto;
+  min-width: 4rem;
+  border: 1px solid var(--fg);
+  height: 38px;
+  margin: 0;
+  padding: 0;
+  text-indent: 0.75rem;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  appearance: none;
+}
+
+.hideOnMobile {
+  display: none;
+}
+
+#app-container.mobileNaviOpen {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  overflow: hidden;
+}
+
+@media all and (min-width: 40rem) {
+  :root {
+    --mainNavHeight: 9rem;
+    --logoWidth: 12.5rem;
+    --logoHeight: 10.5rem;
+
+    --mainTitleSize: 2.25rem;
+    --subTitleSize: 1.6875rem;
+    --bigTextSize: 1.3875rem;
+    --mainTextSize: 1.25rem;
+    --subTextSize: 1.0625rem;
+    --miniTextSize: 0.8125rem;
+    --buttonTextSize: 0.9375rem;
+  }
+  #app-container.cartOpen::after {
+    display: block;
+    z-index: 9999;
+    opacity: 1;
+  }
+  #app-container::after {
+    content: '';
+    display: none;
+    position: absolute;
+    background: rgba(250, 250, 250, 0.75); /* --lighter-grey */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.3s linear;
+  }
+  .dark #app-container::after {
+    background: rgba(46, 46, 46, 0.75); /* --blackish/darker-grey */
+  }
+
+  button:not([disabled]):hover {
+    border-color: var(--secondaryAccent);
+  }
+  button:not([disabled]):hover:after {
+    box-shadow: inset 4px 4px var(--linkBlue), inset -4px -4px var(--linkBlue);
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 1) {
+  * {
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+}
+@media screen and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+  * {
+    -webkit-font-smoothing: antialiased;
+  }
+}

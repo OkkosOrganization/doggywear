@@ -1,35 +1,50 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
+import { useEffect, useRef, useState } from 'react';
 import { RemoveFromCart } from './icons/RemoveFromCart';
 import { AddLineItem } from './icons/AddLineItem';
 import { SubtractLineItem } from './icons/SubtractLineItem';
 import { CURRENCY } from '../config/env';
-import { CartContext } from './CartContext';
+import { useCartContext } from './CartContext';
 import { LoadingIndicator } from './LoadingIndicator';
 import { getTranslation } from '../config/translations';
+import Image from 'next/image';
+import { useWindowSize } from '../hooks/useWindowSize';
+import styles from '../styles/Cart.module.css';
 
 const CartLineItem = (props) => {
   return (
-    <div className={'lineItem'}>
-      <div className={'image'}>
-        <img src={props.lineItem.variant.image.src} alt={'Product image'} />
+    <div className={styles.lineItem}>
+      <div className={styles.image}>
+        <Image
+          src={props.lineItem.variant.image.src}
+          alt={'Product image'}
+          width={80}
+          height={111}
+          quality={80}
+        />
       </div>
 
-      <div className={'info'}>
-        <div className={'top'}>
-          {props.lineItem.title}
+      <div className={styles.info}>
+        <div className={styles.top}>
+          <h4 className={styles.lineItemTitle}>{props.lineItem.title}</h4>
+          <button
+            className={styles.removeLineItem}
+            onClick={() => props.removeLineItem(props.lineItem)}
+          >
+            <RemoveFromCart />
+          </button>
+        </div>
+        <div className={styles.size}>
           {props.lineItem.variant.title.includes('Default') ? null : (
             <>
-              &nbsp;-&nbsp;
-              <span className={'selectedOptionValue'}>
+              <span className={styles.selectedOptionValue}>
                 {props.lineItem.variant.title}
               </span>
             </>
           )}
         </div>
 
-        <div className={'bottom'}>
-          <div className={'quantity'}>
+        <div className={styles.bottom}>
+          <div className={styles.quantity}>
             <button onClick={() => props.subtractQuantity(props.lineItem)}>
               <SubtractLineItem />
             </button>
@@ -37,15 +52,9 @@ const CartLineItem = (props) => {
             <button onClick={() => props.addQuantity(props.lineItem)}>
               <AddLineItem />
             </button>
-            <button
-              className={'removeLineItem'}
-              onClick={() => props.removeLineItem(props.lineItem)}
-            >
-              <RemoveFromCart />
-            </button>
           </div>
 
-          <div className={'totalPrice'}>
+          <div className={styles.totalPrice}>
             {parseFloat(props.lineItem.variant.price.amount) *
               parseInt(props.lineItem.quantity) +
               ' €'}
@@ -56,10 +65,10 @@ const CartLineItem = (props) => {
   );
 };
 
-type CartProps = {
-  ww: number;
-};
-const Cart = ({ ww }: CartProps) => {
+type CartProps = {};
+const Cart = ({}: CartProps) => {
+  const cartContext = useCartContext();
+  const { width: ww } = useWindowSize();
   const {
     checkout,
     removeLineItem,
@@ -67,7 +76,7 @@ const Cart = ({ ww }: CartProps) => {
     hideCart,
     updating,
     updateLineItemQuantity,
-  } = useContext(CartContext);
+  } = cartContext;
 
   const [, setUserInCheckout] = useState<boolean>(false);
   const container = useRef(null);
@@ -89,34 +98,40 @@ const Cart = ({ ww }: CartProps) => {
       let w_percent = '-100%';
 
       //DESKTOP
-      if (ww >= 768) w_percent = '-40%';
+      if (ww >= 640) w_percent = '-40%';
 
-      const next: HTMLDivElement = document.querySelector('#__next');
+      const next = document.querySelector('#app-container') as HTMLDivElement;
       const body = document.querySelector('body');
+
+      if (!next || !body) return;
 
       body.classList.add('noscroll');
       next.classList.add('cartOpen');
-      gsap.set(container.current, { autoAlpha: 1, display: 'block' });
-      gsap.to(next, { duration: animDuration, x: w_percent });
+      next.style.transition = `transform ${animDuration}s ease`;
+      next.style.transform = `translateX(${w_percent})`;
     };
 
     if (open) show();
   }, [open]);
 
   const hide = () => {
-    const next: HTMLDivElement = document.querySelector('#__next');
+    const next = document.querySelector('#app-container') as HTMLDivElement;
     const body = document.querySelector('body');
 
-    gsap.to(next, {
-      duration: animDuration / 2,
-      x: '0%',
-      onComplete: () => {
-        body.classList.remove('noscroll');
-        next.classList.remove('cartOpen');
-        next.style.removeProperty('transform');
-        hideCart();
-      },
-    });
+    if (!next || !body) return;
+
+    const onTransitionEnd = () => {
+      body.classList.remove('noscroll');
+      next.classList.remove('cartOpen');
+      next.style.removeProperty('transform');
+      next.style.removeProperty('transition');
+      hideCart();
+      next.removeEventListener('transitionend', onTransitionEnd);
+    };
+
+    next.addEventListener('transitionend', onTransitionEnd);
+    next.style.transition = `transform ${animDuration / 2}s ease`;
+    next.style.transform = 'translateX(0%)';
   };
 
   const addQuantity = (lineItem) => {
@@ -142,8 +157,8 @@ const Cart = ({ ww }: CartProps) => {
     setUserInCheckout(true);
   };
 
-  const hasItems = () => {
-    return checkout.lineItems.length;
+  const hasItems = (currentCheckout: NonNullable<typeof checkout>) => {
+    return currentCheckout.lineItems.length;
   };
 
   const windowBlurHandler = (e) => {
@@ -156,12 +171,12 @@ const Cart = ({ ww }: CartProps) => {
   };
 
   return (
-    <div className={'cart'} ref={container}>
-      <div className={'scroller'} ref={scroller}>
-        <h2 className={'cartTitle'}>{'Cart'}</h2>
-        {checkout && hasItems() ? (
+    <div className={styles.cart} ref={container}>
+      <div className={styles.scroller} ref={scroller}>
+        <h2 className={styles.cartTitle}>{'Cart'}</h2>
+        {checkout && hasItems(checkout) ? (
           <>
-            <div className={'lineItems'}>
+            <div className={styles.lineItems}>
               {checkout.lineItems.map((i, index) => {
                 return (
                   <CartLineItem
@@ -175,37 +190,37 @@ const Cart = ({ ww }: CartProps) => {
               })}
             </div>
 
-            <div className={'summary'}>
-              <div className={'sub'}>
-                <span className={'subtotal_label'}>{'SUBTOTAL'}</span>
-                <span className={'subtotal_value'}>{`${Math.round(
-                  checkout.lineItemsSubtotalPrice.amount
+            <div className={styles.summary}>
+              <div className={styles.sub}>
+                <span className={styles.subtotal_label}>{'SUBTOTAL'}</span>
+                <span className={styles.subtotal_value}>{`${Math.round(
+                  parseFloat(checkout.lineItemsSubtotalPrice.amount)
                 )} €`}</span>
               </div>
 
-              <div className={'shipping'}>
-                <span className={'subtotal_label'}>{'SHIPPING'}</span>
-                <span className={'subtotal_value'}>
+              <div className={styles.shipping}>
+                <span className={styles.subtotal_label}>{'SHIPPING'}</span>
+                <span className={styles.subtotal_value}>
                   {getTranslation('CALCULATED_AT_THE_NEXT_STEP')}
                 </span>
               </div>
 
-              <div className={'total'}>
-                <span className={'total_label'}>{'TOTAL'}</span>
-                <span className={'total_value'}>{`${Math.round(
-                  checkout.lineItemsSubtotalPrice.amount
+              <div className={styles.total}>
+                <span className={styles.total_label}>{'TOTAL'}</span>
+                <span className={styles.total_value}>{`${Math.round(
+                  parseFloat(checkout.lineItemsSubtotalPrice.amount)
                 )} ${CURRENCY}`}</span>
               </div>
             </div>
 
-            <div className={'checkout'}>
+            <div className={styles.checkout}>
               <a
                 href={`${checkout.webUrl}&locale=${'en'}`}
                 target={'_blank'}
                 rel={'noreferrer'}
               >
                 <button
-                  className={'checkoutBtn primary'}
+                  className={`${styles.checkoutBtn} primary`}
                   aria-label="Checkout"
                   onClick={checkoutHandler}
                 >
@@ -215,9 +230,13 @@ const Cart = ({ ww }: CartProps) => {
             </div>
           </>
         ) : (
-          !updating && <p className={'cartEmpty'}>{'CART EMPTY'}</p>
+          !updating && <p className={styles.cartEmpty}>{'CART EMPTY'}</p>
         )}
-        <button className={'closeCart'} onClick={hide} aria-label="Close cart">
+        <button
+          className={styles.closeCart}
+          onClick={hide}
+          aria-label="Close cart"
+        >
           <i></i>
           <i></i>
         </button>

@@ -1,34 +1,15 @@
 import { default as NextLink } from 'next/link';
-import { useRouter } from 'next/router';
-import styles from '../styles/Navi.module.scss';
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
+import { usePathname } from 'next/navigation';
+import styles from '../styles/Navi.module.css';
+import { useEffect, useState } from 'react';
 import { getNaviItems } from '../config/navi';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export const Navi = (props) => {
-  const [darkMode, setDarkmode] = useLocalStorage('darkMode', null);
+  const [darkMode, setDarkmode] = useLocalStorage<any>('darkMode', null);
   const [showDarkModeToggle, setShowDarkModeToggle] = useState<boolean>(false);
-  const router = useRouter();
-  const pages = useRef(null);
+  const pathname = usePathname();
   const navi = getNaviItems();
-
-  useEffect(() => {
-    const lis = pages.current.querySelectorAll('li');
-    if (props.naviOpen) {
-      gsap.to(lis, {
-        duration: 0.2,
-        autoAlpha: 1,
-        y: '0%',
-        delay: 0.22,
-        stagger: 0.1,
-      });
-    } else {
-      lis.forEach((element) => {
-        gsap.set(element, { autoAlpha: 0, y: '-10%' });
-      });
-    }
-  }, [props.naviOpen]);
 
   useEffect(() => {
     if (darkMode === null) {
@@ -38,8 +19,11 @@ export const Navi = (props) => {
       ).matches;
       if (prefersDarkMode) setDarkmode(true);
     } else {
-      if (darkMode) document.querySelector('body').classList.add('dark');
-      else document.querySelector('body').classList.remove('dark');
+      const body = document.querySelector('body');
+      if (body) {
+        if (darkMode) body.classList.add('dark');
+        else body.classList.remove('dark');
+      }
     }
 
     setShowDarkModeToggle(true);
@@ -51,11 +35,11 @@ export const Navi = (props) => {
 
   return (
     <>
-      <ul className={styles.pages} ref={pages}>
+      <ul className={styles.pages}>
         {navi.map((i, index) => {
           const label = i.label.toLowerCase();
           const href = i.href;
-          const isActive = href === router.asPath;
+          const isActive = href === pathname;
           const external = i.external;
 
           return (
@@ -73,10 +57,13 @@ export const Navi = (props) => {
                   {label}
                 </a>
               ) : (
-                <NextLink href={href}>
-                  <a aria-label={label} onClick={props.toggleNavi}>
-                    {label}
-                  </a>
+                <NextLink
+                  href={href}
+                  aria-label={label}
+                  onClick={props.toggleNavi}
+                  legacyBehavior={false}
+                >
+                  {label}
                 </NextLink>
               )}
             </li>
