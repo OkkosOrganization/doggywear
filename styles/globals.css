@@ -1,6 +1,6 @@
 :root {
   /* DIMENSIONS */
-  --maxWidth: 1680px;
+  --maxWidth: 1920px;
   --maxWidthBig: 1280px;
   --maxWidthMedium: 960px;
   --maxWidthSmall: 640px;
@@ -151,6 +151,8 @@ body.noscroll .wrap::after {
   position: relative;
   padding: var(--mainNavHeight) 0 0 0;
   flex: 1 1 auto;
+  max-width: var(--maxWidth);
+  margin: 0 auto;
 }
 
 a {
