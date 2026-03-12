@@ -9,6 +9,7 @@ import '../styles/globals.css';
 import { PrismicPreview } from '@prismicio/next';
 import { repositoryName } from '../prismicio';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
   title: 'Doggy Wear',
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.className} ${GeistMono.className}`}>
       <body>
         <Analytics />
+        <SpeedInsights />
         <ClientLayout>{children}</ClientLayout>
         <PrismicPreview repositoryName={repositoryName} />
       </body>
