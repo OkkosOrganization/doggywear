@@ -190,7 +190,7 @@ export const ProductInfo = ({
           : productPrice}
       </div>
 
-      <div className={styles.description}>
+      <div className={styles.productDescription}>
         <PrismicRichText field={product.data.description} />
       </div>
 

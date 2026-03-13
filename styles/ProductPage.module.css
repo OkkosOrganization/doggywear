@@ -85,10 +85,6 @@
 }
 
 .productDescription {
-  flex: 1 0 100%;
-  padding: 2rem 0rem;
-  min-height: 400px;
-  text-align: center;
   color: var(--fg);
 }
 
