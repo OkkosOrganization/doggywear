@@ -24,14 +24,14 @@ const CartLineItem = (props) => {
       </div>
 
       <div className={styles.info}>
+        <button
+          className={styles.removeLineItem}
+          onClick={() => props.removeLineItem(props.lineItem)}
+        >
+          <RemoveFromCart />
+        </button>
         <div className={styles.top}>
           <h4 className={styles.lineItemTitle}>{props.lineItem.title}</h4>
-          <button
-            className={styles.removeLineItem}
-            onClick={() => props.removeLineItem(props.lineItem)}
-          >
-            <RemoveFromCart />
-          </button>
         </div>
         <div className={styles.size}>
           {props.lineItem.variant.title.includes('Default') ? null : (

@@ -14,7 +14,7 @@
 }
 
 :global(.dark) .cart .scroller {
-  background: var(--darker-grey);
+  background: var(--dark-grey);
 }
 :global(.dark) .cart .lineItem {
   background: rgba(0, 0, 0, 0.3);
@@ -38,7 +38,7 @@
 
 .lineItems {
   padding-top: 4rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--spacing);
 }
 
 .lineItem {
@@ -47,8 +47,8 @@
   justify-content: flex-start;
   align-content: flex-start;
   flex-wrap: wrap;
-  padding: 1rem;
-  margin: 0 0 1rem 0;
+  padding: var(--spacing);
+  margin: 0 0 var(--spacing) 0;
   color: var(--fg);
   background: rgba(255, 255, 255, 0.75);
 }
@@ -66,7 +66,7 @@
 .selectedOptionValue {
   font-size: var(--subTextSize);
   text-transform: uppercase;
-  font-weight: 300;
+  font-weight: 600;
 }
 
 .info {
@@ -91,18 +91,19 @@
   width: 100%;
   font-size: var(--mainTextSize);
   line-height: 1rem;
-  padding: 0;
+  padding: 0 var(--spacingLarge) 0 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .lineItemTitle {
   font-size: var(--mainTextSize);
-  line-height: 1rem;
-  margin: 0;
-  font-weight: 600;
+  font-weight: 300;
+  line-height: 1.25rem;
+  margin: 0 0 var(--spacingSmall) 0;
 }
 
 .removeLineItem {
@@ -112,6 +113,10 @@
   padding: 0;
   outline: 0;
   background: transparent;
+  position: absolute;
+  top: calc(var(--spacing) + 2px);
+  right: var(--spacing);
+  z-index: 2;
 }
 .removeLineItem svg {
   width: 0.875rem;
@@ -119,9 +124,15 @@
   fill: var(--fg);
   stroke: none;
 }
+.removeLineItem:hover {
+  border: 0 none !important;
+}
+.removeLineItem:hover:after {
+  box-shadow: none !important;
+}
 .removeLineItem:hover svg {
-  fill: var(--secondaryAccent);
   stroke: none;
+  border: 0 !important;
 }
 
 .bottom {
@@ -132,8 +143,10 @@
 
 .price,
 .totalPrice {
-  font-size: var(--mainTextSize);
-  font-weight: 600;
+  font-family: (var(--fontMono));
+  font-size: var(--subTextSize);
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
 }
 
 .quantity {
@@ -178,7 +191,7 @@
 }
 
 .subtractLineItemIcon {
-  width: 8px;
+  width: 0.5rem;
   height: 2px;
   position: absolute;
   top: 50%;
@@ -194,7 +207,9 @@
 }
 
 .summary {
-  margin-bottom: 20px;
+  font-family: var(--fontMono);
+  margin-bottom: var(--spacing);
+  font-size: var(--subTextSize);
 }
 .sub,
 .shipping,
@@ -204,8 +219,9 @@
   align-content: flex-start;
   align-items: flex-start;
   border-bottom: 1px solid var(--grey);
-  padding: 15px 0;
+  padding: 1rem 0;
   color: var(--fg);
+  gap: var(--spacing);
 }
 .total {
   border-bottom: 0;
@@ -219,18 +235,19 @@
 }
 
 .shipping .subtotal_value {
-  font-weight: 400;
+  font-weight: 300;
 }
 .subtotal_value {
   font-size: var(--subTextSize);
-  font-weight: 600;
+  font-weight: 300;
   line-height: var(--mainTextSize);
   text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
 }
 .total_value {
   font-size: var(--mainTextSize);
   line-height: var(--mainTextSize);
-  font-weight: 600;
+  font-weight: 300;
 }
 
 .checkout {

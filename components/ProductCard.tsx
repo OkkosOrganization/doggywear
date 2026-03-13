@@ -54,22 +54,6 @@ export const ProductCard = (props: ProductCardProps) => {
     });
   }, [image, primaryImage?.url, secondaryImage?.url]);
 
-  const showSecondaryImage = () => {
-    if (
-      primaryImage?.url &&
-      secondaryImage?.url &&
-      loadedImages[secondaryImage.url]
-    ) {
-      setImage(secondaryImage.url);
-    }
-  };
-
-  const showPrimaryImage = () => {
-    if (primaryImage?.url) {
-      setImage(primaryImage.url);
-    }
-  };
-
   if (!id) {
     console.log(props.data);
     return null;
@@ -163,16 +147,18 @@ export const ProductCard = (props: ProductCardProps) => {
         {props.data.data.shopify &&
           props.data.data.shopify.options?.[0]?.values?.length > 1 && (
             <h3 className={styles.sizeOptions}>
-              {props.data.data.shopify.options[0].values.map((o, oIndex) => {
-                return (
-                  <span
-                    className={styles.sizeOption}
-                    key={`sizeOption_${oIndex}`}
-                  >
-                    {o}
-                  </span>
-                );
-              })}
+              {props.data.data.shopify.options[0].values.map(
+                (o: string, oIndex: number) => {
+                  return (
+                    <span
+                      className={styles.sizeOption}
+                      key={`sizeOption_${oIndex}`}
+                    >
+                      {o}
+                    </span>
+                  );
+                }
+              )}
             </h3>
           )}
 

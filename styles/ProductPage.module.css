@@ -147,6 +147,7 @@
   padding: 0;
   line-height: 1rem;
   align-self: center;
+  color: var(--fg);
 }
 
 .top {
@@ -165,6 +166,7 @@
   margin-top: 1rem;
   font-size: 0.75rem;
   font-weight: bold;
+  color: var(--fg);
 }
 .outOfStockInfo a {
   color: var(--linkBlue);
