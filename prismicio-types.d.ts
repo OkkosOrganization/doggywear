@@ -457,7 +457,10 @@ interface ProductDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   base_model: prismic.SelectField<
-    'Earth Positive EP19' | 'Earth Positive EP185L'
+    | 'Earth Positive EP19'
+    | 'Earth Positive EP185L'
+    | 'Earth Positive EP38'
+    | 'Earth Positive EP185'
   >; /**
    * Share image field in *Product*
    *

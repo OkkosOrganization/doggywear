@@ -89,7 +89,12 @@
         "config": {
           "label": "Base model",
           "placeholder": "",
-          "options": ["Earth Positive EP19", "Earth Positive EP185L"]
+          "options": [
+            "Earth Positive EP19",
+            "Earth Positive EP185L",
+            "Earth Positive EP38",
+            "Earth Positive EP185"
+          ]
         }
       }
     },
