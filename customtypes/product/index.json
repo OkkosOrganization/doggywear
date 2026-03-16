@@ -83,6 +83,14 @@
           "placeholder_true": "true",
           "default_value": true
         }
+      },
+      "base_model": {
+        "type": "Select",
+        "config": {
+          "label": "Base model",
+          "placeholder": "",
+          "options": ["Earth Positive EP19", "Earth Positive EP185L"]
+        }
       }
     },
     "SEO": {

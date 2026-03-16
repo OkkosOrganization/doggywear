@@ -123,9 +123,6 @@
   padding: 2rem;
 }
 
-.addToCartArea {
-}
-
 .variants {
   display: flex;
   width: 100%;
@@ -144,6 +141,19 @@
   line-height: 1rem;
   align-self: center;
   color: var(--fg);
+}
+
+.sizeChartButton {
+  font-size: var(--miniTextSize);
+  text-transform: uppercase;
+  letter-spacing: 0.025rem;
+  border: 0 none;
+  padding: 0;
+  margin: 0;
+  min-width: auto;
+}
+.sizeChartButton::after {
+  content: none;
 }
 
 .top {

@@ -17,6 +17,10 @@ const translations = {
     en: 'Calculated at the next step',
     fi: 'Lasketaan seuraavassa vaiheessa',
   },
+  SIZE_CHART: {
+    en: 'Size Chart',
+    fi: 'Koko-opas',
+  },
   SHOP_NOW: {
     en: 'Shop now',
     fi: 'Osta',
