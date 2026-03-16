@@ -86,7 +86,7 @@ export const SizeChart: React.FC<SizeChartProps> = ({
                 height={1000}
                 className={styles.sizeChartShirtImage}
                 sizes="(max-width: 40rem) 90vw, 20rem"
-                quality={90}
+                quality={70}
               />
             </div>
           )}
