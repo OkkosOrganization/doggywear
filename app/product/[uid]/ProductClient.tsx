@@ -22,6 +22,8 @@ import {
 } from '../../../prismicio-types';
 import { asText, FilledImageFieldImage, isFilled } from '@prismicio/client';
 import { EMAIL_ADDRESS, INSTAGRAM_USER_NAME } from '../../../config/env';
+import { getSizeChart } from '../../../config/sizeCharts';
+import { SizeChart } from '../../../components/SizeChart';
 
 type ProductClientProps = {
   product: ProductDocument<string>;
@@ -30,6 +32,7 @@ type ProductClientProps = {
     | Simplify<ShippingAndPackagingInfoDocumentData>
     | undefined;
 };
+
 export default function ProductClient({
   product,
   relatedProducts,
@@ -67,7 +70,6 @@ export default function ProductClient({
   const handleVariantButtonChange = (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
-    console.log(productVariants, e.currentTarget.value);
     const vars = productVariants.filter((v) => v.id === e.currentTarget.value);
     if (vars.length > 0) {
       if (vars[0] === selectedVariant) setSelectedVariant(null);
@@ -81,11 +83,13 @@ export default function ProductClient({
   const images: Simplify<
     FilledImageFieldImage & Record<never, FilledImageFieldImage>
   >[] = [];
-  if (isFilled.image(product.data.primary_image))
+  if (isFilled.image(product.data.primary_image)) {
     images.push(product.data.primary_image);
+  }
 
-  if (isFilled.image(product.data.secondary_image))
+  if (isFilled.image(product.data.secondary_image)) {
     images.push(product.data.secondary_image);
+  }
 
   if (isFilled.group(product.data.gallery)) {
     product.data.gallery.forEach((galleryItem) => {
@@ -142,15 +146,9 @@ export default function ProductClient({
             )}
           {isPrint && <PrintPackagingInfo />}
         </div>
-        {product.data.show_related_products &&
-          relatedProducts &&
-          relatedProducts.length > 0 && (
-            <RelatedProducts
-              products={relatedProducts}
-              isMobile={ww < 640}
-              randomOrder
-            />
-          )}
+        <div className={styles.relatedProducts}>
+          <RelatedProducts products={relatedProducts} randomOrder />
+        </div>
       </div>
     </ViewTransition>
   );
@@ -166,6 +164,7 @@ type ProductIndfoProps = {
   addingToCart: boolean;
   variantDisplayMode: 'select' | 'buttons';
 };
+
 export const ProductInfo = ({
   product,
   selectedVariant,
@@ -177,9 +176,12 @@ export const ProductInfo = ({
   variantDisplayMode,
 }: ProductIndfoProps) => {
   const productTitle = asText(product.data?.title);
+  const sizeChart = getSizeChart(product.data?.base_model);
+  const [showSizeChart, setShowSizeChart] = useState(false);
   const productPrice = isFilled.integration(product.data.shopify)
     ? parseFloat((product.data.shopify.variants as any)[0].price) + ' €'
     : '';
+
   return (
     <div className={styles.productInfo}>
       <h1 className={styles.productTitle}>{productTitle}</h1>
@@ -210,7 +212,7 @@ export const ProductInfo = ({
                         ? styles.selectedVariant
                         : ''
                     }`}
-                    disabled={v.availableForSale}
+                    disabled={!v.availableForSale}
                     title={
                       v.availableForSale
                         ? v.title
@@ -221,6 +223,16 @@ export const ProductInfo = ({
                   </button>
                 ))}
               </div>
+              {sizeChart && (
+                <button
+                  role="button"
+                  className={styles.sizeChartButton}
+                  onClick={() => setShowSizeChart(true)}
+                  type="button"
+                >
+                  {getTranslation('SIZE_CHART')}
+                </button>
+              )}
             </>
           )}
           {variantDisplayMode === 'select' && (
@@ -236,7 +248,11 @@ export const ProductInfo = ({
                 disabled={!productVariants.length}
               >
                 {productVariants.map((v) => (
-                  <option key={v.id} value={v.id} disabled={v.availableForSale}>
+                  <option
+                    key={v.id}
+                    value={v.id}
+                    disabled={!v.availableForSale}
+                  >
                     {v.title}
                   </option>
                 ))}
@@ -259,6 +275,14 @@ export const ProductInfo = ({
           )}
         </button>
       </div>
+
+      {sizeChart && (
+        <SizeChart
+          sizeChart={sizeChart}
+          open={showSizeChart}
+          onClose={() => setShowSizeChart(false)}
+        />
+      )}
 
       {selectedVariant && selectedVariant.availableForSale === false && (
         <div className={styles.outOfStockInfo}>
@@ -289,6 +313,7 @@ type ProductImagesProps = {
   selectedImage: number;
   setSelectedImage: (index: number) => void;
 };
+
 export const ProductImages = ({
   images,
   selectedImage,
