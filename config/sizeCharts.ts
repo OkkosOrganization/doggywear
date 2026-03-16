@@ -10,7 +10,7 @@ export type SizeChartUnit = 'cm' | 'inch';
 
 export type SizeChart = {
   modelName: string;
-  shirtImageSrc: string;
+  shirtImageSrc?: string;
   rows: SizeChartRow[];
 };
 
@@ -120,6 +120,116 @@ const SIZE_CHARTS_BY_BASE_MODEL: Record<string, SizeChart> = {
         size: '3XL',
         widthCm: '68',
         widthInch: '26 3/4',
+        lengthCm: '80',
+        lengthInch: '31 1/2',
+      },
+    ],
+  },
+  'Earth Positive EP185': {
+    modelName: 'EP185 Earth Positive Premium Jersey T-shirt',
+    shirtImageSrc: '/size_charts/EP185-shirt.png',
+    rows: [
+      {
+        size: 'XS',
+        widthCm: '47',
+        widthInch: '18 1/2',
+        lengthCm: '68.5',
+        lengthInch: '27',
+      },
+      {
+        size: 'S',
+        widthCm: '50',
+        widthInch: '19 3/4',
+        lengthCm: '70',
+        lengthInch: '27 1/2',
+      },
+      {
+        size: 'M',
+        widthCm: '53',
+        widthInch: '20 3/4',
+        lengthCm: '72',
+        lengthInch: '28 1/4',
+      },
+      {
+        size: 'L',
+        widthCm: '56',
+        widthInch: '22',
+        lengthCm: '74',
+        lengthInch: '29 1/4',
+      },
+      {
+        size: 'XL',
+        widthCm: '60',
+        widthInch: '23 1/2',
+        lengthCm: '76',
+        lengthInch: '30',
+      },
+      {
+        size: '2XL',
+        widthCm: '64',
+        widthInch: '25 1/4',
+        lengthCm: '78',
+        lengthInch: '30 3/4',
+      },
+      {
+        size: '3XL',
+        widthCm: '68',
+        widthInch: '26 3/4',
+        lengthCm: '80',
+        lengthInch: '31 1/2',
+      },
+    ],
+  },
+  'Earth Positive EP38': {
+    modelName: 'EP38 Earth Positive Heavy T-shirt',
+    shirtImageSrc: '/size_charts/EP38-shirt.png',
+    rows: [
+      {
+        size: 'XS',
+        widthCm: '48.5',
+        widthInch: '18 3/4',
+        lengthCm: '68',
+        lengthInch: '26 3/4',
+      },
+      {
+        size: 'S',
+        widthCm: '51.5',
+        widthInch: '20 1/4',
+        lengthCm: '70',
+        lengthInch: '27 1/2',
+      },
+      {
+        size: 'M',
+        widthCm: '54.5',
+        widthInch: '21 1/2',
+        lengthCm: '72',
+        lengthInch: '28 1/4',
+      },
+      {
+        size: 'L',
+        widthCm: '57.5',
+        widthInch: '22 1/2',
+        lengthCm: '74',
+        lengthInch: '29 1/4',
+      },
+      {
+        size: 'XL',
+        widthCm: '60.5',
+        widthInch: '23 3/4',
+        lengthCm: '76',
+        lengthInch: '30',
+      },
+      {
+        size: '2XL',
+        widthCm: '63.5',
+        widthInch: '25',
+        lengthCm: '78',
+        lengthInch: '30 3/4',
+      },
+      {
+        size: '3XL',
+        widthCm: '66.5',
+        widthInch: '26 1/4',
         lengthCm: '80',
         lengthInch: '31 1/2',
       },

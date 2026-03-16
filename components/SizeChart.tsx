@@ -77,17 +77,19 @@ export const SizeChart: React.FC<SizeChartProps> = ({
           </button>
         </div>
         <div className={styles.sizeChartBody}>
-          <div className={styles.sizeChartIllustration}>
-            <Image
-              src={sizeChart.shirtImageSrc}
-              alt={`${sizeChart.modelName} measurement guide`}
-              width={800}
-              height={1000}
-              className={styles.sizeChartShirtImage}
-              sizes="(max-width: 40rem) 90vw, 20rem"
-              quality={90}
-            />
-          </div>
+          {sizeChart.shirtImageSrc && (
+            <div className={styles.sizeChartIllustration}>
+              <Image
+                src={sizeChart.shirtImageSrc}
+                alt={`${sizeChart.modelName} measurement guide`}
+                width={800}
+                height={1000}
+                className={styles.sizeChartShirtImage}
+                sizes="(max-width: 40rem) 90vw, 20rem"
+                quality={90}
+              />
+            </div>
+          )}
           <div className={styles.sizeChartTableWrap}>
             <table className={styles.sizeChartTable}>
               <thead>
