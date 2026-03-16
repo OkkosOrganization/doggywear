@@ -445,7 +445,20 @@ interface ProductDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/fields/boolean
    */
-  show_related_products: prismic.BooleanField; /**
+  show_related_products: prismic.BooleanField;
+
+  /**
+   * Base model field in *Product*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product.base_model
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  base_model: prismic.SelectField<
+    'Earth Positive EP19' | 'Earth Positive EP185L'
+  >; /**
    * Share image field in *Product*
    *
    * - **Field Type**: Image
