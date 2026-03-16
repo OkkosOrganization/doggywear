@@ -1,0 +1,141 @@
+.sizeChartModal {
+  width: min(56rem, calc(100vw - (var(--spacing) * 2)));
+  border: 0 none;
+  background: transparent;
+  padding: 0;
+}
+
+.sizeChartModal::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.sizeChartModalContent {
+  position: relative;
+  padding: var(--spacing);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.sizeChartModalCloseButton {
+  position: absolute;
+  top: 0.375rem;
+  right: 0.375rem;
+  width: 2rem;
+  height: 2rem;
+  min-width: 2rem;
+  border: 0 none;
+  background: transparent;
+  color: var(--fg);
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0;
+  z-index: 1;
+}
+
+.sizeChartModalCloseButton::after {
+  content: none;
+}
+
+.sizeChartTitle {
+  margin: 0 0 var(--spacing) 0;
+  padding-right: 2rem;
+  font-size: var(--miniTextSize);
+  letter-spacing: 0.025rem;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.sizeChartUnitToggle {
+  display: inline-flex;
+  width: min-content;
+  gap: 0;
+  margin: 0 0 var(--spacing) 0;
+  border: 1px solid var(--grey);
+}
+
+.sizeChartUnitButton {
+  min-width: 4.5rem;
+  border: 0 none;
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  color: var(--fg);
+  font-size: var(--miniTextSize);
+  text-transform: uppercase;
+}
+
+.sizeChartUnitButton:last-child {
+  border-right: 0 none;
+}
+.sizeChartUnitButtonActive {
+  color: var(--secondaryAccent);
+}
+.sizeChartUnitButtonActive:after {
+  box-shadow: inset 4px 4px var(--linkBlue), inset -4px -4px var(--linkBlue);
+}
+
+.sizeChartBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+}
+
+.sizeChartIllustration {
+  width: 100%;
+  max-width: 18rem;
+  margin: 0 auto;
+}
+
+.sizeChartShirtImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.sizeChartTableWrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.sizeChartTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--miniTextSize);
+  color: var(--fg);
+}
+
+.sizeChartTable th,
+.sizeChartTable td {
+  border: 1px solid var(--grey);
+  padding: 0.375rem 0.5rem;
+  text-align: center;
+}
+
+.sizeChartTable thead th {
+  font-weight: 700;
+}
+
+.sizeChartTable tbody th {
+  font-weight: 700;
+}
+
+@media all and (min-width: 40rem) {
+  .sizeChartModalContent {
+    padding: var(--spacingLarge);
+  }
+
+  .sizeChartBody {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .sizeChartIllustration {
+    flex: 0 0 16rem;
+    max-width: 16rem;
+    margin: 0;
+  }
+
+  .sizeChartTableWrap {
+    flex: 1 1 auto;
+  }
+}
