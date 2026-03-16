@@ -12,7 +12,7 @@ export type SizeChartRow = {
 
 export type SizeChartData = {
   modelName: string;
-  shirtImageSrc: string;
+  shirtImageSrc?: string;
   rows: SizeChartRow[];
 };
 
