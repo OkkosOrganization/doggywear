@@ -6,12 +6,10 @@ import { ProductDocument } from '../prismicio-types';
 
 type RelatedProductsProps = {
   products: ProductDocument<string>[];
-  filterByTag?: string;
   randomOrder?: boolean;
 };
 export const RelatedProducts = ({
   products,
-  filterByTag,
   randomOrder,
 }: RelatedProductsProps) => {
   const [randomized, setRandomized] =
