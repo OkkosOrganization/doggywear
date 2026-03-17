@@ -452,15 +452,18 @@ interface ProductDocumentData {
    *
    * - **Field Type**: Select
    * - **Placeholder**: *None*
+   * - **Default Value**: Unknown
    * - **API ID Path**: product.base_model
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   base_model: prismic.SelectField<
+    | 'Unknown'
     | 'Earth Positive EP19'
     | 'Earth Positive EP185L'
     | 'Earth Positive EP38'
-    | 'Earth Positive EP185'
+    | 'Earth Positive EP185',
+    'filled'
   >; /**
    * Share image field in *Product*
    *
