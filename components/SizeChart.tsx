@@ -24,11 +24,7 @@ interface SizeChartProps {
   onClose: () => void;
 }
 
-export const SizeChart= ({
-  sizeChart,
-  open,
-  onClose,
-}: SizeChartProps) => {
+export const SizeChart = ({ sizeChart, open, onClose }: SizeChartProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [unit, setUnit] = useState<SizeChartUnit>('cm');
 
@@ -54,7 +50,8 @@ export const SizeChart= ({
           className={styles.sizeChartModalCloseButton}
           aria-label="Close size chart"
         >
-          ×
+          <i></i>
+          <i></i>
         </button>
         <div className={styles.sizeChartUnitToggle}>
           <button
