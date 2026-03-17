@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState, useEffect, MouseEvent } from 'react';
 import Image from 'next/image';
 import styles from '../styles/SizeChart.module.css';
 
@@ -24,20 +24,20 @@ interface SizeChartProps {
   onClose: () => void;
 }
 
-export const SizeChart: React.FC<SizeChartProps> = ({
+export const SizeChart= ({
   sizeChart,
   open,
   onClose,
-}) => {
+}: SizeChartProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [unit, setUnit] = useState<SizeChartUnit>('cm');
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (open) dialogRef.current?.showModal();
     else dialogRef.current?.close();
   }, [open]);
 
-  const handleDialogClick = (e: React.MouseEvent<HTMLDialogElement>) => {
+  const handleDialogClick = (e: MouseEvent<HTMLDialogElement>) => {
     if (e.target === e.currentTarget) onClose();
   };
 

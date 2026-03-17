@@ -154,7 +154,7 @@ export default function ProductClient({
   );
 }
 
-type ProductIndfoProps = {
+type ProductInfoProps = {
   product: ProductDocument<string>;
   selectedVariant: any;
   productVariants: any[];
@@ -174,9 +174,9 @@ export const ProductInfo = ({
   addToCart,
   addingToCart,
   variantDisplayMode,
-}: ProductIndfoProps) => {
+}: ProductInfoProps) => {
   const productTitle = asText(product.data?.title);
-  const sizeChart = getSizeChart(product.data?.base_model);
+  const sizeChart = getSizeChart(product.data.base_model);
   const [showSizeChart, setShowSizeChart] = useState(false);
   const productPrice = isFilled.integration(product.data.shopify)
     ? parseFloat((product.data.shopify.variants as any)[0].price) + ' €'

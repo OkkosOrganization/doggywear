@@ -239,5 +239,6 @@ const SIZE_CHARTS_BY_BASE_MODEL: Record<string, SizeChart> = {
 
 export const getSizeChart = (baseModel?: string | null): SizeChart | null => {
   if (!baseModel) return null;
+  if (baseModel === 'Unknown') return null;
   return SIZE_CHARTS_BY_BASE_MODEL[baseModel] || null;
 };
