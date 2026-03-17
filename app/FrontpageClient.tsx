@@ -2,8 +2,7 @@
 
 import Masonry from 'react-masonry-css';
 import styles from '../styles/FrontPage.module.css';
-import { useEffect, useRef, useState } from 'react';
-import dynamic from 'next/dynamic';
+import { useRef, useState } from 'react';
 import { ProductCard } from '../components/ProductCard';
 import { IllustrationCard } from '../components/IllustrationCard';
 import { PrismicRichText } from '@prismicio/react';
@@ -15,10 +14,6 @@ import {
 } from '../prismicio-types';
 import { Query } from '@prismicio/client';
 
-type InstaJson = {
-  data?: any[];
-};
-
 export default function FrontpageClient({
   products,
   illustrations,
@@ -28,28 +23,10 @@ export default function FrontpageClient({
   illustrations: Query<IllustrationDocument>;
   frontpage: FrontpageDocument<string>;
 }) {
-  const [feed, setFeed] = useState<InstaJson | null>(null);
   const [, setRevealed] = useState<boolean>(false);
   const grid = useRef(null);
   const { width } = useWindowSize();
   const isMobile = width <= 640;
-
-  const InstaFeed = dynamic(() => import('../components/InstaFeed'), {});
-
-  useEffect(() => {
-    //FETCH INSTA FEED
-    const getFeed = async () => {
-      try {
-        const res = await fetch('/api/insta/feed');
-        const json = (await res.json()) as InstaJson;
-        setFeed(json);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    //getFeed();
-  }, []);
-
   const columns = {
     default: 4,
     1280: 3,
@@ -110,8 +87,6 @@ export default function FrontpageClient({
           })}
         </Masonry>
       </div>
-
-      {false && <InstaFeed title={''} feed={feed || undefined} />}
     </div>
   );
 }
