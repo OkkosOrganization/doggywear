@@ -81,7 +81,7 @@ export const ProductCard = (props: ProductCardProps) => {
             <PrismicNextImage
               field={primaryImage}
               style={{ width: '100%', height: 'auto' }}
-              fallbackAlt="Primary product image"
+              fallbackAlt=""
               priority={props.loadImagesEager}
               className={
                 loadedImages[primaryImage.url] ? styles.loaded : styles.loading
@@ -105,7 +105,7 @@ export const ProductCard = (props: ProductCardProps) => {
             <PrismicNextImage
               field={secondaryImage}
               style={{ width: '100%', height: 'auto' }}
-              fallbackAlt="Secondary product image"
+              fallbackAlt=""
               priority={props.loadImagesEager}
               className={
                 loadedImages[secondaryImage.url]

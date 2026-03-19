@@ -32,7 +32,7 @@ export const ClothingPackagingInfo = ({ data }: ClothingPackagingInfoProps) => {
                   <PrismicNextImage
                     field={image.image}
                     style={{ width: '100%', height: 'auto' }}
-                    fallbackAlt={`Packaging image ${index + 1}`}
+                    fallbackAlt=""
                   />
                 </div>
               )

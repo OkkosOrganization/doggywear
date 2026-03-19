@@ -46,7 +46,7 @@ export const IllustrationCard = (props: IllustrationCardProps) => {
           <PrismicNextImage
             field={props.data?.data?.image}
             style={{ width: '100%', height: 'auto' }}
-            fallbackAlt="Illustration image"
+            fallbackAlt=""
             priority={props.loadImagesEager}
             className={primaryImageLoaded ? styles.loaded : styles.loading}
             onLoad={() => setPrimaryImageLoaded(true)}
