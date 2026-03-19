@@ -235,6 +235,67 @@ const SIZE_CHARTS_BY_BASE_MODEL: Record<string, SizeChart> = {
       },
     ],
   },
+  'Gildan 2400 Ultra Cotton long sleeve': {
+    modelName: 'Gildan 2400 Ultra Cotton long sleeve',
+    rows: [
+      {
+        size: 'S',
+        widthCm: '45.7',
+        widthInch: '18',
+        lengthCm: '71.1',
+        lengthInch: '28',
+      },
+      {
+        size: 'M',
+        widthCm: '50.8',
+        widthInch: '20',
+        lengthCm: '73.7',
+        lengthInch: '29',
+      },
+      {
+        size: 'L',
+        widthCm: '55.9',
+        widthInch: '22',
+        lengthCm: '76.2',
+        lengthInch: '30',
+      },
+      {
+        size: 'XL',
+        widthCm: '61',
+        widthInch: '24',
+        lengthCm: '78.7',
+        lengthInch: '31',
+      },
+      {
+        size: '2XL',
+        widthCm: '66',
+        widthInch: '26',
+        lengthCm: '81.3',
+        lengthInch: '32',
+      },
+      {
+        size: '3XL',
+        widthCm: '71.1',
+        widthInch: '28',
+        lengthCm: '83.8',
+        lengthInch: '33',
+      },
+      {
+        size: '4XL',
+        widthCm: '76.2',
+        widthInch: '30',
+        lengthCm: '86.4',
+        lengthInch: '34',
+      },
+      {
+        size: '5XL',
+        widthCm: '81.3',
+        widthInch: '32',
+        lengthCm: '88.9',
+        lengthInch: '35',
+      },
+    ],
+  },
 };
 
 export const getSizeChart = (baseModel?: string | null): SizeChart | null => {

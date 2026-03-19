@@ -462,7 +462,8 @@ interface ProductDocumentData {
     | 'Earth Positive EP19'
     | 'Earth Positive EP185L'
     | 'Earth Positive EP38'
-    | 'Earth Positive EP185',
+    | 'Earth Positive EP185'
+    | 'Gildan 2400 Ultra Cotton long sleeve',
     'filled'
   >; /**
    * Share image field in *Product*

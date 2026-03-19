@@ -92,8 +92,16 @@ export const SizeChart = ({ sizeChart, open, onClose }: SizeChartProps) => {
               <thead>
                 <tr>
                   <th>Size</th>
-                  <th>{`Width (A) ${unit}`}</th>
-                  <th>{`Length (B) ${unit}`}</th>
+                  <th>
+                    {sizeChart.shirtImageSrc
+                      ? `Width (A) ${unit}`
+                      : `Width ${unit}`}
+                  </th>
+                  <th>
+                    {sizeChart.shirtImageSrc
+                      ? `Length (B) ${unit}`
+                      : `Length ${unit}`}
+                  </th>
                 </tr>
               </thead>
               <tbody>
