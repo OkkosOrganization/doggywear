@@ -144,7 +144,7 @@
 .price,
 .totalPrice {
   font-family: (var(--fontMono));
-  font-size: var(--subTextSize);
+  font-size: var(--miniTextSize);
   font-weight: 300;
   font-variant-numeric: tabular-nums;
 }
@@ -209,7 +209,7 @@
 .summary {
   font-family: var(--fontMono);
   margin-bottom: var(--spacing);
-  font-size: var(--subTextSize);
+  font-size: var(--miniTextSize);
 }
 .sub,
 .shipping,
@@ -223,13 +223,10 @@
   color: var(--fg);
   gap: var(--spacing);
 }
-.total {
-  border-bottom: 0;
-}
+
 .subtotal_label,
-.total_label {
-  font-size: var(--subTextSize);
-  line-height: var(--mainTextSize);
+.shipping_label {
+  line-height: 1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -238,16 +235,20 @@
   font-weight: 300;
 }
 .subtotal_value {
-  font-size: var(--subTextSize);
   font-weight: 300;
   line-height: var(--mainTextSize);
   text-transform: uppercase;
   font-variant-numeric: tabular-nums;
 }
-.total_value {
-  font-size: var(--mainTextSize);
-  line-height: var(--mainTextSize);
-  font-weight: 300;
+
+.total {
+  border-bottom: 0;
+}
+.total_value,
+.total_label {
+  font-size: var(--subTextSize);
+  line-height: var(--subTextSize);
+  font-weight: 500;
 }
 
 .checkout {
