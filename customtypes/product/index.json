@@ -45,9 +45,12 @@
       "secondary_image": {
         "type": "Image",
         "config": {
-          "constraint": {},
-          "thumbnails": [],
-          "label": "Secondary image"
+          "label": "Secondary image",
+          "constraint": {
+            "width": 2000,
+            "height": 2452
+          },
+          "thumbnails": []
         }
       },
       "gallery": {
@@ -57,9 +60,12 @@
             "image": {
               "type": "Image",
               "config": {
-                "constraint": {},
-                "thumbnails": [],
-                "label": "Image"
+                "label": "Image",
+                "constraint": {
+                  "width": 2000,
+                  "height": 2452
+                },
+                "thumbnails": []
               }
             }
           },
