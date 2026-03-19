@@ -6,7 +6,7 @@ import { CartContext } from '../../../components/CartContext';
 import styles from '../../../styles/ProductPage.module.css';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { ClothingPackagingInfo } from '../../../components/ClothingPackagingInfo';
-import Image from 'next/image';
+import { PrismicNextImage } from '@prismicio/next';
 import { RelatedProducts } from '../../../components/RelatedProducts';
 import {
   getProductVariants,
@@ -323,18 +323,15 @@ export const ProductImages = ({
     <div className={styles.productImages}>
       <div className={styles.mainImage}>
         {images.length > 0 && (
-          <Image
-            src={images[selectedImage].url}
-            alt={images[selectedImage].alt || 'Product Image'}
-            width={1200}
-            height={1600}
+          <PrismicNextImage
+            field={images[selectedImage]}
+            fallbackAlt=""
             style={{
               width: '100%',
               height: 'auto',
               objectFit: 'contain',
             }}
             sizes={'(max-width: 40rem) 90vw, 40vw'}
-            quality={80}
             priority
           />
         )}
@@ -348,18 +345,16 @@ export const ProductImages = ({
               selectedImage === i ? styles.activeThumb : ''
             }`}
           >
-            <Image
-              src={img.url}
-              alt={img.alt || ''}
-              width={80}
-              height={80}
+            <PrismicNextImage
+              field={img}
+              fallbackAlt=""
+              imgixParams={{ w: 80, h: 80, fit: 'crop' }}
               style={{
                 objectFit: 'cover',
                 width: '100%',
                 height: '100%',
               }}
               sizes="10vw"
-              quality={90}
             />
           </div>
         ))}

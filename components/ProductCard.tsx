@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { CURRENCY } from '../config/env';
 import styles from '../styles/ProductCard.module.css';
-import Image from 'next/image';
+import { PrismicNextImage } from '@prismicio/next';
 import Link from 'next/link';
 import { getTranslation } from '../config/translations';
 
@@ -78,12 +78,10 @@ export const ProductCard = (props: ProductCardProps) => {
       >
         {primaryImage?.url && (
           <div className={`${styles.imageLayer} ${styles.primaryLayer}`}>
-            <Image
-              src={primaryImage.url}
-              width={primaryImage.dimensions?.width}
-              height={primaryImage.dimensions?.height}
+            <PrismicNextImage
+              field={primaryImage}
               style={{ width: '100%', height: 'auto' }}
-              alt="Primary product image"
+              fallbackAlt=""
               priority={props.loadImagesEager}
               className={
                 loadedImages[primaryImage.url] ? styles.loaded : styles.loading
@@ -92,7 +90,6 @@ export const ProductCard = (props: ProductCardProps) => {
               onLoad={() => markImageLoaded(primaryImage.url)}
               onError={() => markImageLoaded(primaryImage.url)}
               sizes={props.sizes}
-              quality={70}
             />
           </div>
         )}
@@ -105,12 +102,10 @@ export const ProductCard = (props: ProductCardProps) => {
                 : styles.hiddenImage
             }`}
           >
-            <Image
-              src={secondaryImage.url}
-              width={secondaryImage.dimensions?.width}
-              height={secondaryImage.dimensions?.height}
+            <PrismicNextImage
+              field={secondaryImage}
               style={{ width: '100%', height: 'auto' }}
-              alt="Secondary product image"
+              fallbackAlt=""
               priority={props.loadImagesEager}
               className={
                 loadedImages[secondaryImage.url]
@@ -121,7 +116,6 @@ export const ProductCard = (props: ProductCardProps) => {
               onLoad={() => markImageLoaded(secondaryImage.url)}
               onError={() => markImageLoaded(secondaryImage.url)}
               sizes={props.sizes}
-              quality={70}
             />
           </div>
         )}

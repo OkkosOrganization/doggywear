@@ -4,7 +4,7 @@ import {
   Simplify,
 } from '../prismicio-types';
 import styles from '../styles/ClothingPackagingInfo.module.css';
-import Image from 'next/image';
+import { PrismicNextImage } from '@prismicio/next';
 import { PrismicRichText } from '@prismicio/react';
 
 type ClothingPackagingInfoProps = {
@@ -29,12 +29,10 @@ export const ClothingPackagingInfo = ({ data }: ClothingPackagingInfoProps) => {
             (image, index) =>
               isFilled.image(image.image) && (
                 <div key={index} className={styles.packageImage}>
-                  <Image
-                    src={image.image.url}
-                    width={600}
-                    height={800}
+                  <PrismicNextImage
+                    field={image.image}
                     style={{ width: '100%', height: 'auto' }}
-                    alt={image.image.alt || `Packaging image ${index + 1}`}
+                    fallbackAlt=""
                   />
                 </div>
               )
