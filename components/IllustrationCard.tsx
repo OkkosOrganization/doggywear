@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { PrismicNextImage } from '@prismicio/next';
 import { useEffect, useRef, useState } from 'react';
 import styles from '../styles/IllustrationCard.module.css';
 import { IllustrationDocument } from '../prismicio-types';
@@ -36,21 +36,22 @@ export const IllustrationCard = (props: IllustrationCardProps) => {
   }, [props.data?.id, props.data?.data?.image?.url]);
 
   return (
-    <div className={`${styles.illustration} gridItem`} id={props.data.id} ref={cardRef}>
+    <div
+      className={`${styles.illustration} gridItem`}
+      id={props.data.id}
+      ref={cardRef}
+    >
       {props.data?.data?.image?.url &&
         (!props.data.data.image.url.includes('.gif') ? (
-          <Image
-            src={props.data?.data?.image?.url}
-            width={props.data?.data?.image?.dimensions?.width}
-            height={props.data?.data?.image?.dimensions?.height}
+          <PrismicNextImage
+            field={props.data?.data?.image}
             style={{ width: '100%', height: 'auto' }}
-            alt={'Illustration image'}
+            fallbackAlt="Illustration image"
             priority={props.loadImagesEager}
             className={primaryImageLoaded ? styles.loaded : styles.loading}
             onLoad={() => setPrimaryImageLoaded(true)}
             onError={() => setPrimaryImageLoaded(true)}
             sizes={props.sizes}
-            quality={70}
           />
         ) : (
           <img

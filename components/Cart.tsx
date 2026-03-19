@@ -15,11 +15,12 @@ const CartLineItem = (props) => {
     <div className={styles.lineItem}>
       <div className={styles.image}>
         <Image
-          src={props.lineItem.variant.image.src}
+          src={`${props.lineItem.variant.image.src}&width=160`}
           alt={'Product image'}
           width={80}
           height={111}
-          quality={80}
+          quality={70}
+          unoptimized={true}
         />
       </div>
 
