@@ -12,7 +12,8 @@
 .sizeChartModalContent {
   position: relative;
   padding: var(--spacing);
-  background: var(--white);
+  background: var(--bg);
+  color: var(--fg);
   display: flex;
   flex-direction: column;
 }
